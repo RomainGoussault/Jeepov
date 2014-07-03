@@ -8,7 +8,7 @@ import com.gousslegend.deepov.Move;
 
 public class Bishop extends Piece {
 
-	public Bishop(Point position, Board board, boolean isBlack)
+	public Bishop(Position position, Board board, boolean isBlack)
     {
 	super(position, board, isBlack);
     }

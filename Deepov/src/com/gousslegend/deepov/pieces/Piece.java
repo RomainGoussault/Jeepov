@@ -1,19 +1,19 @@
 package com.gousslegend.deepov.pieces;
 
-import java.awt.Point;
 import java.util.List;
 
 import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Move;
 
+
 public abstract class Piece
 {
-    protected Point myPosition;
+    protected Position myPosition;
     protected int myValue;
     protected Board myBoard;
     protected boolean myIsBlack;
 
-    public Piece(Point position, Board board, boolean isBlack)
+    public Piece(Position position, Board board, boolean isBlack)
     {
 	myPosition = position;
 	myBoard = board;
@@ -27,12 +27,12 @@ public abstract class Piece
      */
     public abstract List<Move> getLegalMoves();
 
-    public Point getMyPosition()
+    public Position getMyPosition()
     {
 	return myPosition;
     }
 
-    public void setMyPosition(Point myPosition)
+    public void setMyPosition(Position myPosition)
     {
 	this.myPosition = myPosition;
     }
