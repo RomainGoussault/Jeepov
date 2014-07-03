@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Move;
+import com.gousslegend.deepov.Position;
 
 public class Pawn extends Piece
 {

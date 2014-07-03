@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Move;
+import com.gousslegend.deepov.Position;
 
 public class Rook extends Piece
 {
@@ -21,8 +22,39 @@ public class Rook extends Piece
 	List<Move> moves = new Vector<>();
 	int x = myPosition.getX();
 	int y = myPosition.getY();
+	int i = 1;
+
+	Move possibleMove = null;
+	while (myBoard.isPositionFree(myPosition.deltaX(i)))
+	{
+	    possibleMove = new Move(myPosition, myPosition.deltaX(i));
+	    moves.add(possibleMove);
+	    i++;
+	}
 	
+	i = -1;
+	while (myBoard.isPositionFree(myPosition.deltaX(i)))
+	{
+	    possibleMove = new Move(myPosition, myPosition.deltaX(i));
+	    moves.add(possibleMove);
+	    i--;
+	}
 	
+	i = 1;
+	while (myBoard.isPositionFree(myPosition.deltaY(i)))
+	{
+	    possibleMove = new Move(myPosition, myPosition.deltaY(i));
+	    moves.add(possibleMove);
+	    i++;
+	}
+	
+	i = -1;
+	while (myBoard.isPositionFree(myPosition.deltaY(i)))
+	{
+	    possibleMove = new Move(myPosition, myPosition.deltaY(i));
+	    moves.add(possibleMove);
+	    i--;
+	}
 	
 	return moves;
     }

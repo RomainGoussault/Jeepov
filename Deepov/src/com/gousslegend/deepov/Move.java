@@ -1,11 +1,36 @@
 package com.gousslegend.deepov;
 
-import java.awt.Point;
 
 public class Move
 {
-	private Point myOrigin;
-	private Point myDestination;
+	private Position myOrigin;
+	private Position myDestination;
 	private boolean myIsCaptured;
 	private int myScore;
+	
+	public Move(Position origin, Position destination)
+	{
+	    setOrigin(origin);
+	    setDestination(destination);
+	}
+
+	public Position getOrigin()
+	{
+	    return myOrigin;
+	}
+
+	public void setOrigin(Position myOrigin)
+	{
+	    this.myOrigin = myOrigin;
+	}
+
+	public Position getDestination()
+	{
+	    return myDestination;
+	}
+
+	public void setDestination(Position myDestination)
+	{
+	    this.myDestination = myDestination;
+	}
 }
