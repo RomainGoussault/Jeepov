@@ -1,6 +1,5 @@
 package com.gousslegend.deepov.pieces;
 
-import java.awt.Point;
 import java.util.List;
 
 import com.gousslegend.deepov.Board;

@@ -33,4 +33,24 @@ public class Move
 	{
 	    this.myDestination = myDestination;
 	}
+
+	public boolean isCaptured()
+	{
+	    return myIsCaptured;
+	}
+
+	public void setIsCaptured(boolean myIsCaptured)
+	{
+	    this.myIsCaptured = myIsCaptured;
+	}
+
+	public int getScore()
+	{
+	    return myScore;
+	}
+
+	public void setScore(int myScore)
+	{
+	    this.myScore = myScore;
+	}
 }

@@ -20,8 +20,6 @@ public class Rook extends Piece
     public List<Move> getLegalMoves()
     {
 	List<Move> moves = new Vector<>();
-	int x = myPosition.getX();
-	int y = myPosition.getY();
 	int i = 1;
 
 	Move possibleMove = null;
