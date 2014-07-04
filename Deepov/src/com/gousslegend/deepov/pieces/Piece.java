@@ -3,6 +3,7 @@ package com.gousslegend.deepov.pieces;
 import java.util.List;
 
 import com.gousslegend.deepov.Board;
+import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.Position;
 
@@ -12,13 +13,13 @@ public abstract class Piece
     protected Position myPosition;
     protected int myValue;
     protected Board myBoard;
-    protected boolean myIsBlack;
+    protected Color myColor;
 
-    public Piece(Position position, Board board, boolean isBlack)
+    public Piece(Position position, Board board, Color color)
     {
 	myPosition = position;
 	myBoard = board;
-	myIsBlack = isBlack;
+	myColor = color;
     }
 
     /**
@@ -51,10 +52,5 @@ public abstract class Piece
     public int getMyValue()
     {
 	return myValue;
-    }
-
-    public boolean isMyIsBlack()
-    {
-	return myIsBlack;
     }
 }

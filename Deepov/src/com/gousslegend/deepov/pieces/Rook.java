@@ -4,16 +4,16 @@ import java.util.List;
 import java.util.Vector;
 
 import com.gousslegend.deepov.Board;
+import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.Position;
 
 public class Rook extends Piece
 {
 
-    public Rook(Position position, Board board, boolean isBlack)
+    public Rook(Position position, Board board, Color color)
     {
-	super(position, board, isBlack);
-	// TODO Auto-generated constructor stub
+	super(position, board, color);
     }
 
     @Override
@@ -29,6 +29,9 @@ public class Rook extends Piece
 	    moves.add(possibleMove);
 	    i++;
 	}
+	
+	
+	
 	
 	i = -1;
 	while (myBoard.isPositionFree(myPosition.deltaX(i)))

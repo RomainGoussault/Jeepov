@@ -5,7 +5,7 @@ import com.gousslegend.deepov.pieces.Piece;
 public class Board
 {
     private Piece[][] myPieces;
-    private static final int BOARD_SIZE= 7;
+    public static final int BOARD_SIZE= 7;
 
     public Board()
     {
