@@ -34,6 +34,17 @@ public abstract class Piece
 	return myPosition;
     }
 
+    public boolean areColorDifferent(Piece piece)
+    {
+	return myColor != piece.getColor();
+    }
+
+    public boolean areColorDifferent(Position position)
+    {
+	Piece piece = myBoard.getPiece(position);
+	return myColor != piece.getColor();
+    }
+    
     public void setMyPosition(Position myPosition)
     {
 	this.myPosition = myPosition;
@@ -49,8 +60,23 @@ public abstract class Piece
 	this.myBoard = myBoard;
     }
 
-    public int getMyValue()
+    public int getValue()
     {
 	return myValue;
+    }
+
+    public Color getColor()
+    {
+        return myColor;
+    }
+
+    public void setColor(Color myColor)
+    {
+        this.myColor = myColor;
+    }
+
+    public void setValue(int myValue)
+    {
+        this.myValue = myValue;
     }
 }

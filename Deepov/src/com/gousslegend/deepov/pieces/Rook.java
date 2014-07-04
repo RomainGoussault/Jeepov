@@ -23,41 +23,111 @@ public class Rook extends Piece
 	int i = 1;
 
 	Move possibleMove = null;
-	while (myBoard.isPositionFree(myPosition.deltaX(i)))
-	{
-	    possibleMove = new Move(myPosition, myPosition.deltaX(i));
-	    moves.add(possibleMove);
-	    i++;
-	}
-	
-	
-	
-	
-	i = -1;
-	while (myBoard.isPositionFree(myPosition.deltaX(i)))
-	{
-	    possibleMove = new Move(myPosition, myPosition.deltaX(i));
-	    moves.add(possibleMove);
-	    i--;
-	}
+	Position destination = null;
 	
 	i = 1;
-	while (myBoard.isPositionFree(myPosition.deltaY(i)))
+	destination = myPosition.deltaX(i);
+	while (destination.getX() <= Board.BOARD_SIZE)
 	{
-	    possibleMove = new Move(myPosition, myPosition.deltaY(i));
-	    moves.add(possibleMove);
+	    possibleMove = new Move(myPosition, destination);
+
+	    if (myBoard.isPositionFree(destination))
+	    {
+		moves.add(possibleMove);
+	    }
+	    else
+	    {
+		Piece piece = myBoard.getPiece(destination);
+		// look for capture
+		if (areColorDifferent(piece))
+		{
+		    possibleMove.setCapturedPiece(piece);
+		    moves.add(possibleMove);
+		}
+		break;
+	    }
 	    i++;
+	    destination = myPosition.deltaX(i);
 	}
-	
+
 	i = -1;
-	while (myBoard.isPositionFree(myPosition.deltaY(i)))
+	destination = myPosition.deltaX(i);
+	while (destination.getX() > 0)
 	{
-	    possibleMove = new Move(myPosition, myPosition.deltaY(i));
-	    moves.add(possibleMove);
-	    i--;
+	    possibleMove = new Move(myPosition, destination);
+
+	    if (myBoard.isPositionFree(destination))
+	    {
+		moves.add(possibleMove);
+	    }
+	    else
+	    {
+		Piece piece = myBoard.getPiece(destination);
+		// look for capture
+		if (areColorDifferent(piece))
+		{
+		    possibleMove.setCapturedPiece(piece);
+		    moves.add(possibleMove);
+		}
+		break;
+	    }
+	    
+	    i++;
+	    destination = myPosition.deltaX(i);
 	}
-	
+
+	i = -1;
+	destination = myPosition.deltaY(i);
+	while (destination.getY() > 0)
+	{
+	    possibleMove = new Move(myPosition, destination);
+
+	    if (myBoard.isPositionFree(destination))
+	    {
+		moves.add(possibleMove);
+	    }
+	    else
+	    {
+		Piece piece = myBoard.getPiece(destination);
+		// look for capture
+		if (areColorDifferent(piece))
+		{
+		    possibleMove.setCapturedPiece(piece);
+		    moves.add(possibleMove);
+		}
+		break;
+	    }
+	    
+	    i++;
+	    destination = myPosition.deltaY(i);
+	}
+
+	i = 1;
+	destination = myPosition.deltaY(i);
+	while (destination.getY() <= Board.BOARD_SIZE)
+	{
+	    possibleMove = new Move(myPosition, destination);
+
+	    if (myBoard.isPositionFree(destination))
+	    {
+		moves.add(possibleMove);
+	    }
+	    else
+	    {
+		Piece piece = myBoard.getPiece(destination);
+		// look for capture
+		if (areColorDifferent(piece))
+		{
+		    possibleMove.setCapturedPiece(piece);
+		    moves.add(possibleMove);
+		}
+		break;
+	    }
+	    
+	    i++;
+	    destination = myPosition.deltaY(i);
+	}
+
 	return moves;
     }
-
 }

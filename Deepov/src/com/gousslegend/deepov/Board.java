@@ -30,6 +30,13 @@ public class Board
 	return null;
     }
 
+    public Piece getPiece(Position position)
+    {
+	int x = position.getX();
+	int y = position.getY();
+	return myPieces[x][y];
+    }
+    
     public boolean isPositionFree(Position position)
     {
 	int x = position.getX();
