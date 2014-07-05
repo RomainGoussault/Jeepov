@@ -63,7 +63,7 @@ public class Rook extends Piece
 
 	i = -1;
 	destination = myPosition.deltaX(i);
-	while (destination.getX() > 0)
+	while (destination.getX() >= 0)
 	{
 	    possibleMove = new Move(myPosition, destination);
 
@@ -83,13 +83,13 @@ public class Rook extends Piece
 		break;
 	    }
 	    
-	    i++;
+	    i--;
 	    destination = myPosition.deltaX(i);
 	}
 
 	i = -1;
 	destination = myPosition.deltaY(i);
-	while (destination.getY() > 0)
+	while (destination.getY() >= 0)
 	{
 	    possibleMove = new Move(myPosition, destination);
 
@@ -109,7 +109,7 @@ public class Rook extends Piece
 		break;
 	    }
 	    
-	    i++;
+	    i--;
 	    destination = myPosition.deltaY(i);
 	}
 
@@ -172,7 +172,7 @@ public class Rook extends Piece
 
 	i = -1;
 	destination = myPosition.deltaX(i);
-	while (destination.getX() > 0)
+	while (destination.getX() >= 0)
 	{
 	    if (!myBoard.isPositionFree(destination))
 	    {
@@ -183,13 +183,13 @@ public class Rook extends Piece
 		}
 		break;
 	    }
-	    i++;
+	    i--;
 	    destination = myPosition.deltaX(i);
 	}
 
 	i = -1;
 	destination = myPosition.deltaY(i);
-	while (destination.getY() > 0)
+	while (destination.getY() >= 0)
 	{
 	    if (!myBoard.isPositionFree(destination))
 	    {
@@ -201,7 +201,7 @@ public class Rook extends Piece
 		break;
 	    }
 	    
-	    i++;
+	    i--;
 	    destination = myPosition.deltaY(i);
 	}
 
