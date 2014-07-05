@@ -20,4 +20,10 @@ public class Bishop extends Piece {
 		return null;
 	}
 
+	@Override
+	public List<Position> getAttackingSquares()
+	{
+	    // TODO Auto-generated method stub
+	    return null;
+	}
 }

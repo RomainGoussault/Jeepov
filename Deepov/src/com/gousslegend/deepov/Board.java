@@ -59,25 +59,24 @@ public class Board
 
     public boolean isCheck(Color color)
     {
-	Piece king = getKing(color);
+	Position kingPosition = getKingPosition(color);
 	List<Piece> ennemyPieces = getEnnemiesPieces(color);
 
 	for (Piece ennemyPiece : ennemyPieces)
 	{
-	    isPieceChecking(ennemyPiece, king);
+	    if (isPieceChecking(ennemyPiece, kingPosition))
+	    {
+		return true;
+	    }
 	}
 	return false;
     }
 
-    private void isPieceChecking(Piece ennemyPiece, Piece king)
+    private boolean isPieceChecking(Piece ennemyPiece, Position kingPosition)
     {
-	//knigth check attacking square
-	
-	//pawn check 2 attacking square
-	
-	//queen, rook, bishop get end of attacking square
-	
-	
+	List<Position> attackingSquares = ennemyPiece.getAttackingSquares();
+
+	return attackingSquares.contains(kingPosition);
     }
 
     public List<Piece> getEnnemiesPieces(Color color)
@@ -108,6 +107,21 @@ public class Board
 	    if (piece instanceof King && piece.getColor() == color)
 	    {
 		return piece;
+	    }
+	}
+
+	// There should always be a king for each color on the board
+	return null;
+    }
+
+    public Position getKingPosition(Color color)
+    {
+	for (Entry<Position, Piece> entry : myPieces.entrySet())
+	{
+	    Piece piece = entry.getValue();
+	    if (piece instanceof King && piece.getColor() == color)
+	    {
+		return piece.getMyPosition();
 	    }
 	}
 

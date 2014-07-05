@@ -9,7 +9,6 @@ import com.gousslegend.deepov.Position;
 
 public class Knight extends Piece
 {
-
     public Knight(Position position, Board board, Color color)
     {
 	super(position, board, color);
@@ -18,6 +17,13 @@ public class Knight extends Piece
 
     @Override
     public List<Move> getLegalMoves()
+    {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public List<Position> getAttackingSquares()
     {
 	// TODO Auto-generated method stub
 	return null;

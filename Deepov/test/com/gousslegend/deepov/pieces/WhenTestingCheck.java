@@ -27,4 +27,19 @@ public class WhenTestingCheck
 	assertEquals(board.getKing(Color.BLACK).getMyPosition(), BackKingPosition);
 	assertEquals(board.getKing(Color.WHITE).getMyPosition(), WhiteKingPosition);
     }
+    @Test
+    public void testIsPieceChecking()
+    {
+	Board board = new Board();
+
+	King BackKing = new King(new Position(5, 0), board, Color.BLACK);
+	Rook WhiteRook = new Rook(new Position(0, 0), board, Color.WHITE);
+
+	board.addPiece(BackKing);
+	board.addPiece(WhiteRook);
+	
+	assertEquals(true,board.isCheck(Color.BLACK));
+    }
+    
+    
 }

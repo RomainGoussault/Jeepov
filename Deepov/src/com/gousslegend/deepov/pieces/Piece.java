@@ -25,6 +25,13 @@ public abstract class Piece
 	myColor = Color.BLACK;
     }
     
+    public Piece(Color color)
+    {
+	myPosition = new Position();
+	myBoard = new Board();
+	myColor = color;
+    }
+    
     public Piece(Position position, Board board, Color color)
     {
 	myPosition = position;
@@ -38,6 +45,8 @@ public abstract class Piece
      * @return
      */
     public abstract List<Move> getLegalMoves();
+    
+    public abstract List<Position> getAttackingSquares();
 
     public Position getMyPosition()
     {
@@ -89,5 +98,4 @@ public abstract class Piece
     {
         this.myValue = myValue;
     }
-    
 }
