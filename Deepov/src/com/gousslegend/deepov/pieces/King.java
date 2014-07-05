@@ -9,11 +9,14 @@ import com.gousslegend.deepov.Position;
 
 public class King extends Piece
 {
-
+    public King()
+    {
+	super();
+    }
+    
     public King(Position position, Board board, Color color)
     {
 	super(position, board, color);
-	isKing = true;
     }
 
     @Override

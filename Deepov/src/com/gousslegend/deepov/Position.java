@@ -7,6 +7,13 @@ public class Position
     private int x;
     private int y;
     
+    
+    public Position()
+    {
+	x = 0;
+	y = 0;
+    }
+    
     public Position(int _x, int _y)
     {
 	x = _x;

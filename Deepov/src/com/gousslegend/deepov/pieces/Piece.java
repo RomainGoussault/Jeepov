@@ -14,14 +14,22 @@ public abstract class Piece
     protected int myValue;
     protected Board myBoard;
     protected Color myColor;
-    protected boolean isKing;
 
+    /**
+     * Default constructor used for testing
+     */
+    public Piece()
+    {
+	myPosition = new Position();
+	myBoard = new Board();
+	myColor = Color.BLACK;
+    }
+    
     public Piece(Position position, Board board, Color color)
     {
 	myPosition = position;
 	myBoard = board;
 	myColor = color;
-	isKing = false;
     }
 
     /**
@@ -81,9 +89,5 @@ public abstract class Piece
     {
         this.myValue = myValue;
     }
-
-    public boolean isKing()
-    {
-        return isKing;
-    }
+    
 }

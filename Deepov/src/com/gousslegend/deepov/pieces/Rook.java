@@ -10,7 +10,6 @@ import com.gousslegend.deepov.Position;
 
 public class Rook extends Piece
 {
-
     public Rook(Position position, Board board, Color color)
     {
 	super(position, board, color);
