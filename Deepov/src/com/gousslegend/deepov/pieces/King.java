@@ -13,7 +13,7 @@ public class King extends Piece
     public King(Position position, Board board, Color color)
     {
 	super(position, board, color);
-	// TODO Auto-generated constructor stub
+	isKing = true;
     }
 
     @Override

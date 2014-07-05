@@ -14,12 +14,14 @@ public abstract class Piece
     protected int myValue;
     protected Board myBoard;
     protected Color myColor;
+    protected boolean isKing;
 
     public Piece(Position position, Board board, Color color)
     {
 	myPosition = position;
 	myBoard = board;
 	myColor = color;
+	isKing = false;
     }
 
     /**
@@ -78,5 +80,10 @@ public abstract class Piece
     public void setValue(int myValue)
     {
         this.myValue = myValue;
+    }
+
+    public boolean isKing()
+    {
+        return isKing;
     }
 }

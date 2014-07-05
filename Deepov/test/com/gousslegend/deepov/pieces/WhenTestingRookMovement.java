@@ -22,22 +22,6 @@ public class WhenTestingRookMovement
     }
     
     @Test
-    public void testBlockedRook()
-    {
-	Board board = new Board();
-	Position position = new Position(0, 0);
-	
-	Rook rook = new Rook(position, board, Color.BLACK);
-	Pawn pawn1 = new Pawn(new Position(1, 0), board, Color.BLACK);
-	Pawn pawn2 = new Pawn(new Position(0, 1), board, Color.BLACK);
-	
-	board.addPiece(rook);
-	board.addPiece(pawn1);
-	board.addPiece(pawn2);
-	assertEquals(rook.getLegalMoves().size(), 0);
-    }
-    
-    @Test
     public void testBlockedRookWithCapture()
     {
 	Board board = new Board();
@@ -51,5 +35,22 @@ public class WhenTestingRookMovement
 	board.addPiece(pawn1);
 	board.addPiece(pawn2);
 	assertEquals(rook.getLegalMoves().size(), 2);
+    }
+    
+    @Test
+    public void testBlockedRook()
+    {
+	Board board = new Board();
+	Position position = new Position(0, 0);
+	
+	Rook rook = new Rook(position, board, Color.BLACK);
+	Pawn pawn1 = new Pawn(new Position(1, 0), board, Color.BLACK);
+	Pawn pawn2 = new Pawn(new Position(0, 1), board, Color.BLACK);
+	
+	board.addPiece(rook);
+	board.addPiece(pawn1);
+	board.addPiece(pawn2);
+	
+	assertEquals(rook.getLegalMoves().size(), 0);
     }
 }

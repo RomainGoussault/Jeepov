@@ -30,7 +30,7 @@ public class Rook extends Piece
 	while (destination.getX() <= Board.BOARD_SIZE)
 	{
 	    possibleMove = new Move(myPosition, destination);
-
+	    
 	    if (myBoard.isPositionFree(destination))
 	    {
 		moves.add(possibleMove);
@@ -46,6 +46,8 @@ public class Rook extends Piece
 		}
 		break;
 	    }
+	    
+	    
 	    i++;
 	    destination = myPosition.deltaX(i);
 	}

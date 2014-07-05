@@ -1,30 +1,32 @@
 package com.gousslegend.deepov;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.gousslegend.deepov.pieces.Piece;
 
 public class Board
 {
-    private Piece[][] myPieces;
+    private Map<Position, Piece> myPieces;
     public static final int BOARD_SIZE= 7;
 
     public Board()
     {
-	myPieces = new Piece[8][8];
+	myPieces = new HashMap<>(64);
     }
-    
-    public Board(Piece[][] pieces)
+
+    /*public Board(Piece[][] pieces)
     {
 	myPieces = pieces;
-    }
-    
+    }*/
+
     public void addPiece(Piece piece)
     {
 	Position position = piece.getMyPosition();
-	int x = position.getX();
-	int y = position.getY();
-	myPieces[x][y] = piece;
+	myPieces.put(position, piece);
     }
-    
+
     public String toString()
     {
 	return null;
@@ -32,26 +34,54 @@ public class Board
 
     public Piece getPiece(Position position)
     {
-	int x = position.getX();
-	int y = position.getY();
-	return myPieces[x][y];
+	return myPieces.get(position);
     }
-    
+
     public boolean isPositionFree(Position position)
     {
 	int x = position.getX();
 	int y = position.getY();
-	
+
 	if(x > BOARD_SIZE || y > BOARD_SIZE)
 	{
 	    return false;
 	}
-	
+
 	if(x < 0 || y < 0)
 	{
 	    return false;
 	}
+
+	return !myPieces.containsKey(position);
+    }
+
+    public boolean isCheck(Color color)
+    {
+	Piece king = getKing(color);
 	
-	return myPieces[x][y] == null;
+	
+	return false;
+
+    }
+    
+    private Piece getPieces(Color color)
+    {
+	return null;
+
+    }
+
+    public Piece getKing(Color color)
+    {
+	for (Entry<Position, Piece> entry : myPieces.entrySet())
+	{
+	   Piece piece = entry.getValue();
+	   if(piece.isKing() && piece.getColor() == color)
+	   {
+	       return piece;
+	   }
+	}
+	
+	//There should always be a king for each color on the board
+	return null;
     }
 }
