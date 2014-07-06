@@ -224,25 +224,4 @@ public class Rook extends Piece
 
 		return attackedPositions;
 	}
-
-	@Override
-	public MoveList getLegalMoves()
-	{	
-		MoveList legalMoves = getPseudoLegalMoves();
-		legalMoves.setBoard(myBoard);
-		
-		Iterator<Move> moveIterator = legalMoves.getMyList().iterator();
-		while (moveIterator.hasNext())
-		{
-			Move move = moveIterator.next();
-			myBoard.executeMove(move);
-			if (legalMoves.getBoard().isCheck(myColor))
-			{
-				moveIterator.remove();
-			}
-			myBoard.undo(move);
-		}
-
-		return legalMoves;
-	}
 }

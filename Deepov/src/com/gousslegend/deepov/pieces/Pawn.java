@@ -30,12 +30,4 @@ public class Pawn extends Piece
 		// TODO Auto-generated method stub
 		return new Vector<Position>();
 	}
-
-	@Override
-	public MoveList getLegalMoves()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -29,12 +29,4 @@ public class Queen extends Piece
 	// TODO Auto-generated method stub
 	return null;
     }
-
-	@Override
-	public MoveList getLegalMoves()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

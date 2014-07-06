@@ -1,9 +1,11 @@
 package com.gousslegend.deepov.pieces;
 
+import java.util.Iterator;
 import java.util.List;
 
 import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Color;
+import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
 
@@ -51,7 +53,25 @@ public abstract class Piece
 	 * 
 	 * @return
 	 */
-	public abstract MoveList getLegalMoves();
+	public MoveList getLegalMoves()
+	{
+		MoveList legalMoves = getPseudoLegalMoves();
+		legalMoves.setBoard(myBoard);
+		
+		Iterator<Move> moveIterator = legalMoves.getMyList().iterator();
+		while (moveIterator.hasNext())
+		{
+			Move move = moveIterator.next();
+			myBoard.executeMove(move);
+			if (legalMoves.getBoard().isCheck(myColor))
+			{
+				moveIterator.remove();
+			}
+			myBoard.undo(move);
+		}
+
+		return legalMoves;
+	}
 	
 	
 	/**
