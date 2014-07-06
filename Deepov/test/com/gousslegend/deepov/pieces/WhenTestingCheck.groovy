@@ -30,7 +30,7 @@ class WhenTestingCheck extends spock.lang.Specification
 		board.addPiece(BackKing)
 
 		expect:
-		position == board.getKing(Color.BLACK).getMyPosition()
+		position == board.getKing(Color.BLACK).getPosition()
 
 		where:
 		position << Position.getAllPositionOnBoard()
@@ -49,8 +49,9 @@ class WhenTestingCheck extends spock.lang.Specification
 		board.addPiece(WhiteKing)
 
 		expect:
-		board.getKing(Color.BLACK).getMyPosition()== BackKingPosition
-		board.getKing(Color.WHITE).getMyPosition()== WhiteKingPosition
+		board.getKing(Color.BLACK).getPosition()== BackKingPosition
+		board.getKingPosition(Color.BLACK) == BackKingPosition
+		board.getKing(Color.WHITE).getPosition()== WhiteKingPosition
 	}
 
 	def "Testing rook checking "()

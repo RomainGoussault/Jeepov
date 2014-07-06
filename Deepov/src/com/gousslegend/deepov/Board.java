@@ -25,7 +25,7 @@ public class Board
 
 	public void addPiece(Piece piece)
 	{
-		Position position = piece.getMyPosition();
+		Position position = piece.getPosition();
 		myPieces.put(position, piece);
 	}
 
@@ -60,6 +60,11 @@ public class Board
 	public boolean isCheck(Color color)
 	{
 		Position kingPosition = getKingPosition(color);
+		
+		if(kingPosition == null)
+		{
+			System.out.println("KING NOT FOUND");
+		}
 		List<Piece> ennemyPieces = getEnnemiesPieces(color);
 
 		for (Piece ennemyPiece : ennemyPieces)
@@ -121,11 +126,23 @@ public class Board
 			Piece piece = entry.getValue();
 			if (piece instanceof King && piece.getColor() == color)
 			{
-				return piece.getMyPosition();
+				return piece.getPosition();
 			}
 		}
 
 		// There should always be a king for each color on the board
 		return null;
+	}
+	
+	public void move(Move move)
+	{
+		Position origin = move.getOrigin();
+		Position destination = move.getDestination();
+		
+		Piece pieceToMove = getPiece(origin);
+		pieceToMove.setPosition(destination);
+		
+		myPieces.remove(origin);
+		myPieces.put(destination, pieceToMove);
 	}
 }

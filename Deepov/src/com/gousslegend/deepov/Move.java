@@ -70,7 +70,7 @@ public class Move
 	public String toString()
 	{
 		return "Move [myOrigin=" + myOrigin + ", myDestination="
-				+ myDestination + ", myCapturedPiece=" + myCapturedPiece + "]";
+				+ myDestination + ", myCapturedPiece=" + myCapturedPiece + "]" + "\n";
 	}
 
 }

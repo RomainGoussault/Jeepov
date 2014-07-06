@@ -54,4 +54,10 @@ public class MoveList
 	{
 		return myList.size();
 	}
+
+	@Override
+	public String toString()
+	{
+		return "MoveList [myList=" + myList + "]";
+	}
 }

@@ -61,7 +61,7 @@ public abstract class Piece
 	 */
 	public abstract List<Position> getAttackingSquares();
 
-	public Position getMyPosition()
+	public Position getPosition()
 	{
 		return myPosition;
 	}
@@ -77,17 +77,17 @@ public abstract class Piece
 		return myColor != piece.getColor();
 	}
 
-	public void setMyPosition(Position myPosition)
+	public void setPosition(Position myPosition)
 	{
 		this.myPosition = myPosition;
 	}
 
-	public Board getMyBoard()
+	public Board getBoard()
 	{
 		return myBoard;
 	}
 
-	public void setMyBoard(Board myBoard)
+	public void setBoard(Board myBoard)
 	{
 		this.myBoard = myBoard;
 	}

@@ -227,15 +227,16 @@ public class Rook extends Piece
 
 	@Override
 	public MoveList getLegalMoves()
-	{
+	{	
 		MoveList legalMoves = getPseudoLegalMoves();
-
+		legalMoves.setBoard(myBoard);
+		
 		Iterator<Move> moveIterator = legalMoves.getMyList().iterator();
 		while (moveIterator.hasNext())
 		{
 			Move move = moveIterator.next();
 			//Todo check for check
-			if (false)
+			if (legalMoves.getBoard().isCheck(myColor))
 			{
 				moveIterator.remove();
 			}
