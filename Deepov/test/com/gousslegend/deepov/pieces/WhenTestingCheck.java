@@ -40,6 +40,4 @@ public class WhenTestingCheck
 	
 	assertEquals(true,board.isCheck(Color.BLACK));
     }
-    
-    
 }

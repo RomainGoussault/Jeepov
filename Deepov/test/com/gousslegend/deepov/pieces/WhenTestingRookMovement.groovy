@@ -24,15 +24,10 @@ class WhenTestingRookMovement extends spock.lang.Specification
 	def "Testing rook alone on board"()
 	{
 		expect:
-		rook.getLegalMoves().size() == 14
+		new Rook(position, board, Color.BLACK).getLegalMoves().size() == 14
 
 		where:
-		rook                                              | _
-		new Rook(new Position(0, 0), board, Color.BLACK)  | _
-		new Rook(new Position(7, 0), board, Color.BLACK)  | _
-		new Rook(new Position(5, 0), board, Color.BLACK)  | _
-		new Rook(new Position(0, 6), board, Color.BLACK)  | _
-		new Rook(new Position(7, 7), board, Color.BLACK)  | _
+		position << Position.getAllPositionOnBoard()
 	}
 
 	def "Test blocked Rook"()
