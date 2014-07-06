@@ -60,7 +60,6 @@ class WhenTestingCheck extends spock.lang.Specification
 		King BackKing = new King(new Position(3, 3), board, Color.BLACK)
 		board.addPiece(BackKing)
 
-
 		expect:
 		board.isCheck(Color.BLACK) == check
 
@@ -72,5 +71,47 @@ class WhenTestingCheck extends spock.lang.Specification
 		new Position(4, 3)  | true
 		new Position(7, 4)  | false
 		new Position(7, 7)  | false
+	}
+
+	def "Testing rook checking with a blocking ally Pawn"()
+	{
+		given:"A bord with white king and 2 black pieces"
+		board.addPiece(new Rook(rookPosition, board, Color.WHITE))
+		board.addPiece(new Pawn(pawnPosition, board, Color.WHITE))
+		King BackKing = new King(new Position(0, 0), board, Color.BLACK)
+		board.addPiece(BackKing)
+
+		expect: "check when the pawn is not blocking the rook"
+		board.isCheck(Color.BLACK) == check
+
+		where:
+		rookPosition 	   | pawnPosition        | check
+		new Position(7, 0) |  new Position(3, 3) | true
+		new Position(3, 0) |  new Position(3, 3) | true
+		new Position(0, 7) |  new Position(3, 3) | true
+		new Position(0, 3) |  new Position(3, 3) | true
+		new Position(0, 7) |  new Position(0, 3) | false
+		new Position(7, 0) |  new Position(0, 3) | true
+	}
+	
+	def "Testing rook checking with a blocking ennemy Pawn"()
+	{
+		given:"A bord with white king and 2 black pieces"
+		board.addPiece(new Rook(rookPosition, board, Color.WHITE))
+		board.addPiece(new Pawn(pawnPosition, board, Color.BLACK))
+		King BackKing = new King(new Position(0, 0), board, Color.BLACK)
+		board.addPiece(BackKing)
+
+		expect: "check when the pawn is not blocking the rook"
+		board.isCheck(Color.BLACK) == check
+
+		where:
+		rookPosition 	   | pawnPosition        | check
+		new Position(7, 0) |  new Position(3, 3) | true
+		new Position(3, 0) |  new Position(3, 3) | true
+		new Position(0, 7) |  new Position(3, 3) | true
+		new Position(0, 3) |  new Position(3, 3) | true
+		new Position(0, 7) |  new Position(0, 3) | false
+		new Position(7, 0) |  new Position(0, 3) | true
 	}
 }
