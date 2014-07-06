@@ -13,11 +13,14 @@ class WhenTestingCheck extends spock.lang.Specification
 {
 	@Shared
 	def board
+	@Shared
+	def rook
 
 
 	def setup()
 	{
 		board = new Board()
+		rook = new Rook()
 	}
 
 	def "Testing king position"()
@@ -33,9 +36,9 @@ class WhenTestingCheck extends spock.lang.Specification
 		position << Position.getAllPositionOnBoard()
 	}
 
-	def "Testing 2 king position"()
+	def "Testing 2 king positions"()
 	{
-		given:
+		given: "2 kings"
 		Position BackKingPosition = new Position(0, 0)
 		Position WhiteKingPosition = new Position(2, 2)
 
@@ -50,16 +53,24 @@ class WhenTestingCheck extends spock.lang.Specification
 		board.getKing(Color.WHITE).getMyPosition()== WhiteKingPosition
 	}
 
-	def "Testing rook checking"()
+	def "Testing rook checking "()
 	{
 		given:
-		King BackKing = new King(new Position(5, 0), board, Color.BLACK)
-		Rook WhiteRook = new Rook(new Position(0, 0), board, Color.WHITE)
-
+		board.addPiece(new Rook(rookPosition, board, Color.WHITE))
+		King BackKing = new King(new Position(3, 3), board, Color.BLACK)
 		board.addPiece(BackKing)
-		board.addPiece(WhiteRook)
+
 
 		expect:
-		board.isCheck(Color.BLACK)
+		board.isCheck(Color.BLACK) == check
+
+		where:
+		rookPosition 		| check
+		new Position(3, 0)  | true
+		new Position(3, 5)  | true
+		new Position(4, 4)  | false
+		new Position(4, 3)  | true
+		new Position(7, 4)  | false
+		new Position(7, 7)  | false
 	}
 }

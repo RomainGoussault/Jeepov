@@ -11,7 +11,7 @@ import com.gousslegend.deepov.Position
 
 class WhenTestingColor extends spock.lang.Specification
 {
-	def "Testing color"()
+	def "Testing opposite color"()
 	{
 		expect:
 		color.getOppositeColor() == oppositeColor
