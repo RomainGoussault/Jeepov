@@ -1,7 +1,6 @@
 package com.gousslegend.deepov.pieces;
 
 import java.util.List;
-import java.util.Vector;
 
 import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Color;
