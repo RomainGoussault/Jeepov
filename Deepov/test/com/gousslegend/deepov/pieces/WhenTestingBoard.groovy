@@ -27,4 +27,21 @@ class WhenTestingBoard extends spock.lang.Specification
 		expect:
 		list.get(0).getPosition() ==  destination
 	}
+	
+	def "Undoing a move"()
+	{
+		given:
+		Board board = new Board()
+		def origin = new Position(0,0);
+		def destination = new Position(3,0);
+		board.addPiece(new Rook(origin, board, Color.BLACK))
+		
+		def move = new Move(origin, destination)
+		board.executeMove(move);
+		board.undo(move);
+		def list = board.getPieces(Color.BLACK)
+		
+		expect:
+		list.get(0).getPosition() ==  origin
+	}
 }

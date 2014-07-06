@@ -16,6 +16,7 @@ class WhenTestingPinnedRook extends spock.lang.Specification
 	{
 		board = new Board()
 	}
+	
 	def "Test LegalMoves on pinned rook"()
 	{
 		given:

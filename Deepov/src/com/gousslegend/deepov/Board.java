@@ -61,10 +61,6 @@ public class Board
 	{
 		Position kingPosition = getKingPosition(color);
 
-		if (kingPosition == null)
-		{
-			System.out.println("KING NOT FOUND");
-		}
 		List<Piece> ennemyPieces = getEnnemiesPieces(color);
 
 		for (Piece ennemyPiece : ennemyPieces)
@@ -158,13 +154,13 @@ public class Board
 		boolean isCaptureMove = move.getCapturedPiece() != null;
 		
 		Piece pieceToMove = getPiece(destination);
-		pieceToMove.setPosition(destination);
 
 		myPieces.remove(destination);
 		if (isCaptureMove)
 		{
 			myPieces.put(destination, move.getCapturedPiece());
 		}
+		pieceToMove.setPosition(origin);
 		myPieces.put(origin, pieceToMove);
 	}
 }
