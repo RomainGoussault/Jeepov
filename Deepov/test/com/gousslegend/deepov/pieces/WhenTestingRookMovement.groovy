@@ -20,11 +20,19 @@ class WhenTestingRookMovement extends spock.lang.Specification
 		board = new Board()
 		rook = new Rook()
 	}
+	
+	def cleanup()
+	{
+		board = new Board()
+	}
 
 	def "Testing rook alone on board"()
-	{
+	{		
+		Rook rook = new Rook(position, board, Color.BLACK);
+		board.addPiece(rook);
+		
 		expect:
-		new Rook(position, board, Color.BLACK).getLegalMoves().size() == 14
+		rook.getLegalMoves().size() == 14
 
 		where:
 		position << Position.getAllPositionOnBoard()
@@ -64,47 +72,5 @@ class WhenTestingRookMovement extends spock.lang.Specification
 
 		then:
 		rook.getLegalMoves().size() == 0;
-	}
-	
-	def "Test pseudoLegalMoves on pinned rook"()
-	{
-		given:
-		Rook blackRook = new Rook(blackRookPosition, board, Color.BLACK);
-		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE);
-		King blackKing = new King(blackKingPosition, board, Color.BLACK);
-		
-		board.addPiece(blackRook)
-		board.addPiece(whiteRook) 
-		board.addPiece(blackKing)
-
-		expect: "check when the pawn is not blocking the rook"
-		blackRook.getPseudoLegalMoves().size() == moveSize;
-
-		where:
-		blackRookPosition 	| whiteRookPosition   | blackKingPosition | moveSize
-		new Position(1, 0) |  new Position(3, 0) | new Position(0, 0) | 9
-		new Position(1, 0) |  new Position(2, 0) | new Position(0, 0) | 8
-		
-	}
-	
-	def "Test LegalMoves on pinned rook"()
-	{
-		given:
-		Board board2 = new Board();
-		Rook blackRook = new Rook(blackRookPosition, board2, Color.BLACK);
-		Rook whiteRook = new Rook(whiteRookPosition, board2, Color.WHITE);
-		King blackKing = new King(blackKingPosition, board2, Color.BLACK);
-		
-		board2.addPiece(blackRook)
-		board2.addPiece(whiteRook)
-		board2.addPiece(blackKing)
-
-		expect: "check when the pawn is not blocking the rook"
-		blackRook.getLegalMoves().size() == moveSize;
-
-		where:
-		blackRookPosition 	| whiteRookPosition   | blackKingPosition | moveSize
-		new Position(1, 0) |  new Position(2, 0) | new Position(0, 0) | 1
-		
 	}
 }

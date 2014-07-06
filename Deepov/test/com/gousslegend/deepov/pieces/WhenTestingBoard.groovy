@@ -21,11 +21,10 @@ class WhenTestingBoard extends spock.lang.Specification
 		board.addPiece(new Rook(origin, board, Color.BLACK))
 		
 		def move = new Move(origin, destination)
-		board.move(move);
+		board.executeMove(move);
 		def list = board.getPieces(Color.BLACK)
 		
 		expect:
 		list.get(0).getPosition() ==  destination
-		board.get
 	}
 }

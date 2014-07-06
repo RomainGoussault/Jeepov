@@ -60,8 +60,8 @@ public class Board
 	public boolean isCheck(Color color)
 	{
 		Position kingPosition = getKingPosition(color);
-		
-		if(kingPosition == null)
+
+		if (kingPosition == null)
 		{
 			System.out.println("KING NOT FOUND");
 		}
@@ -133,16 +133,38 @@ public class Board
 		// There should always be a king for each color on the board
 		return null;
 	}
-	
-	public void move(Move move)
+
+	public void executeMove(Move move)
 	{
 		Position origin = move.getOrigin();
 		Position destination = move.getDestination();
-		
+		boolean isCaptureMove = move.getCapturedPiece() != null;
+
 		Piece pieceToMove = getPiece(origin);
 		pieceToMove.setPosition(destination);
-		
+
 		myPieces.remove(origin);
+		if (isCaptureMove)
+		{
+			myPieces.remove(destination);
+		}
 		myPieces.put(destination, pieceToMove);
+	}
+
+	public void undo(Move move)
+	{
+		Position origin = move.getOrigin();
+		Position destination = move.getDestination();
+		boolean isCaptureMove = move.getCapturedPiece() != null;
+		
+		Piece pieceToMove = getPiece(destination);
+		pieceToMove.setPosition(destination);
+
+		myPieces.remove(destination);
+		if (isCaptureMove)
+		{
+			myPieces.put(destination, move.getCapturedPiece());
+		}
+		myPieces.put(origin, pieceToMove);
 	}
 }

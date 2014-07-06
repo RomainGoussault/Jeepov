@@ -27,13 +27,14 @@ class WhenTestingPinnedRook extends spock.lang.Specification
 		board.addPiece(whiteRook)
 		board.addPiece(blackKing)
 
-		expect: "check when the pawn is not blocking the rook"
-		//board.getKingPosition(Color.BLACK) == blackKingPosition
+		expect: 
 		blackRook.getLegalMoves().size() == moveSize;
 
 		where:
 		blackRookPosition 	| whiteRookPosition   | blackKingPosition | moveSize
 		new Position(1, 0) |  new Position(2, 0) | new Position(0, 0) | 1
-		
+		new Position(1, 0) |  new Position(3, 0) | new Position(0, 0) | 2
+		new Position(1, 0) |  new Position(3, 3) | new Position(0, 0) | 13
+		new Position(1, 3) |  new Position(0, 3) | new Position(7, 3) | 6
 	}
 }

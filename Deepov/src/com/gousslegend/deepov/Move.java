@@ -6,7 +6,6 @@ public class Move
 {
 	private Position myOrigin;
 	private Position myDestination;
-	private boolean myIsCaptured;
 	private Piece myCapturedPiece;
 	private int myScore;
 
@@ -34,16 +33,6 @@ public class Move
 	public void setDestination(Position myDestination)
 	{
 		this.myDestination = myDestination;
-	}
-
-	public boolean isCaptured()
-	{
-		return myIsCaptured;
-	}
-
-	public void setIsCaptured(boolean myIsCaptured)
-	{
-		this.myIsCaptured = myIsCaptured;
 	}
 
 	public int getScore()

@@ -235,11 +235,12 @@ public class Rook extends Piece
 		while (moveIterator.hasNext())
 		{
 			Move move = moveIterator.next();
-			//Todo check for check
+			myBoard.executeMove(move);
 			if (legalMoves.getBoard().isCheck(myColor))
 			{
 				moveIterator.remove();
 			}
+			myBoard.undo(move);
 		}
 
 		return legalMoves;
