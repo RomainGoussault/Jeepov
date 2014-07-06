@@ -1,11 +1,13 @@
 package com.gousslegend.deepov.pieces;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
 import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
+import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
 
 public class Rook extends Piece
@@ -24,11 +26,11 @@ public class Rook extends Piece
 	{
 		super(position, board, color);
 	}
-	
+
 	@Override
-	public List<Move> getPseudoLegalMoves()
+	public MoveList getPseudoLegalMoves()
 	{
-		List<Move> moves = new Vector<>();
+		MoveList pseudoLegalMoves = new MoveList(myBoard);
 		int i = 1;
 
 		Move possibleMove = null;
@@ -42,7 +44,7 @@ public class Rook extends Piece
 
 			if (myBoard.isPositionFree(destination))
 			{
-				moves.add(possibleMove);
+				pseudoLegalMoves.add(possibleMove);
 			}
 			else
 			{
@@ -51,7 +53,7 @@ public class Rook extends Piece
 				if (areColorDifferent(piece))
 				{
 					possibleMove.setCapturedPiece(piece);
-					moves.add(possibleMove);
+					pseudoLegalMoves.add(possibleMove);
 				}
 				break;
 			}
@@ -68,7 +70,7 @@ public class Rook extends Piece
 
 			if (myBoard.isPositionFree(destination))
 			{
-				moves.add(possibleMove);
+				pseudoLegalMoves.add(possibleMove);
 			}
 			else
 			{
@@ -77,7 +79,7 @@ public class Rook extends Piece
 				if (areColorDifferent(piece))
 				{
 					possibleMove.setCapturedPiece(piece);
-					moves.add(possibleMove);
+					pseudoLegalMoves.add(possibleMove);
 				}
 				break;
 			}
@@ -94,7 +96,7 @@ public class Rook extends Piece
 
 			if (myBoard.isPositionFree(destination))
 			{
-				moves.add(possibleMove);
+				pseudoLegalMoves.add(possibleMove);
 			}
 			else
 			{
@@ -103,7 +105,7 @@ public class Rook extends Piece
 				if (areColorDifferent(piece))
 				{
 					possibleMove.setCapturedPiece(piece);
-					moves.add(possibleMove);
+					pseudoLegalMoves.add(possibleMove);
 				}
 				break;
 			}
@@ -120,7 +122,7 @@ public class Rook extends Piece
 
 			if (myBoard.isPositionFree(destination))
 			{
-				moves.add(possibleMove);
+				pseudoLegalMoves.add(possibleMove);
 			}
 			else
 			{
@@ -129,7 +131,7 @@ public class Rook extends Piece
 				if (areColorDifferent(piece))
 				{
 					possibleMove.setCapturedPiece(piece);
-					moves.add(possibleMove);
+					pseudoLegalMoves.add(possibleMove);
 				}
 				break;
 			}
@@ -138,13 +140,13 @@ public class Rook extends Piece
 			destination = myPosition.deltaY(i);
 		}
 
-		return moves;
+		return pseudoLegalMoves;
 	}
 
 	@Override
 	public List<Position> getAttackingSquares()
 	{
-		List<Position> positions = new Vector<>();
+		List<Position> attackedPositions = new Vector<>();
 		int i = 1;
 
 		Position destination = null;
@@ -158,7 +160,7 @@ public class Rook extends Piece
 				Piece piece = myBoard.getPiece(destination);
 				if (areColorDifferent(piece))
 				{
-					positions.add(destination);
+					attackedPositions.add(destination);
 				}
 				break;
 			}
@@ -176,7 +178,7 @@ public class Rook extends Piece
 				Piece piece = myBoard.getPiece(destination);
 				if (areColorDifferent(piece))
 				{
-					positions.add(destination);
+					attackedPositions.add(destination);
 				}
 				break;
 			}
@@ -193,7 +195,7 @@ public class Rook extends Piece
 				Piece piece = myBoard.getPiece(destination);
 				if (areColorDifferent(piece))
 				{
-					positions.add(destination);
+					attackedPositions.add(destination);
 				}
 				break;
 			}
@@ -211,7 +213,7 @@ public class Rook extends Piece
 				Piece piece = myBoard.getPiece(destination);
 				if (areColorDifferent(piece))
 				{
-					positions.add(destination);
+					attackedPositions.add(destination);
 				}
 				break;
 			}
@@ -220,13 +222,25 @@ public class Rook extends Piece
 			destination = myPosition.deltaY(i);
 		}
 
-		return positions;
+		return attackedPositions;
 	}
 
 	@Override
-	public List<Move> getLegalMoves()
+	public MoveList getLegalMoves()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		MoveList legalMoves = getPseudoLegalMoves();
+
+		Iterator<Move> moveIterator = legalMoves.getMyList().iterator();
+		while (moveIterator.hasNext())
+		{
+			Move move = moveIterator.next();
+			//Todo check for check
+			if (false)
+			{
+				moveIterator.remove();
+			}
+		}
+
+		return legalMoves;
 	}
 }

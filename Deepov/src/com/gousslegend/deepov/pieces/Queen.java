@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Color;
-import com.gousslegend.deepov.Move;
+import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
 
 public class Queen extends Piece
@@ -17,7 +17,7 @@ public class Queen extends Piece
     }
 
     @Override
-    public List<Move> getPseudoLegalMoves()
+    public MoveList getPseudoLegalMoves()
     {
 	// TODO Auto-generated method stub
 	return null;
@@ -31,7 +31,7 @@ public class Queen extends Piece
     }
 
 	@Override
-	public List<Move> getLegalMoves()
+	public MoveList getLegalMoves()
 	{
 		// TODO Auto-generated method stub
 		return null;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Color;
-import com.gousslegend.deepov.Move;
+import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
 
 public abstract class Piece
@@ -43,7 +43,7 @@ public abstract class Piece
 	 * 
 	 * @return
 	 */
-	public abstract List<Move> getPseudoLegalMoves();
+	public abstract MoveList getPseudoLegalMoves();
 
 
 	/**
@@ -51,7 +51,7 @@ public abstract class Piece
 	 * 
 	 * @return
 	 */
-	public abstract List<Move> getLegalMoves();
+	public abstract MoveList getLegalMoves();
 	
 	
 	/**
