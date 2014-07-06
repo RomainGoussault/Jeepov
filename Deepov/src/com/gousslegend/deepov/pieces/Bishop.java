@@ -7,15 +7,17 @@ import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.Position;
 
-public class Bishop extends Piece {
+public class Bishop extends Piece
+{
 
 	public Bishop(Position position, Board board, Color color)
-    {
-	super(position, board, color);
-    }
+	{
+		super(position, board, color);
+	}
 
 	@Override
-	public List<Move> getLegalMoves() {
+	public List<Move> getPseudoLegalMoves()
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -23,7 +25,14 @@ public class Bishop extends Piece {
 	@Override
 	public List<Position> getAttackingSquares()
 	{
-	    // TODO Auto-generated method stub
-	    return null;
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Move> getLegalMoves()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

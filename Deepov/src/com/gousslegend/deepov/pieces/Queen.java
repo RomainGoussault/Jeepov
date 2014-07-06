@@ -17,7 +17,7 @@ public class Queen extends Piece
     }
 
     @Override
-    public List<Move> getLegalMoves()
+    public List<Move> getPseudoLegalMoves()
     {
 	// TODO Auto-generated method stub
 	return null;
@@ -29,5 +29,12 @@ public class Queen extends Piece
 	// TODO Auto-generated method stub
 	return null;
     }
+
+	@Override
+	public List<Move> getLegalMoves()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

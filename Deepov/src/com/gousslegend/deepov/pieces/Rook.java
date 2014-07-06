@@ -24,10 +24,9 @@ public class Rook extends Piece
 	{
 		super(position, board, color);
 	}
-
 	
 	@Override
-	public List<Move> getLegalMoves()
+	public List<Move> getPseudoLegalMoves()
 	{
 		List<Move> moves = new Vector<>();
 		int i = 1;
@@ -222,5 +221,12 @@ public class Rook extends Piece
 		}
 
 		return positions;
+	}
+
+	@Override
+	public List<Move> getLegalMoves()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

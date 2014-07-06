@@ -39,12 +39,26 @@ public abstract class Piece
 	}
 
 	/**
-	 * This method get all the possible moves for the piece
+	 * This method get all the pseudo legal (possibly leaving the king in check) moves for the piece
+	 * 
+	 * @return
+	 */
+	public abstract List<Move> getPseudoLegalMoves();
+
+
+	/**
+	 * This method get all the legal moves for the piece
 	 * 
 	 * @return
 	 */
 	public abstract List<Move> getLegalMoves();
-
+	
+	
+	/**
+	 * This method returns all the positions that the piece is attacking
+	 * 
+	 * @return
+	 */
 	public abstract List<Position> getAttackingSquares();
 
 	public Position getMyPosition()
