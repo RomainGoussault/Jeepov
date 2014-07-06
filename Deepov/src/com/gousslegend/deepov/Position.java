@@ -46,7 +46,7 @@ public class Position
 		return new Position(x, y + delta);
 	}
 
-	public Position Position(int deltaX, int deltaY)
+	public Position deltaXY(int deltaX, int deltaY)
 	{
 		return new Position(x + deltaX, y + deltaY);
 	}
