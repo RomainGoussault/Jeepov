@@ -131,4 +131,10 @@ public abstract class Piece
 	{
 		this.myValue = myValue;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Piece [myPosition=" + myPosition + ", myColor=" + myColor + "]";
+	}
 }

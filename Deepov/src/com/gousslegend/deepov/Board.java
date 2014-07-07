@@ -96,6 +96,18 @@ public class Board
 		return pieces;
 	}
 
+	private List<Piece> getPieces()
+	{
+		List<Piece> pieces = new ArrayList<>();
+
+		for (Entry<Position, Piece> entry : myPieces.entrySet())
+		{
+			Piece piece = entry.getValue();
+				pieces.add(piece);
+		}
+		return pieces;
+	}
+	
 	public Piece getKing(Color color)
 	{
 		for (Entry<Position, Piece> entry : myPieces.entrySet())
@@ -149,14 +161,14 @@ public class Board
 		Position destination = move.getDestination();
 		boolean isCaptureMove = move.getCapturedPiece() != null;
 		
-		Piece pieceToMove = getPiece(destination);
+		Piece pieceMoved = getPiece(destination);
 
 		myPieces.remove(destination);
 		if (isCaptureMove)
 		{
 			myPieces.put(destination, move.getCapturedPiece());
 		}
-		pieceToMove.setPosition(origin);
-		myPieces.put(origin, pieceToMove);
+		pieceMoved.setPosition(origin);
+		myPieces.put(origin, pieceMoved);
 	}
 }

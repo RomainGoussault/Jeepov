@@ -62,4 +62,26 @@ class WhenTestingBoard extends spock.lang.Specification
 		list.size()==1;
 	}
 	
+	
+	def "Undoing a Move with capture"()
+	{
+		given:
+		Board board = new Board()
+		def origin = new Position(0,0);
+		def destination = new Position(3,0);
+		def blackRook = new Rook(origin, board, Color.BLACK)
+		def whiteRook = new Rook(destination, board, Color.WHITE)
+		board.addPiece(blackRook)
+		board.addPiece(whiteRook)
+		
+		def move = new Move(origin, destination)
+		move.setCapturedPiece(whiteRook)
+		
+		board.executeMove(move);
+		board.undo(move);
+		def list = board.getPieces()
+		
+		expect:
+		list.size()==2;
+	}
 }
