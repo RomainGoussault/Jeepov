@@ -44,4 +44,22 @@ class WhenTestingBoard extends spock.lang.Specification
 		expect:
 		list.get(0).getPosition() ==  origin
 	}
+	
+	def "Moving with capture"()
+	{
+		given:
+		Board board = new Board()
+		def origin = new Position(0,0);
+		def destination = new Position(3,0);
+		board.addPiece(new Rook(origin, board, Color.BLACK))
+		board.addPiece(new Rook(destination, board, Color.WHITE))
+		
+		def move = new Move(origin, destination)
+		board.executeMove(move);
+		def list = board.getPieces(Color.BLACK)
+		
+		expect:
+		list.size()==1;
+	}
+	
 }
