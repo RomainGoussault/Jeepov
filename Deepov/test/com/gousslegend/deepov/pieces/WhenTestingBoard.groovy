@@ -38,7 +38,7 @@ class WhenTestingBoard extends spock.lang.Specification
 		
 		def move = new Move(origin, destination)
 		board.executeMove(move);
-		board.undo(move);
+		board.undoMove(move);
 		def list = board.getPieces(Color.BLACK)
 		
 		expect:
@@ -78,7 +78,7 @@ class WhenTestingBoard extends spock.lang.Specification
 		move.setCapturedPiece(whiteRook)
 		
 		board.executeMove(move);
-		board.undo(move);
+		board.undoMove(move);
 		def list = board.getPieces()
 		
 		expect:

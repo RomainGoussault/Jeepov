@@ -69,43 +69,9 @@ public class Board
 		return false;
 	}
 
-	private boolean isPieceChecking(Piece ennemyPiece, Position kingPosition)
-	{
-		List<Position> attackingSquares = ennemyPiece.getAttackingSquares();
-
-		return attackingSquares.contains(kingPosition);
-	}
-
 	public List<Piece> getEnnemiesPieces(Color color)
 	{
 		return getPieces(color.getOppositeColor());
-	}
-
-	private List<Piece> getPieces(Color color)
-	{
-		List<Piece> pieces = new ArrayList<>();
-
-		for (Entry<Position, Piece> entry : myPieces.entrySet())
-		{
-			Piece piece = entry.getValue();
-			if (piece.getColor() == color)
-			{
-				pieces.add(piece);
-			}
-		}
-		return pieces;
-	}
-
-	private List<Piece> getPieces()
-	{
-		List<Piece> pieces = new ArrayList<>();
-
-		for (Entry<Position, Piece> entry : myPieces.entrySet())
-		{
-			Piece piece = entry.getValue();
-				pieces.add(piece);
-		}
-		return pieces;
 	}
 	
 	public Piece getKing(Color color)
@@ -155,7 +121,7 @@ public class Board
 		myPieces.put(destination, pieceToMove);
 	}
 
-	public void undo(Move move)
+	public void undoMove(Move move)
 	{
 		Position origin = move.getOrigin();
 		Position destination = move.getDestination();
@@ -170,5 +136,39 @@ public class Board
 		}
 		pieceMoved.setPosition(origin);
 		myPieces.put(origin, pieceMoved);
+	}
+	
+	private boolean isPieceChecking(Piece ennemyPiece, Position kingPosition)
+	{
+		List<Position> attackingSquares = ennemyPiece.getAttackingSquares();
+		
+		return attackingSquares.contains(kingPosition);
+	}
+	
+	private List<Piece> getPieces(Color color)
+	{
+		List<Piece> pieces = new ArrayList<>();
+		
+		for (Entry<Position, Piece> entry : myPieces.entrySet())
+		{
+			Piece piece = entry.getValue();
+			if (piece.getColor() == color)
+			{
+				pieces.add(piece);
+			}
+		}
+		return pieces;
+	}
+	
+	private List<Piece> getPieces()
+	{
+		List<Piece> pieces = new ArrayList<>();
+		
+		for (Entry<Position, Piece> entry : myPieces.entrySet())
+		{
+			Piece piece = entry.getValue();
+			pieces.add(piece);
+		}
+		return pieces;
 	}
 }

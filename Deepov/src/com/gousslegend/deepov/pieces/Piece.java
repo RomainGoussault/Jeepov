@@ -67,7 +67,7 @@ public abstract class Piece
 			{
 				moveIterator.remove();
 			}
-			myBoard.undo(move);
+			myBoard.undoMove(move);
 		}
 
 		return legalMoves;
