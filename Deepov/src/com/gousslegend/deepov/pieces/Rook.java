@@ -37,7 +37,7 @@ public class Rook extends Piece
 
 		i = 1;
 		destination = myPosition.deltaX(i);
-		while (destination.getX() <= Board.BOARD_SIZE)
+		while (myBoard.isPositionOnBoard(destination))
 		{
 			possibleMove = new Move(myPosition, destination);
 
@@ -63,7 +63,7 @@ public class Rook extends Piece
 
 		i = -1;
 		destination = myPosition.deltaX(i);
-		while (destination.getX() >= 0)
+		while (myBoard.isPositionOnBoard(destination))
 		{
 			possibleMove = new Move(myPosition, destination);
 
@@ -89,7 +89,7 @@ public class Rook extends Piece
 
 		i = -1;
 		destination = myPosition.deltaY(i);
-		while (destination.getY() >= 0)
+		while (myBoard.isPositionOnBoard(destination))
 		{
 			possibleMove = new Move(myPosition, destination);
 
@@ -115,7 +115,7 @@ public class Rook extends Piece
 
 		i = 1;
 		destination = myPosition.deltaY(i);
-		while (destination.getY() <= Board.BOARD_SIZE)
+		while (myBoard.isPositionOnBoard(destination))
 		{
 			possibleMove = new Move(myPosition, destination);
 
@@ -152,7 +152,7 @@ public class Rook extends Piece
 
 		i = 1;
 		destination = myPosition.deltaX(i);
-		while (destination.getX() <= Board.BOARD_SIZE)
+		while (myBoard.isPositionOnBoard(destination))
 		{
 			if (!myBoard.isPositionFree(destination))
 			{
@@ -170,7 +170,7 @@ public class Rook extends Piece
 
 		i = -1;
 		destination = myPosition.deltaX(i);
-		while (destination.getX() >= 0)
+		while (myBoard.isPositionOnBoard(destination))
 		{
 			if (!myBoard.isPositionFree(destination))
 			{
@@ -187,7 +187,7 @@ public class Rook extends Piece
 
 		i = -1;
 		destination = myPosition.deltaY(i);
-		while (destination.getY() >= 0)
+		while (myBoard.isPositionOnBoard(destination))
 		{
 			if (!myBoard.isPositionFree(destination))
 			{
@@ -205,7 +205,7 @@ public class Rook extends Piece
 
 		i = 1;
 		destination = myPosition.deltaY(i);
-		while (destination.getY() <= Board.BOARD_SIZE)
+		while (myBoard.isPositionOnBoard(destination))
 		{
 			if (!myBoard.isPositionFree(destination))
 			{

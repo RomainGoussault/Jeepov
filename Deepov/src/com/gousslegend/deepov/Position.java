@@ -51,6 +51,11 @@ public class Position
 		return new Position(x + deltaX, y + deltaY);
 	}
 
+	public Position deltaXY(int delta)
+	{
+		return deltaXY(delta, delta);
+	}
+	
 	public int getX()
 	{
 		return x;

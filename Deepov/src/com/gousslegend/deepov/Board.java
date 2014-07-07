@@ -52,6 +52,25 @@ public class Board
 
 		return !myPieces.containsKey(position);
 	}
+	
+
+	public boolean isPositionOnBoard(Position position)
+	{
+		int x = position.getX();
+		int y = position.getY();
+
+		if (x > BOARD_SIZE || y > BOARD_SIZE)
+		{
+			return false;
+		}
+
+		if (x < 0 || y < 0)
+		{
+			return false;
+		}
+
+		return true;
+	}
 
 	public boolean isCheck(Color color)
 	{
