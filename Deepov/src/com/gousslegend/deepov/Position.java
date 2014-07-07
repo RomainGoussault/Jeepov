@@ -1,7 +1,7 @@
 package com.gousslegend.deepov;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class Position
 {
@@ -22,7 +22,7 @@ public class Position
 	
 	public static List<Position> getAllPositionOnBoard()
 	{
-		List<Position> positions= new Vector<>();
+		List<Position> positions= new ArrayList<>();
 		
 		for(int i = 0; i<= Board.BOARD_SIZE; i++)
 		{

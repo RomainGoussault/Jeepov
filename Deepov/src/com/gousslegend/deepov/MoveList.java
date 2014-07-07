@@ -1,7 +1,7 @@
 package com.gousslegend.deepov;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class MoveList
 {
@@ -11,13 +11,13 @@ public class MoveList
 
 	public MoveList(Board board)
 	{
-		myList = new Vector<Move>();
+		myList = new ArrayList<Move>();
 		myBoard = board;
 	}
 	
 	public MoveList()
 	{
-		myList = new Vector<Move>();
+		myList = new ArrayList<Move>();
 	}
 
 	public void addMove(Move move)

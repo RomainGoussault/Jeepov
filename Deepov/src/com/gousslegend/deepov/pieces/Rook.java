@@ -1,8 +1,7 @@
 package com.gousslegend.deepov.pieces;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Color;
@@ -146,7 +145,7 @@ public class Rook extends Piece
 	@Override
 	public List<Position> getAttackingSquares()
 	{
-		List<Position> attackedPositions = new Vector<>();
+		List<Position> attackedPositions = new ArrayList<>();
 		int i = 1;
 
 		Position destination = null;

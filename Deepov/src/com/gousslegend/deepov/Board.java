@@ -1,10 +1,10 @@
 package com.gousslegend.deepov;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Vector;
 
 import com.gousslegend.deepov.pieces.King;
 import com.gousslegend.deepov.pieces.Piece;
@@ -18,10 +18,6 @@ public class Board
 	{
 		myPieces = new HashMap<>(64);
 	}
-
-	/*
-	 * public Board(Piece[][] pieces) { myPieces = pieces; }
-	 */
 
 	public void addPiece(Piece piece)
 	{
@@ -87,7 +83,7 @@ public class Board
 
 	private List<Piece> getPieces(Color color)
 	{
-		List<Piece> pieces = new Vector<>();
+		List<Piece> pieces = new ArrayList<>();
 
 		for (Entry<Position, Piece> entry : myPieces.entrySet())
 		{

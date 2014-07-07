@@ -1,7 +1,7 @@
 package com.gousslegend.deepov.pieces;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Color;
@@ -28,6 +28,6 @@ public class Pawn extends Piece
 	public List<Position> getAttackingSquares()
 	{
 		// TODO Auto-generated method stub
-		return new Vector<Position>();
+		return new ArrayList<Position>();
 	}
 }
