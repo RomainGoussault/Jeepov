@@ -73,4 +73,46 @@ class WhenTestingRookMovement extends spock.lang.Specification
 		then:
 		rook.getLegalMoves().size() == 0;
 	}
+	
+	def "Test LegalMoves on pinned rook"()
+	{
+		given:
+		Rook blackRook = new Rook(blackRookPosition, board, Color.BLACK);
+		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE);
+		King blackKing = new King(blackKingPosition, board, Color.BLACK);
+		
+		board.addPiece(blackRook)
+		board.addPiece(whiteRook)
+		board.addPiece(blackKing)
+
+		expect:
+		blackRook.getLegalMoves().size() == moveSize;
+
+		where:
+		blackRookPosition 	| whiteRookPosition   | blackKingPosition | moveSize
+		new Position(1, 0) |  new Position(2, 0) | new Position(0, 0) | 1
+		new Position(1, 0) |  new Position(3, 0) | new Position(0, 0) | 2
+		new Position(1, 0) |  new Position(3, 3) | new Position(0, 0) | 13
+		new Position(1, 3) |  new Position(0, 3) | new Position(7, 3) | 6
+	}
+	
+	def "Test rook only move when king is in check"()
+	{
+		given:
+		Rook blackRook = new Rook(blackRookPosition, board, Color.BLACK);
+		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE);
+		King blackKing = new King(blackKingPosition, board, Color.BLACK);
+		
+		board.addPiece(blackRook)
+		board.addPiece(whiteRook)
+		board.addPiece(blackKing)
+
+		expect:
+		blackRook.getLegalMoves().size() == moveSize;
+
+		where:
+		blackRookPosition 	| whiteRookPosition   | blackKingPosition | moveSize
+		new Position(3, 3) |  new Position(7, 0) | new Position(0, 0) | 1
+		new Position(3, 3) |  new Position(7, 2) | new Position(2, 2) | 1
+	}
 }

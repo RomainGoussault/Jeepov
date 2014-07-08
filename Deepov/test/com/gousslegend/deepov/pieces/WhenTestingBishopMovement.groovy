@@ -98,4 +98,43 @@ class WhenTestingBishopMovement extends spock.lang.Specification
 		new Position(0, 0) |  new Position(6, 1) | 9
 		new Position(4, 3) |  new Position(6, 1) | 5
 	}
+	
+	def "Test LegalMoves on pinned bishop"()
+	{
+		given:
+		Bishop whiteBishop = new Bishop(whiteBishopPosition, board, Color.BLACK);
+		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE);
+		King blackKing = new King(blackKingPosition, board, Color.BLACK);
+		
+		board.addPiece(whiteBishop)
+		board.addPiece(whiteRook)
+		board.addPiece(blackKing)
+
+		expect:
+		whiteBishop.getLegalMoves().size() == moveSize;
+
+		where:
+		whiteBishopPosition| whiteRookPosition   | blackKingPosition | moveSize
+		new Position(1, 0) |  new Position(4, 0) | new Position(0, 0) | 0
+		new Position(2, 0) |  new Position(7, 0) | new Position(0, 0) | 0
+	}
+	
+	def "Test bishop only move when king is in check"()
+	{
+		given:
+		Bishop whiteBishop = new Bishop(whiteBishopPosition, board, Color.BLACK);
+		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE);
+		King blackKing = new King(blackKingPosition, board, Color.BLACK);
+		
+		board.addPiece(whiteBishop)
+		board.addPiece(whiteRook)
+		board.addPiece(blackKing)
+
+		expect:
+		whiteBishop.getLegalMoves().size() == moveSize;
+
+		where:
+		whiteBishopPosition| whiteRookPosition   | blackKingPosition | moveSize
+		new Position(0, 3) |  new Position(7, 0) | new Position(0, 0) | 1
+	}
 }
