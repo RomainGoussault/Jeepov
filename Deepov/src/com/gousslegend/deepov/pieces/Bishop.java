@@ -1,5 +1,6 @@
 package com.gousslegend.deepov.pieces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.gousslegend.deepov.Board;
@@ -138,7 +139,87 @@ public class Bishop extends Piece
 	@Override
 	public List<Position> getAttackingSquares()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		List<Position> attackedPositions = new ArrayList<>();
+		int i = 1;
+
+		Position destination = null;
+
+		i = 1;
+		destination = myPosition.deltaXY(i,-i);
+		while (myBoard.isPositionOnBoard(destination))
+		{
+
+			if (!myBoard.isPositionFree(destination))
+			{
+				Piece piece = myBoard.getPiece(destination);
+				if (areColorDifferent(piece))
+				{
+					attackedPositions.add(destination);
+				}
+				break;
+			}
+
+			i++;
+			destination = myPosition.deltaXY(i,-i);
+		}
+
+		i = 1;
+		destination = myPosition.deltaXY(-i,i);
+		while (myBoard.isPositionOnBoard(destination))
+		{
+
+			if (!myBoard.isPositionFree(destination))
+			{
+				Piece piece = myBoard.getPiece(destination);
+				if (areColorDifferent(piece))
+				{
+					attackedPositions.add(destination);
+				}
+				break;
+			}
+
+			i++;
+			destination = myPosition.deltaXY(-i,i);
+		}
+
+		i = 1;
+		destination = myPosition.deltaXY(i,i);
+		while (myBoard.isPositionOnBoard(destination))
+		{
+
+			if (!myBoard.isPositionFree(destination))
+			{
+				Piece piece = myBoard.getPiece(destination);
+				if (areColorDifferent(piece))
+				{
+					attackedPositions.add(destination);
+				}
+				break;
+			}
+
+			i++;
+			destination = myPosition.deltaXY(i,i);
+		}
+		
+		i = 1;
+		destination = myPosition.deltaXY(-i,-i);
+		while (myBoard.isPositionOnBoard(destination))
+		{
+
+			if (!myBoard.isPositionFree(destination))
+			{
+				Piece piece = myBoard.getPiece(destination);
+				if (areColorDifferent(piece))
+				{
+					attackedPositions.add(destination);
+				}
+				break;
+			}
+
+			i++;
+			destination = myPosition.deltaXY(-i,-i);
+		}
+		
+		return attackedPositions;
 	}
 }
