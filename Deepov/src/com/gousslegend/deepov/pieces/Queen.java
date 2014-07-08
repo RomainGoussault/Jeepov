@@ -10,23 +10,22 @@ import com.gousslegend.deepov.Position;
 public class Queen extends Piece
 {
 
-    public Queen(Position position, Board board, Color color)
-    {
-	super(position, board, color);
-	// TODO Auto-generated constructor stub
-    }
+	public Queen(Position position, Board board, Color color)
+	{
+		super(position, board, color);
+	}
 
-    @Override
-    public MoveList getPseudoLegalMoves()
-    {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	@Override
+	public MoveList getPseudoLegalMoves()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public List<Position> getAttackingSquares()
-    {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	@Override
+	public List<Position> getAttackingSquares()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -13,6 +13,9 @@ public class Board
 {
 	private Map<Position, Piece> myPieces;
 	public static final int BOARD_SIZE = 7;
+	
+	/** Move taken in this game so far */
+	private List<Move> moves;
 
 	public Board()
 	{
@@ -53,7 +56,6 @@ public class Board
 		return !myPieces.containsKey(position);
 	}
 	
-
 	public boolean isPositionOnBoard(Position position)
 	{
 		int x = position.getX();
@@ -155,6 +157,24 @@ public class Board
 		}
 		pieceMoved.setPosition(origin);
 		myPieces.put(origin, pieceMoved);
+	}
+	
+	public List<Move> getMoves()
+	{
+		return moves;
+	}
+	
+	public Move getLastMove()
+	{
+		int size = moves.size();
+		if(size > 0)
+		{
+			return moves.get(size-1);
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 	private boolean isPieceChecking(Piece ennemyPiece, Position kingPosition)
