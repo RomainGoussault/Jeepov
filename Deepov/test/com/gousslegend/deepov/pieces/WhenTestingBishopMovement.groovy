@@ -137,4 +137,17 @@ class WhenTestingBishopMovement extends spock.lang.Specification
 		whiteBishopPosition| whiteRookPosition   | blackKingPosition | moveSize
 		new Position(0, 3) |  new Position(7, 0) | new Position(0, 0) | 1
 	}
+	
+	
+	def "Test Capture Move on Bishop with Ennemy Rook"()
+	{
+		given:
+		Rook blackRook = new Rook(new Position(1, 1), board, Color.BLACK)
+		Bishop whiteBishop = new Bishop( new Position(0, 0), board, Color.WHITE)
+		board.addPiece(blackRook)
+		board.addPiece(whiteBishop)
+
+		expect:
+		whiteBishop.getLegalMoves().getFistMove().getCapturedPiece() == blackRook;
+	}
 }

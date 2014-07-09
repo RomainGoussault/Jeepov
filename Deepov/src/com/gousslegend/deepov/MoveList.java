@@ -40,6 +40,11 @@ public class MoveList
 		return myList;
 	}
 	
+	public Move getFistMove()
+	{
+		return myList.get(0);
+	}
+	
 	public void setMyList(List<Move> myList)
 	{
 		this.myList = myList;
