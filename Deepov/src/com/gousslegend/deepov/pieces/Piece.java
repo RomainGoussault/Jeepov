@@ -58,7 +58,7 @@ public abstract class Piece
 		MoveList legalMoves = getPseudoLegalMoves();
 		legalMoves.setBoard(myBoard);
 		
-		Iterator<Move> moveIterator = legalMoves.getMyList().iterator();
+		Iterator<Move> moveIterator = legalMoves.getList().iterator();
 		while (moveIterator.hasNext())
 		{
 			Move move = moveIterator.next();

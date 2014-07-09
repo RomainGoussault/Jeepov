@@ -6,23 +6,23 @@ import java.util.List;
 public class MoveList
 {
 
-	private List<Move> myList;
+	private List<Move> list;
 	private Board myBoard;
 
 	public MoveList(Board board)
 	{
-		myList = new ArrayList<Move>();
+		list = new ArrayList<Move>();
 		myBoard = board;
 	}
 	
 	public MoveList()
 	{
-		myList = new ArrayList<Move>();
+		list = new ArrayList<Move>();
 	}
 
 	public void addMove(Move move)
 	{
-		myList.add(move);
+		list.add(move);
 	}
 
 	public Board getBoard()
@@ -35,34 +35,34 @@ public class MoveList
 		this.myBoard = myBoard;
 	}
 	
-	public List<Move> getMyList()
+	public List<Move> getList()
 	{
-		return myList;
+		return list;
 	}
 	
 	public Move getFistMove()
 	{
-		return myList.get(0);
+		return list.get(0);
 	}
 	
-	public void setMyList(List<Move> myList)
+	public void setList(List<Move> myList)
 	{
-		this.myList = myList;
+		this.list = myList;
 	}
 
 	public boolean add(Move move)
 	{
-		return myList.add(move);
+		return list.add(move);
 	}
 
 	public int size()
 	{
-		return myList.size();
+		return list.size();
 	}
 
 	@Override
 	public String toString()
 	{
-		return "MoveList [myList=" + myList + "]";
+		return "MoveList [myList=" + list + "]";
 	}
 }

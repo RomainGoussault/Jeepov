@@ -2,13 +2,13 @@ package com.gousslegend.deepov;
 
 public class Game
 {
-	private Board myBoard;
+	private Board board;
 	private Player whitePlayer;
 	private Player blackPlayer;
 
 	public Game()
 	{
-		myBoard = new Board();
+		board = new Board();
 	}
 
 	public Player getWhitePlayer()
@@ -31,8 +31,8 @@ public class Game
 		this.blackPlayer = blackPlayer;
 	}
 
-	public Board getMyBoard()
+	public Board getBoard()
 	{
-		return myBoard;
+		return board;
 	}
 }
