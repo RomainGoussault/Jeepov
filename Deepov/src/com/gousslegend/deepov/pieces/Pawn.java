@@ -17,21 +17,46 @@ public class Pawn extends Piece
 		super(position, board, color);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Pawn()
+	{
+		super();
+	}
 
 	@Override
 	public MoveList getPseudoLegalMoves()
 	{
 		MoveList pseudoLegalMoves = new MoveList(myBoard);
 
-		Move possibleMove = null;
-		Position destination = myPosition.deltaX(getDirection());
-
+		int direction = getDirection();
+		Position destination = null;
+		
+		//no need to check if we are on the edge on the board:
+		//it should not happen because it will be promoted before
+		destination = myPosition.deltaX(direction); 
 		if (myBoard.isPositionFree(destination))
 		{
 			pseudoLegalMoves.add(new Move(myPosition, destination));
 		}
 		
-		//Todo: Promotion, en passant
+		//check to the right and the left for capture
+		Piece possibleCapture = null;
+		
+		destination = myPosition.deltaXY(direction, 1);
+		possibleCapture = myBoard.getPiece(destination);
+		if (possibleCapture != null && areColorDifferent(possibleCapture))
+		{
+			pseudoLegalMoves.add(new Move(myPosition, destination));
+		}
+		
+		destination = myPosition.deltaXY(direction,-1);
+		possibleCapture = myBoard.getPiece(destination);
+		if (possibleCapture != null && areColorDifferent(possibleCapture))
+		{
+			pseudoLegalMoves.add(new Move(myPosition, destination));
+		}
+		
+		//Todo: Promotion, en passant, 2 delta at start
 
 		return pseudoLegalMoves;
 	}
