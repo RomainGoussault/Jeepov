@@ -31,9 +31,18 @@ public class Pawn extends Piece
 		int direction = getDirection();
 		Position destination = null;
 		
+		if(isOnStartingRank())
+		{
+			destination = myPosition.deltaY(2*direction); 
+			if (myBoard.isPositionFree(destination))
+			{
+				pseudoLegalMoves.add(new Move(myPosition, destination));
+			}	
+		}
+		
 		//no need to check if we are on the edge on the board:
 		//it should not happen because it will be promoted before
-		destination = myPosition.deltaX(direction); 
+		destination = myPosition.deltaY(direction); 
 		if (myBoard.isPositionFree(destination))
 		{
 			pseudoLegalMoves.add(new Move(myPosition, destination));
@@ -42,21 +51,21 @@ public class Pawn extends Piece
 		//check to the right and the left for capture
 		Piece possibleCapture = null;
 		
-		destination = myPosition.deltaXY(direction, 1);
+		destination = myPosition.deltaXY(1, direction);
 		possibleCapture = myBoard.getPiece(destination);
 		if (possibleCapture != null && areColorDifferent(possibleCapture))
 		{
 			pseudoLegalMoves.add(new Move(myPosition, destination));
 		}
 		
-		destination = myPosition.deltaXY(direction,-1);
+		destination = myPosition.deltaXY(-1, direction);
 		possibleCapture = myBoard.getPiece(destination);
 		if (possibleCapture != null && areColorDifferent(possibleCapture))
 		{
 			pseudoLegalMoves.add(new Move(myPosition, destination));
 		}
 		
-		//Todo: Promotion, en passant, 2 delta at start
+		//Todo: Promotion, en passant
 
 		return pseudoLegalMoves;
 	}
@@ -68,6 +77,19 @@ public class Pawn extends Piece
 		return new ArrayList<Position>();
 	}
 
+	public boolean isOnStartingRank()
+	{
+		if(myColor == Color.WHITE)
+		{
+			return myPosition.getY() == 1;
+		}
+		else
+		{
+			return myPosition.getY() == 6;
+		}
+	}
+
+	
 	public int getDirection()
 	{
 		if (myColor == Color.WHITE)

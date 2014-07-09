@@ -55,7 +55,7 @@ class WhenTestingBishopMovement extends spock.lang.Specification
 		bishop.getLegalMoves().size() == 1;
 	}
 	
-	def "Test blocked Bishop with same color piece"()
+	def "Test blocked Bishop with ennemy piece"()
 	{
 		given:
 		Position position = new Position(0, 0);

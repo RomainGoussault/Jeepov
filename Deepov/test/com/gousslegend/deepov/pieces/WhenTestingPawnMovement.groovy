@@ -36,23 +36,43 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		pawn.getLegalMoves().size() == 1
 	}
 
-	/*def "Test blocked Pawn with ennemy pieces"()
+	def "Test LegalMoves on Pawn with Ennemy Rook"()
 	{
 		given:
-		Position position = new Position(0, 0);
+		Pawn whitePawn = new Pawn(whitePawnPosition, board, Color.WHITE)
+		Rook blackRook = new Rook(blackRookPosition, board, Color.BLACK)
+		board.addPiece(blackRook)
+		board.addPiece(whitePawn)
 
-		Pawn pawn = new Pawn(position, board, Color.BLACK);
-		Pawn pawn1 = new Pawn(new Position(1, 1), board, Color.WHITE);
+		expect:
+		whitePawn.getLegalMoves().size() == moveSize;
 
-		when:
-		board.addPiece(pawn);
-		board.addPiece(pawn1);
-
-		then:
-		pawn.getLegalMoves().size() == 1;
+		where:
+		whitePawnPosition	|  blackRookPosition|  moveSize
+		new Position(1, 1) |  new Position(0, 0) | 2
+		new Position(2, 2) |  new Position(0, 0) | 1
+		new Position(4, 0) |  new Position(0, 0) | 1
+		new Position(1, 1) |  new Position(2, 2) | 3
+		new Position(1, 1) |  new Position(0, 2) | 3
+		new Position(0, 4) |  new Position(0, 5) | 0
+		
 	}
 	
 	def "Test blocked Pawn with same color piece"()
+	{
+	given:
+		Position position = new Position(3, 3);
+		Pawn pawn = new Pawn(position, board, Color.WHITE);
+		Pawn pawn1 = new Pawn(new Position(3, 4), board, Color.WHITE);
+	
+	when:
+		board.addPiece(pawn);
+		board.addPiece(pawn1);
+	
+	then:
+		pawn.getLegalMoves().size() == 0;
+	}
+	/*def "Test blocked Pawn with ennemy pieces"()
 	{
 		given:
 		Position position = new Position(0, 0);
