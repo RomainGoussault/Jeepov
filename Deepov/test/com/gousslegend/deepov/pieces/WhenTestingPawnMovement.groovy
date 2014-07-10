@@ -1,5 +1,4 @@
 package com.gousslegend.deepov.pieces
-import static org.junit.Assert.assertEquals
 import spock.lang.*
 
 import com.gousslegend.deepov.Board
@@ -55,7 +54,23 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		new Position(1, 1) |  new Position(2, 2) | 3
 		new Position(1, 1) |  new Position(0, 2) | 3
 		new Position(0, 4) |  new Position(0, 5) | 0
+	}
+	
+	
+	def "Test 4 Moves on Pawn"()
+	{
+		given:
+		Pawn whitePawn = new Pawn(new Position(5,1), board, Color.WHITE)
+		Rook blackRook = new Rook(new Position(4,2), board, Color.BLACK)
+		Rook blackRook2 = new Rook(new Position(6,2), board, Color.BLACK)
 		
+		board.addPiece(whitePawn)
+		board.addPiece(blackRook)
+		board.addPiece(blackRook2)
+
+		expect:
+		whitePawn.getLegalMoves().size() == 4;
+
 	}
 	
 	def "Test blocked Pawn with same color piece"()
@@ -72,49 +87,8 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 	then:
 		pawn.getLegalMoves().size() == 0;
 	}
-	/*def "Test blocked Pawn with ennemy pieces"()
-	{
-		given:
-		Position position = new Position(0, 0);
-
-		Pawn pawn = new Pawn(position, board, Color.BLACK);
-		Pawn pawn1 = new Pawn(new Position(1, 1), board, Color.WHITE);
-
-		when:
-		board.addPiece(pawn);
-		board.addPiece(pawn1);
-
-		then:
-		pawn.getLegalMoves().size() == 1;
-	}
+/*	
 	
-	def "Test LegalMoves on Pawn with Ennemy Rook"()
-	{
-		given:
-		Rook blackRook = new Rook(blackRookPosition, board, Color.BLACK)
-		Pawn whitePawn = new Pawn(whitePawnPosition, board, Color.WHITE)
-		board.addPiece(blackRook)
-		board.addPiece(whitePawn)
-
-		expect:
-		whitePawn.getLegalMoves().size() == moveSize;
-
-		where:
-		blackRookPosition 	| whitePawnPosition|  moveSize
-		new Position(1, 1) |  new Position(0, 0) | 1
-		new Position(2, 2) |  new Position(0, 0) | 2
-		new Position(4, 0) |  new Position(0, 0) | 7
-		new Position(7, 7) |  new Position(0, 0) | 7
-		new Position(7, 7) |  new Position(0, 0) | 7
-		new Position(7, 7) |  new Position(7, 7) | 7
-		new Position(7, 7) |  new Position(1, 1) | 9
-		new Position(4, 7) |  new Position(1, 1) | 9
-		new Position(0, 0) |  new Position(1, 1) | 9
-		new Position(0, 0) |  new Position(3, 0) | 7
-		new Position(0, 0) |  new Position(2, 0) | 7
-		new Position(0, 0) |  new Position(6, 1) | 9
-		new Position(4, 3) |  new Position(6, 1) | 5
-	}
 	
 	def "Test LegalMoves on pinned pawn"()
 	{

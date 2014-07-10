@@ -138,7 +138,6 @@ class WhenTestingBishopMovement extends spock.lang.Specification
 		new Position(0, 3) |  new Position(7, 0) | new Position(0, 0) | 1
 	}
 	
-	
 	def "Test Capture Move on Bishop with Ennemy Rook"()
 	{
 		given:

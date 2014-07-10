@@ -8,6 +8,7 @@ public class Move
 	private Position myDestination;
 	private Piece myCapturedPiece;
 	private int myScore;
+	private boolean myIsPromotion;
 
 	public Move(Position origin, Position destination)
 	{
@@ -60,6 +61,16 @@ public class Move
 	{
 		return "Move [myOrigin=" + myOrigin + ", myDestination="
 				+ myDestination + ", myCapturedPiece=" + myCapturedPiece + "]" + "\n";
+	}
+
+	public boolean isPromotion()
+	{
+		return myIsPromotion;
+	}
+
+	public void setIsPromotion(boolean myIsPromotion)
+	{
+		this.myIsPromotion = myIsPromotion;
 	}
 
 }

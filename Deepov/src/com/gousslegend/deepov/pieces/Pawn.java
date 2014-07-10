@@ -89,6 +89,17 @@ public class Pawn extends Piece
 		}
 	}
 
+	public boolean isOnLastRank()
+	{
+		if(myColor == Color.WHITE)
+		{
+			return myPosition.getY() == 7;
+		}
+		else
+		{
+			return myPosition.getY() == 0;
+		}
+	}
 	
 	public int getDirection()
 	{
