@@ -79,6 +79,7 @@ public class Pawn extends Piece
 		else if (enPassantCapturePossible())// En Passant
 		{
 			Position ennemyPawnPosition = myBoard.getLastMove().getDestination();
+			possibleMove = new Move(myPosition, ennemyPawnPosition);
 			possibleMove.setCapturedPiece(myBoard.getPiece(ennemyPawnPosition));
 			pseudoLegalMoves.add(new Move(myPosition, ennemyPawnPosition));
 		}

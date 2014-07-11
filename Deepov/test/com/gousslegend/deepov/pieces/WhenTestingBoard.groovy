@@ -26,6 +26,7 @@ class WhenTestingBoard extends spock.lang.Specification
 		
 		expect:
 		list.get(0).getPosition() ==  destination
+		board.getLastMove() == move
 	}
 	
 	def "Undoing a move"()
@@ -63,7 +64,6 @@ class WhenTestingBoard extends spock.lang.Specification
 		expect:
 		list.size()==1;
 	}
-	
 	
 	def "Undoing a Move with capture"()
 	{

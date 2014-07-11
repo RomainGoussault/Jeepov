@@ -187,10 +187,10 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		new Position(7, 5) | 1
 	}
 	
-	
+	@Unroll
 	def "Test en passant"()
 	{
-	given:
+	given: "Two pawns"
 		Pawn whitePawn = new Pawn(whitePawnPosition, board, Color.WHITE);
 		Pawn blackPawn = new Pawn(blackPawnPositionOrigin, board, Color.BLACK);
 		board.addPiece(whitePawn)
@@ -200,11 +200,15 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		
 	expect:
 		whitePawn.enPassantCapturePossible() == enPassantCapturePossible;
-	
+		
 	where:
 		whitePawnPosition  | blackPawnPositionOrigin  | blackPawnPositionDestination  |enPassantCapturePossible
 		new Position(0, 5) | new Position(5, 5)       | new Position(5, 4)            | false
 		new Position(1, 4) | new Position(0, 6)       | new Position(0, 4)            | true
+		new Position(1, 4) | new Position(2, 6)       | new Position(2, 4)            | true
+		new Position(1, 4) | new Position(2, 6)       | new Position(2, 5)            | false
+		new Position(1, 4) | new Position(1, 6)       | new Position(1, 5)            | false
+		new Position(1, 4) | new Position(2, 7)       | new Position(2, 6)            | false
 	}
 	
 /*	
