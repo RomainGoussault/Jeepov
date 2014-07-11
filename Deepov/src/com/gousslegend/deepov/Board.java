@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import com.gousslegend.deepov.pieces.King;
 import com.gousslegend.deepov.pieces.Piece;
+import com.gousslegend.deepov.pieces.Queen;
 
 public class Board
 {
@@ -15,11 +16,12 @@ public class Board
 	public static final int BOARD_SIZE = 7;
 	
 	/** Move taken in this game so far */
-	private List<Move> moves;
+	private List<Move> myMoves;
 
 	public Board()
 	{
-		myPieces = new HashMap<>(64);
+		myPieces = new HashMap<>(32);
+		myMoves = new ArrayList<>();
 	}
 
 	public void addPiece(Piece piece)
@@ -140,6 +142,16 @@ public class Board
 			myPieces.remove(destination);
 		}
 		myPieces.put(destination, pieceToMove);
+		
+		if(move.isPromotion())
+		{
+			//remove the pawn
+			myPieces.remove(destination);
+			//add a queen
+			myPieces.put(destination, new Queen(destination, this, pieceToMove.getColor()));
+		}
+		
+		myMoves.add(move);
 	}
 
 	public void undoMove(Move move)
@@ -157,19 +169,29 @@ public class Board
 		}
 		pieceMoved.setPosition(origin);
 		myPieces.put(origin, pieceMoved);
+		
+		myMoves.remove(getLastMove());
 	}
 	
 	public List<Move> getMoves()
 	{
-		return moves;
+		return myMoves;
+	}
+	
+	/**
+	 * This method return the number of actives pieces on the board
+	 * @return
+	 */
+	public int getNumberOfPieces()
+	{
+		return getPieces().size();
 	}
 	
 	public Move getLastMove()
 	{
-		int size = moves.size();
-		if(size > 0)
+		if(myMoves.size() > 0)
 		{
-			return moves.get(size-1);
+			return myMoves.get(myMoves.size()-1);
 		}
 		else
 		{

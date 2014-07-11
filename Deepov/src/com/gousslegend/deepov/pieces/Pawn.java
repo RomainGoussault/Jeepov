@@ -17,7 +17,7 @@ public class Pawn extends Piece
 		super(position, board, color);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public Pawn()
 	{
 		super();
@@ -30,44 +30,111 @@ public class Pawn extends Piece
 
 		int direction = getDirection();
 		Position destination = null;
-		
-		if(isOnStartingRank())
-		{
-			destination = myPosition.deltaY(2*direction); 
-			if (myBoard.isPositionFree(destination))
-			{
-				pseudoLegalMoves.add(new Move(myPosition, destination));
-			}	
-		}
-		
-		//no need to check if we are on the edge on the board:
-		//it should not happen because it will be promoted before
-		destination = myPosition.deltaY(direction); 
+
+		// no need to check if we are on the edge on the board:
+		// it should not happen because it will be promoted before
+		destination = myPosition.deltaY(direction);
 		if (myBoard.isPositionFree(destination))
 		{
 			pseudoLegalMoves.add(new Move(myPosition, destination));
 		}
-		
-		//check to the right and the left for capture
+
+		// check to the right and the left for capture
 		Piece possibleCapture = null;
-		
+		Move possibleMove = null;
+
 		destination = myPosition.deltaXY(1, direction);
 		possibleCapture = myBoard.getPiece(destination);
 		if (possibleCapture != null && areColorDifferent(possibleCapture))
 		{
-			pseudoLegalMoves.add(new Move(myPosition, destination));
+			possibleMove = new Move(myPosition, destination);
+			possibleMove.setCapturedPiece(possibleCapture);
+			pseudoLegalMoves.add(possibleMove);
 		}
-		
+
 		destination = myPosition.deltaXY(-1, direction);
 		possibleCapture = myBoard.getPiece(destination);
 		if (possibleCapture != null && areColorDifferent(possibleCapture))
 		{
-			pseudoLegalMoves.add(new Move(myPosition, destination));
+			possibleMove = new Move(myPosition, destination);
+			possibleMove.setCapturedPiece(possibleCapture);
+			pseudoLegalMoves.add(possibleMove);
 		}
-		
-		//Todo: Promotion, en passant
+
+		if (isGoingToPromote()) // Promotion
+		{
+			for (Move move : pseudoLegalMoves.getList())
+			{
+				move.setIsPromotion(true);
+			}
+		}
+		else if (isOnStartingRank()) // +2 square forward move
+		{
+			destination = myPosition.deltaY(2 * direction);
+			if (myBoard.isPositionFree(destination))
+			{
+				pseudoLegalMoves.add(new Move(myPosition, destination));
+			}
+		}
+		else if (enPassantCapturePossible())// En Passant
+		{
+			Position ennemyPawnPosition = myBoard.getLastMove().getDestination();
+			possibleMove.setCapturedPiece(myBoard.getPiece(ennemyPawnPosition));
+			pseudoLegalMoves.add(new Move(myPosition, ennemyPawnPosition));
+		}
 
 		return pseudoLegalMoves;
+	}
+
+	private boolean enPassantCapturePossible()
+	{
+		if (!isOnGoodRankforEnPassant())
+		{
+			return false;
+		}
+
+		if (ennemyLastMoveAllowEnPassant())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	private boolean ennemyLastMoveAllowEnPassant()
+	{
+		Move lastEnnemyMove = myBoard.getLastMove();
+		if (lastEnnemyMove != null)
+		{
+			Position ennemyMoveOrigin = lastEnnemyMove.getOrigin();
+			Position ennemyMoveDestination = lastEnnemyMove.getDestination();
+
+			boolean ennemyPawnMoved = myBoard.getPiece(lastEnnemyMove
+					.getDestination()) instanceof Pawn;
+			boolean plus2Move = ennemyMoveDestination.getY()
+					- ennemyMoveOrigin.getY() == -2 * getDirection();
+
+			if (ennemyPawnMoved && plus2Move)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private boolean isOnGoodRankforEnPassant()
+	{
+		if (myColor == Color.WHITE)
+		{
+			return myPosition.getY() == 4;
+		}
+		else
+		{
+			return myPosition.getY() == 3;
+		}
 	}
 
 	@Override
@@ -76,7 +143,7 @@ public class Pawn extends Piece
 		int direction = getDirection();
 		List<Position> attackedPositions = new ArrayList<>();
 		Position destination = null;
-		
+
 		destination = myPosition.deltaXY(-1, direction);
 		if (myBoard.isPositionOnBoard(destination))
 		{
@@ -102,13 +169,13 @@ public class Pawn extends Piece
 				}
 			}
 		}
-		
+
 		return attackedPositions;
 	}
 
 	public boolean isOnStartingRank()
 	{
-		if(myColor == Color.WHITE)
+		if (myColor == Color.WHITE)
 		{
 			return myPosition.getY() == 1;
 		}
@@ -120,7 +187,7 @@ public class Pawn extends Piece
 
 	public boolean isOnLastRank()
 	{
-		if(myColor == Color.WHITE)
+		if (myColor == Color.WHITE)
 		{
 			return myPosition.getY() == 7;
 		}
@@ -129,7 +196,7 @@ public class Pawn extends Piece
 			return myPosition.getY() == 0;
 		}
 	}
-	
+
 	public int getDirection()
 	{
 		if (myColor == Color.WHITE)
@@ -139,6 +206,18 @@ public class Pawn extends Piece
 		else
 		{
 			return -1;
+		}
+	}
+
+	private boolean isGoingToPromote()
+	{
+		if (myColor == Color.WHITE)
+		{
+			return myPosition.getY() == 6;
+		}
+		else
+		{
+			return myPosition.getY() == 1;
 		}
 	}
 }
