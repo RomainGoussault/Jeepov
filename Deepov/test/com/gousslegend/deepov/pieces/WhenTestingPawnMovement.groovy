@@ -56,7 +56,27 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		new Position(0, 4) |  new Position(0, 5) | 0
 	}
 	
-	
+	def "Test attacking squares"()
+	{
+		given:
+		Pawn whitePawn = new Pawn(whitePawnPosition, board, Color.WHITE)
+		Rook blackRook = new Rook(blackRookPosition, board, Color.BLACK)
+		Rook blackRook2 = new Rook(blackRookPosition2, board, Color.BLACK)
+		
+		board.addPiece(whitePawn)
+		board.addPiece(blackRook)
+		board.addPiece(blackRook2)
+		
+		expect:
+		whitePawn.getAttackingSquares().size() == attackingSquaresSize
+
+		where:
+		whitePawnPosition  |  blackRookPosition|  blackRookPosition2  | attackingSquaresSize
+		new Position(1, 1) |  new Position(5, 5) |  new Position(6, 6)| 0
+		new Position(1, 3) |  new Position(0, 4) |  new Position(2, 4)| 2
+		new Position(1, 3) |  new Position(2, 4) |  new Position(7, 4)| 1
+		
+	}
 	def "Test 4 Moves on Pawn"()
 	{
 		given:
@@ -87,28 +107,24 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 	then:
 		pawn.getLegalMoves().size() == 0;
 	}
-/*	
 	
-	
-	def "Test LegalMoves on pinned pawn"()
+	def "Test LegalMoves on the edge of the board"()
 	{
-		given:
+	given:
 		Pawn whitePawn = new Pawn(whitePawnPosition, board, Color.BLACK);
-		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE);
-		King blackKing = new King(blackKingPosition, board, Color.BLACK);
-		
+
 		board.addPiece(whitePawn)
-		board.addPiece(whiteRook)
-		board.addPiece(blackKing)
-
-		expect:
+		
+	expect:
 		whitePawn.getLegalMoves().size() == moveSize;
-
-		where:
-		whitePawnPosition| whiteRookPosition   | blackKingPosition | moveSize
-		new Position(1, 0) |  new Position(4, 0) | new Position(0, 0) | 0
-		new Position(2, 0) |  new Position(7, 0) | new Position(0, 0) | 0
+	
+	where:
+		whitePawnPosition  |  moveSize
+		new Position(0, 5) | 1
+		new Position(7, 5) | 1
 	}
+	
+/*	
 	
 	def "Test pawn only move when king is in check"()
 	{

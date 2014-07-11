@@ -73,8 +73,37 @@ public class Pawn extends Piece
 	@Override
 	public List<Position> getAttackingSquares()
 	{
-		// TODO Auto-generated method stub
-		return new ArrayList<Position>();
+		int direction = getDirection();
+		List<Position> attackedPositions = new ArrayList<>();
+		Position destination = null;
+		
+		destination = myPosition.deltaXY(-1, direction);
+		if (myBoard.isPositionOnBoard(destination))
+		{
+			if (!myBoard.isPositionFree(destination))
+			{
+				Piece piece = myBoard.getPiece(destination);
+				if (areColorDifferent(piece))
+				{
+					attackedPositions.add(destination);
+				}
+			}
+		}
+
+		destination = myPosition.deltaXY(1, direction);
+		if (myBoard.isPositionOnBoard(destination))
+		{
+			if (!myBoard.isPositionFree(destination))
+			{
+				Piece piece = myBoard.getPiece(destination);
+				if (areColorDifferent(piece))
+				{
+					attackedPositions.add(destination);
+				}
+			}
+		}
+		
+		return attackedPositions;
 	}
 
 	public boolean isOnStartingRank()
