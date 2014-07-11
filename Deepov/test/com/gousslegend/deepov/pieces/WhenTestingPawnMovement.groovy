@@ -211,6 +211,75 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		new Position(1, 4) | new Position(2, 7)       | new Position(2, 6)            | false
 	}
 	
+	@Unroll
+	def "Test en passant2"()
+	{
+	given: "Two pawns"
+		Pawn whitePawn = new Pawn(whitePawnPosition, board, Color.WHITE);
+		Rook whiteRook = new Rook(new Position(0,0), board, Color.WHITE);
+		Pawn blackPawn = new Pawn(blackPawnPositionOrigin, board, Color.BLACK);
+		Rook blackRook = new Rook(new Position(7,7), board, Color.BLACK);
+		
+		board.addPiece(whitePawn)
+		board.addPiece(whiteRook)
+		board.addPiece(blackPawn)
+		board.addPiece(blackRook)
+		board.executeMove(new Move(blackPawnPositionOrigin, blackPawnPositionDestination)) //black move
+		board.executeMove(new Move(new Position(0,0), new Position(1,0))) //white move
+		board.executeMove(new Move(new Position(7,7), new Position(7,0))) //black move again
+		
+	expect:
+		whitePawn.enPassantCapturePossible() == enPassantCapturePossible;
+		
+	where:
+		whitePawnPosition  | blackPawnPositionOrigin  | blackPawnPositionDestination  |enPassantCapturePossible
+		new Position(1, 4) | new Position(0, 6)       | new Position(0, 4)            | false
+		new Position(1, 4) | new Position(2, 6)       | new Position(2, 4)            | false
+	}
+	
+	@Unroll
+	def "Test legal Moves"()
+	{
+	given: "Two pawns"
+		Pawn whitePawn = new Pawn(whitePawnPosition, board, Color.WHITE);
+		King whiteKing = new King(new Position(0,7), board, Color.WHITE);
+		Bishop blackBishop1 = new Bishop(blackBishop1Position, board, Color.BLACK);
+		Bishop blackBishop2 = new Bishop(blackBishop2Position, board, Color.BLACK);
+		
+		board.addPiece(whitePawn)
+		board.addPiece(whiteKing)
+		board.addPiece(blackBishop1)
+		board.addPiece(blackBishop2)
+		
+	expect:
+		whitePawn.getLegalMoves().size() == legalMovePossibles;
+		whitePawn.getPseudoLegalMoves().size() == pseudoLegalMovePossibles;
+		
+	where:
+		whitePawnPosition  | blackBishop1Position  | blackBishop2Position  | legalMovePossibles | pseudoLegalMovePossibles
+		new Position(2, 4) | new Position(1, 5)    | new Position(3, 4)    | 1					| 2
+		new Position(2, 4) | new Position(1, 5)    | new Position(0, 0)    | 2					| 2
+	}
+	
+	@Unroll
+	def "Test pawn checking"()
+	{
+	given: "Two pawns"
+		Pawn blackPawn = new Pawn(blackPawnPosition, board, Color.BLACK);
+		King whiteKing = new King(whiteKingPosition, board, Color.WHITE);
+		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE);
+		
+		board.addPiece(blackPawn)
+		board.addPiece(whiteKing)
+		board.addPiece(whiteRook)
+		
+	expect:
+		whiteRook.getLegalMoves().size() == legalMovePossibles;
+		
+	where:
+		blackPawnPosition  | whiteKingPosition  | whiteRookPosition  | legalMovePossibles
+		new Position(1, 2) | new Position(0, 1) | new Position(7, 2) | 1					
+	}
 /*	
 	
 	def "Test pawn only move when king is in check"()
