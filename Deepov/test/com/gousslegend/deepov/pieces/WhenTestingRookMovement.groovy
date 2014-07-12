@@ -40,7 +40,7 @@ class WhenTestingRookMovement extends spock.lang.Specification
 
 	def "Test blocked Rook with ennemy pieces"()
 	{
-		given:
+		given:"A rook with 2 ennemies pawn"
 		Position position = new Position(0, 0);
 
 		Rook rook = new Rook(position, board, Color.BLACK);

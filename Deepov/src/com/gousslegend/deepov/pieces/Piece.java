@@ -12,7 +12,6 @@ import com.gousslegend.deepov.Position;
 public abstract class Piece
 {
 	protected Position myPosition;
-	protected int myValue;
 	protected Board myBoard;
 	protected Color myColor;
 
@@ -112,11 +111,6 @@ public abstract class Piece
 		this.myBoard = myBoard;
 	}
 
-	public int getValue()
-	{
-		return myValue;
-	}
-
 	public Color getColor()
 	{
 		return myColor;
@@ -125,11 +119,6 @@ public abstract class Piece
 	public void setColor(Color myColor)
 	{
 		this.myColor = myColor;
-	}
-
-	public void setValue(int myValue)
-	{
-		this.myValue = myValue;
 	}
 
 	@Override

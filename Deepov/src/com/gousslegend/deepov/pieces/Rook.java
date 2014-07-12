@@ -30,7 +30,7 @@ public class Rook extends Piece
 	{
 		Board board = pieceToMove.getBoard();
 		Position position = pieceToMove.getPosition();
-		
+
 		MoveList pseudoLegalMoves = new MoveList(board);
 		int i = 1;
 
@@ -141,8 +141,9 @@ public class Rook extends Piece
 			destination = position.deltaY(i);
 		}
 
-		return pseudoLegalMoves;	}
-	
+		return pseudoLegalMoves;
+	}
+
 	@Override
 	public MoveList getPseudoLegalMoves()
 	{

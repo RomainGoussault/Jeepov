@@ -50,6 +50,12 @@ public class MoveList
 		this.list = myList;
 	}
 
+	//same board?
+	public void append(MoveList movelist)
+	{
+		list.addAll(movelist.getList());
+	}
+
 	public boolean add(Move move)
 	{
 		return list.add(move);

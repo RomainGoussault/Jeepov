@@ -9,7 +9,11 @@ import com.gousslegend.deepov.Position;
 
 public class Queen extends Piece
 {
-
+	public Queen()
+	{
+		super();
+	}
+	
 	public Queen(Position position, Board board, Color color)
 	{
 		super(position, board, color);
@@ -18,8 +22,14 @@ public class Queen extends Piece
 	@Override
 	public MoveList getPseudoLegalMoves()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		MoveList pseudoLegalMoves = new MoveList(myBoard);
+		MoveList rookMoves = Rook.getPseudoLegalMoves(this);
+		MoveList bishopMoves = Bishop.getPseudoLegalMoves(this);
+		
+		pseudoLegalMoves.append(rookMoves);
+		pseudoLegalMoves.append(bishopMoves);
+		
+		return pseudoLegalMoves;
 	}
 
 	@Override
