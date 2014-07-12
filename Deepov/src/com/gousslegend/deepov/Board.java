@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.gousslegend.deepov.pieces.Bishop;
 import com.gousslegend.deepov.pieces.King;
+import com.gousslegend.deepov.pieces.Knight;
+import com.gousslegend.deepov.pieces.Pawn;
 import com.gousslegend.deepov.pieces.Piece;
 import com.gousslegend.deepov.pieces.Queen;
+import com.gousslegend.deepov.pieces.Rook;
 
 public class Board
 {
@@ -20,7 +24,7 @@ public class Board
 
 	public Board()
 	{
-		myPieces = new HashMap<>(32);
+		myPieces = new HashMap<>(32,1);
 		myMoves = new ArrayList<>();
 	}
 
@@ -30,6 +34,36 @@ public class Board
 		myPieces.put(position, piece);
 	}
 
+	public void setupBoard()
+	{
+		//Add Pawns
+		for(int i = 0; i<8; i++)
+		{
+			addPiece(new Pawn(new Position(1,i), this, Color.WHITE));
+			addPiece(new Pawn(new Position(6,i), this, Color.BLACK));
+		}
+
+		addPiece(new Rook(new Position(0,0), this, Color.WHITE));
+		addPiece(new Rook(new Position(7,0), this, Color.WHITE));
+		addPiece(new Rook(new Position(0,7), this, Color.BLACK));
+		addPiece(new Rook(new Position(7,7), this, Color.BLACK));
+		
+		addPiece(new Knight(new Position(1,0), this, Color.WHITE));
+		addPiece(new Knight(new Position(6,0), this, Color.WHITE));
+		addPiece(new Knight(new Position(1,7), this, Color.BLACK));
+		addPiece(new Knight(new Position(6,7), this, Color.BLACK));
+		
+		addPiece(new Bishop(new Position(2,0), this, Color.WHITE));
+		addPiece(new Bishop(new Position(5,0), this, Color.WHITE));
+		addPiece(new Bishop(new Position(2,7), this, Color.BLACK));
+		addPiece(new Bishop(new Position(5,7), this, Color.BLACK));
+		
+		addPiece(new Queen(new Position(3,0), this, Color.WHITE));
+		addPiece(new Queen(new Position(3,7), this, Color.BLACK));
+		addPiece(new King(new Position(4,7), this, Color.BLACK));
+		addPiece(new King(new Position(4,7), this, Color.BLACK));
+	}
+	
 	@Override
 	public String toString()
 	{
