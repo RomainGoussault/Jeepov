@@ -26,30 +26,32 @@ public class Rook extends Piece
 		super(position, board, color);
 	}
 
-	@Override
-	public MoveList getPseudoLegalMoves()
+	public static MoveList getPseudoLegalMoves(Piece pieceToMove)
 	{
-		MoveList pseudoLegalMoves = new MoveList(myBoard);
+		Board board = pieceToMove.getBoard();
+		Position position = pieceToMove.getPosition();
+		
+		MoveList pseudoLegalMoves = new MoveList(board);
 		int i = 1;
 
 		Move possibleMove = null;
 		Position destination = null;
 
 		i = 1;
-		destination = myPosition.deltaX(i);
-		while (myBoard.isPositionOnBoard(destination))
+		destination = position.deltaX(i);
+		while (board.isPositionOnBoard(destination))
 		{
-			possibleMove = new Move(myPosition, destination);
+			possibleMove = new Move(position, destination);
 
-			if (myBoard.isPositionFree(destination))
+			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
 			}
 			else
 			{
-				Piece piece = myBoard.getPiece(destination);
+				Piece piece = board.getPiece(destination);
 				// look for capture
-				if (areColorDifferent(piece))
+				if (pieceToMove.areColorDifferent(piece))
 				{
 					possibleMove.setCapturedPiece(piece);
 					pseudoLegalMoves.add(possibleMove);
@@ -58,24 +60,24 @@ public class Rook extends Piece
 			}
 
 			i++;
-			destination = myPosition.deltaX(i);
+			destination = position.deltaX(i);
 		}
 
 		i = -1;
-		destination = myPosition.deltaX(i);
-		while (myBoard.isPositionOnBoard(destination))
+		destination = position.deltaX(i);
+		while (board.isPositionOnBoard(destination))
 		{
-			possibleMove = new Move(myPosition, destination);
+			possibleMove = new Move(position, destination);
 
-			if (myBoard.isPositionFree(destination))
+			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
 			}
 			else
 			{
-				Piece piece = myBoard.getPiece(destination);
+				Piece piece = board.getPiece(destination);
 				// look for capture
-				if (areColorDifferent(piece))
+				if (pieceToMove.areColorDifferent(piece))
 				{
 					possibleMove.setCapturedPiece(piece);
 					pseudoLegalMoves.add(possibleMove);
@@ -84,24 +86,24 @@ public class Rook extends Piece
 			}
 
 			i--;
-			destination = myPosition.deltaX(i);
+			destination = position.deltaX(i);
 		}
 
 		i = -1;
-		destination = myPosition.deltaY(i);
-		while (myBoard.isPositionOnBoard(destination))
+		destination = position.deltaY(i);
+		while (board.isPositionOnBoard(destination))
 		{
-			possibleMove = new Move(myPosition, destination);
+			possibleMove = new Move(position, destination);
 
-			if (myBoard.isPositionFree(destination))
+			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
 			}
 			else
 			{
-				Piece piece = myBoard.getPiece(destination);
+				Piece piece = board.getPiece(destination);
 				// look for capture
-				if (areColorDifferent(piece))
+				if (pieceToMove.areColorDifferent(piece))
 				{
 					possibleMove.setCapturedPiece(piece);
 					pseudoLegalMoves.add(possibleMove);
@@ -110,24 +112,24 @@ public class Rook extends Piece
 			}
 
 			i--;
-			destination = myPosition.deltaY(i);
+			destination = position.deltaY(i);
 		}
 
 		i = 1;
-		destination = myPosition.deltaY(i);
-		while (myBoard.isPositionOnBoard(destination))
+		destination = position.deltaY(i);
+		while (board.isPositionOnBoard(destination))
 		{
-			possibleMove = new Move(myPosition, destination);
+			possibleMove = new Move(position, destination);
 
-			if (myBoard.isPositionFree(destination))
+			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
 			}
 			else
 			{
-				Piece piece = myBoard.getPiece(destination);
+				Piece piece = board.getPiece(destination);
 				// look for capture
-				if (areColorDifferent(piece))
+				if (pieceToMove.areColorDifferent(piece))
 				{
 					possibleMove.setCapturedPiece(piece);
 					pseudoLegalMoves.add(possibleMove);
@@ -136,10 +138,15 @@ public class Rook extends Piece
 			}
 
 			i++;
-			destination = myPosition.deltaY(i);
+			destination = position.deltaY(i);
 		}
 
-		return pseudoLegalMoves;
+		return pseudoLegalMoves;	}
+	
+	@Override
+	public MoveList getPseudoLegalMoves()
+	{
+		return getPseudoLegalMoves(this);
 	}
 
 	@Override
