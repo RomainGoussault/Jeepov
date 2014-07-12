@@ -28,4 +28,10 @@ public class Knight extends Piece
 	// TODO Auto-generated method stub
 	return null;
     }
+    
+	@Override
+	public String toString()
+	{
+		return myColor + " Knight " + myPosition;
+	}
 }

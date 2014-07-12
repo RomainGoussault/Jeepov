@@ -222,4 +222,10 @@ public class Bishop extends Piece
 		
 		return attackedPositions;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return myColor + " Bishop " + myPosition;
+	}
 }

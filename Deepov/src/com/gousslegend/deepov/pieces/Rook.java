@@ -223,4 +223,10 @@ public class Rook extends Piece
 
 		return attackedPositions;
 	}
+
+	@Override
+	public String toString()
+	{
+		return myColor + " Rook " + myPosition;
+	}
 }

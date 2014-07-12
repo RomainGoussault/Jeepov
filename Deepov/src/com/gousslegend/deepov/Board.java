@@ -30,9 +30,10 @@ public class Board
 		myPieces.put(position, piece);
 	}
 
+	@Override
 	public String toString()
 	{
-		return null;
+		return "Board [myPieces=" + myPieces + ", myMoves=" + myMoves + "]";
 	}
 
 	public Piece getPiece(Position position)

@@ -135,6 +135,6 @@ public abstract class Piece
 	@Override
 	public String toString()
 	{
-		return "Piece [myPosition=" + myPosition + ", myColor=" + myColor + "]";
+		return myColor + " Piece " + myPosition;
 	}
 }

@@ -87,6 +87,12 @@ public class Pawn extends Piece
 		return pseudoLegalMoves;
 	}
 
+	@Override
+	public String toString()
+	{
+		return myColor + " Pawn " + myPosition;
+	}
+
 	private boolean enPassantCapturePossible()
 	{
 		if (!isOnGoodRankforEnPassant())
