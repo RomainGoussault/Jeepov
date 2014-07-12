@@ -1,5 +1,6 @@
 package com.gousslegend.deepov.pieces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.gousslegend.deepov.Board;
@@ -35,8 +36,14 @@ public class Queen extends Piece
 	@Override
 	public List<Position> getAttackingSquares()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		List<Position>  attackedSquares = new ArrayList<>();
+		List<Position>  rookMoves = Rook.getAttackingSquares(this);
+		List<Position>  bishopMoves = Bishop.getAttackingSquares(this);
+		
+		attackedSquares.addAll(rookMoves);
+		attackedSquares.addAll(bishopMoves);
+		
+		return attackedSquares;
 	}
 
 	@Override

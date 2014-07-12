@@ -24,7 +24,7 @@ public class Board
 
 	public Board()
 	{
-		myPieces = new HashMap<>(32,1);
+		myPieces = new HashMap<>(40);
 		myMoves = new ArrayList<>();
 	}
 
@@ -37,10 +37,10 @@ public class Board
 	public void setupBoard()
 	{
 		//Add Pawns
-		for(int i = 0; i<8; i++)
+		for(int i = 0; i<=7; i++)
 		{
-			addPiece(new Pawn(new Position(1,i), this, Color.WHITE));
-			addPiece(new Pawn(new Position(6,i), this, Color.BLACK));
+			addPiece(new Pawn(new Position(i,1), this, Color.WHITE));
+			addPiece(new Pawn(new Position(i,6), this, Color.BLACK));
 		}
 
 		addPiece(new Rook(new Position(0,0), this, Color.WHITE));
@@ -60,7 +60,7 @@ public class Board
 		
 		addPiece(new Queen(new Position(3,0), this, Color.WHITE));
 		addPiece(new Queen(new Position(3,7), this, Color.BLACK));
-		addPiece(new King(new Position(4,7), this, Color.BLACK));
+		addPiece(new King(new Position(4,0), this, Color.WHITE));
 		addPiece(new King(new Position(4,7), this, Color.BLACK));
 	}
 	

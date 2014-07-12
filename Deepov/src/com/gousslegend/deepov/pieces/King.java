@@ -15,7 +15,12 @@ public class King extends Piece
 	{
 		super();
 	}
-
+	
+	public King(Color color)
+	{
+		super(color);
+	}
+	
 	public King(Position position, Board board, Color color)
 	{
 		super(position, board, color);
