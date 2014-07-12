@@ -1,4 +1,4 @@
-package com.gousslegend.deepov.pieces
+package com.gousslegend.deepov
 import static org.junit.Assert.assertEquals
 
 import org.junit.Test
@@ -9,6 +9,7 @@ import com.gousslegend.deepov.Board
 import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Move
 import com.gousslegend.deepov.Position
+import com.gousslegend.deepov.pieces.Rook;
 
 class WhenTestingBoard extends spock.lang.Specification
 {

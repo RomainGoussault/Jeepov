@@ -1,4 +1,4 @@
-package com.gousslegend.deepov.pieces
+package com.gousslegend.deepov
 import static org.junit.Assert.assertEquals
 
 import org.junit.Test

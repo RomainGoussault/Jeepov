@@ -150,22 +150,24 @@ public class Rook extends Piece
 		return getPseudoLegalMoves(this);
 	}
 
-	@Override
-	public List<Position> getAttackingSquares()
+	public static List<Position> getAttackingSquares(Piece piece)
 	{
+		Position position = piece.getPosition();
+		Board board = piece.getBoard();
+		
 		List<Position> attackedPositions = new ArrayList<>();
 		int i = 1;
-
+		Piece otherPiece = null;
 		Position destination = null;
 
 		i = 1;
-		destination = myPosition.deltaX(i);
-		while (myBoard.isPositionOnBoard(destination))
+		destination = position.deltaX(i);
+		while (board.isPositionOnBoard(destination))
 		{
-			if (!myBoard.isPositionFree(destination))
+			if (!board.isPositionFree(destination))
 			{
-				Piece piece = myBoard.getPiece(destination);
-				if (areColorDifferent(piece))
+				otherPiece = board.getPiece(destination);
+				if (piece.areColorDifferent(otherPiece))
 				{
 					attackedPositions.add(destination);
 				}
@@ -173,34 +175,34 @@ public class Rook extends Piece
 			}
 
 			i++;
-			destination = myPosition.deltaX(i);
+			destination = position.deltaX(i);
 		}
 
 		i = -1;
-		destination = myPosition.deltaX(i);
-		while (myBoard.isPositionOnBoard(destination))
+		destination = position.deltaX(i);
+		while (board.isPositionOnBoard(destination))
 		{
-			if (!myBoard.isPositionFree(destination))
+			if (!board.isPositionFree(destination))
 			{
-				Piece piece = myBoard.getPiece(destination);
-				if (areColorDifferent(piece))
+				otherPiece = board.getPiece(destination);
+				if (piece.areColorDifferent(otherPiece))
 				{
 					attackedPositions.add(destination);
 				}
 				break;
 			}
 			i--;
-			destination = myPosition.deltaX(i);
+			destination = position.deltaX(i);
 		}
 
 		i = -1;
-		destination = myPosition.deltaY(i);
-		while (myBoard.isPositionOnBoard(destination))
+		destination = position.deltaY(i);
+		while (board.isPositionOnBoard(destination))
 		{
-			if (!myBoard.isPositionFree(destination))
+			if (!board.isPositionFree(destination))
 			{
-				Piece piece = myBoard.getPiece(destination);
-				if (areColorDifferent(piece))
+				otherPiece = board.getPiece(destination);
+				if (piece.areColorDifferent(otherPiece))
 				{
 					attackedPositions.add(destination);
 				}
@@ -208,17 +210,17 @@ public class Rook extends Piece
 			}
 
 			i--;
-			destination = myPosition.deltaY(i);
+			destination = position.deltaY(i);
 		}
 
 		i = 1;
-		destination = myPosition.deltaY(i);
-		while (myBoard.isPositionOnBoard(destination))
+		destination = position.deltaY(i);
+		while (board.isPositionOnBoard(destination))
 		{
-			if (!myBoard.isPositionFree(destination))
+			if (!board.isPositionFree(destination))
 			{
-				Piece piece = myBoard.getPiece(destination);
-				if (areColorDifferent(piece))
+				otherPiece = board.getPiece(destination);
+				if (piece.areColorDifferent(otherPiece))
 				{
 					attackedPositions.add(destination);
 				}
@@ -226,10 +228,17 @@ public class Rook extends Piece
 			}
 
 			i++;
-			destination = myPosition.deltaY(i);
+			destination = position.deltaY(i);
 		}
 
 		return attackedPositions;
+	}
+
+	
+	@Override
+	public List<Position> getAttackingSquares()
+	{
+		return getAttackingSquares(this);
 	}
 
 	@Override

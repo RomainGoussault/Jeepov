@@ -143,23 +143,25 @@ public class Bishop extends Piece
 		return getPseudoLegalMoves(this);
 	}
 
-	@Override
-	public List<Position> getAttackingSquares()
+	public static List<Position> getAttackingSquares(Piece piece)
 	{
+		Board board = piece.getBoard();
+		Position position = piece.getPosition();
+		
 		List<Position> attackedPositions = new ArrayList<>();
 		int i = 1;
-
+		Piece otherPiece= null;
 		Position destination = null;
 
 		i = 1;
-		destination = myPosition.deltaXY(i,-i);
-		while (myBoard.isPositionOnBoard(destination))
+		destination = position.deltaXY(i,-i);
+		while (board.isPositionOnBoard(destination))
 		{
 
-			if (!myBoard.isPositionFree(destination))
+			if (!board.isPositionFree(destination))
 			{
-				Piece piece = myBoard.getPiece(destination);
-				if (areColorDifferent(piece))
+				otherPiece = board.getPiece(destination);
+				if (piece.areColorDifferent(otherPiece))
 				{
 					attackedPositions.add(destination);
 				}
@@ -167,18 +169,18 @@ public class Bishop extends Piece
 			}
 
 			i++;
-			destination = myPosition.deltaXY(i,-i);
+			destination = position.deltaXY(i,-i);
 		}
 
 		i = 1;
-		destination = myPosition.deltaXY(-i,i);
-		while (myBoard.isPositionOnBoard(destination))
+		destination = position.deltaXY(-i,i);
+		while (board.isPositionOnBoard(destination))
 		{
 
-			if (!myBoard.isPositionFree(destination))
+			if (!board.isPositionFree(destination))
 			{
-				Piece piece = myBoard.getPiece(destination);
-				if (areColorDifferent(piece))
+				otherPiece = board.getPiece(destination);
+				if (piece.areColorDifferent(otherPiece))
 				{
 					attackedPositions.add(destination);
 				}
@@ -186,18 +188,18 @@ public class Bishop extends Piece
 			}
 
 			i++;
-			destination = myPosition.deltaXY(-i,i);
+			destination = position.deltaXY(-i,i);
 		}
 
 		i = 1;
-		destination = myPosition.deltaXY(i,i);
-		while (myBoard.isPositionOnBoard(destination))
+		destination = position.deltaXY(i,i);
+		while (board.isPositionOnBoard(destination))
 		{
 
-			if (!myBoard.isPositionFree(destination))
+			if (!board.isPositionFree(destination))
 			{
-				Piece piece = myBoard.getPiece(destination);
-				if (areColorDifferent(piece))
+				otherPiece = board.getPiece(destination);
+				if (piece.areColorDifferent(otherPiece))
 				{
 					attackedPositions.add(destination);
 				}
@@ -205,18 +207,18 @@ public class Bishop extends Piece
 			}
 
 			i++;
-			destination = myPosition.deltaXY(i,i);
+			destination = position.deltaXY(i,i);
 		}
 		
 		i = 1;
-		destination = myPosition.deltaXY(-i,-i);
-		while (myBoard.isPositionOnBoard(destination))
+		destination = position.deltaXY(-i,-i);
+		while (board.isPositionOnBoard(destination))
 		{
 
-			if (!myBoard.isPositionFree(destination))
+			if (!board.isPositionFree(destination))
 			{
-				Piece piece = myBoard.getPiece(destination);
-				if (areColorDifferent(piece))
+				otherPiece = board.getPiece(destination);
+				if (piece.areColorDifferent(otherPiece))
 				{
 					attackedPositions.add(destination);
 				}
@@ -224,10 +226,17 @@ public class Bishop extends Piece
 			}
 
 			i++;
-			destination = myPosition.deltaXY(-i,-i);
+			destination = position.deltaXY(-i,-i);
 		}
 		
 		return attackedPositions;
+	}
+
+	
+	@Override
+	public List<Position> getAttackingSquares()
+	{
+		return getAttackingSquares(this);
 	}
 	
 	@Override
