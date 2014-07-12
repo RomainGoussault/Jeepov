@@ -75,7 +75,6 @@ class WhenTestingQueenMovement extends spock.lang.Specification
 		queen.getLegalMoves().size() == 15;
 	}
 
-	/*
 	def "Test LegalMoves on pinned queen"()
 	{
 		given:
@@ -92,8 +91,8 @@ class WhenTestingQueenMovement extends spock.lang.Specification
 
 		where:
 		whiteQueenPosition| whiteRookPosition   | blackKingPosition | moveSize
-		new Position(1, 0) |  new Position(4, 0) | new Position(0, 0) | 0
-		new Position(2, 0) |  new Position(7, 0) | new Position(0, 0) | 0
+		new Position(1, 0) |  new Position(4, 0) | new Position(0, 0) | 3
+		new Position(2, 0) |  new Position(7, 0) | new Position(0, 0) | 6
 	}
 	
 	def "Test queen only move when king is in check"()
@@ -119,11 +118,16 @@ class WhenTestingQueenMovement extends spock.lang.Specification
 	{
 		given:
 		Rook blackRook = new Rook(new Position(1, 1), board, Color.BLACK)
-		Queen whiteQueen = new Queen( new Position(0, 0), board, Color.WHITE)
+		Queen whiteQueen = new Queen(new Position(0, 0), board, Color.WHITE)
+		Bishop whiteBishop = new Bishop(new Position(1, 0), board, Color.WHITE)
+		Bishop whiteBishop2 = new Bishop(new Position(0, 1), board, Color.WHITE)
+		
 		board.addPiece(blackRook)
 		board.addPiece(whiteQueen)
-
+		board.addPiece(whiteBishop)
+		board.addPiece(whiteBishop2)
+		
 		expect:
 		whiteQueen.getLegalMoves().getFistMove().getCapturedPiece() == blackRook;
-	}*/
+	}
 }

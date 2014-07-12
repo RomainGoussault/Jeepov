@@ -9,29 +9,29 @@ import com.gousslegend.deepov.Position;
 
 public class King extends Piece
 {
-    public King()
-    {
-	super();
-    }
-    
-    public King(Position position, Board board, Color color)
-    {
-	super(position, board, color);
-    }
+	public King()
+	{
+		super();
+	}
 
-    @Override
-    public MoveList getPseudoLegalMoves()
-    {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	public King(Position position, Board board, Color color)
+	{
+		super(position, board, color);
+	}
 
-    @Override
-    public List<Position> getAttackingSquares()
-    {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	@Override
+	public MoveList getPseudoLegalMoves()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Position> getAttackingSquares()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public MoveList getLegalMoves()
@@ -39,7 +39,7 @@ public class King extends Piece
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public String toString()
 	{

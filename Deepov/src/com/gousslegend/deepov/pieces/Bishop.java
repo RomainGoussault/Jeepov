@@ -232,7 +232,6 @@ public class Bishop extends Piece
 		return attackedPositions;
 	}
 
-	
 	@Override
 	public List<Position> getAttackingSquares()
 	{
