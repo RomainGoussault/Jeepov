@@ -214,7 +214,7 @@ public class Board
 	}
 	
 	/**
-	 * This method return the number of actives pieces on the board
+	 * This method return the number of active pieces on the board
 	 * @return
 	 */
 	public int getNumberOfPieces()
@@ -266,5 +266,12 @@ public class Board
 			pieces.add(piece);
 		}
 		return pieces;
+	}
+	
+	public int generateMoves(MoveList list)
+	{
+		
+		
+		return 0;
 	}
 }
