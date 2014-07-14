@@ -30,7 +30,7 @@ class WhenTestingPerft extends spock.lang.Specification
 		{
 			movesList.addAll(piece.getLegalMoves().getList())
 		}
-
+		
 		expect:
 		movesList.size() == 20;
 	}
