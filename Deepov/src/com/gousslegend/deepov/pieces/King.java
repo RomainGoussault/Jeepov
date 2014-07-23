@@ -11,6 +11,8 @@ import com.gousslegend.deepov.Position;
 
 public class King extends Piece
 {
+	private boolean isCastlingPossible = true;
+	
 	public King()
 	{
 		super();
@@ -67,6 +69,18 @@ public class King extends Piece
 		}
 
 		//TODO Castling
+		if(isCastlingPossible)
+		{
+			if(!this.hasMoved()) // && rook
+			{
+				//check for check
+			}
+			else
+			{
+				isCastlingPossible = false;
+			}
+		}
+		
 		return pseudoLegalMoves;
 	}
 

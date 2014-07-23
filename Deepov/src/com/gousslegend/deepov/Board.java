@@ -170,6 +170,7 @@ public class Board
 
 		Piece pieceToMove = getPiece(origin);
 		pieceToMove.setPosition(destination);
+		pieceToMove.incrementMoveCounter();
 
 		myPieces.remove(origin);
 		if (isCaptureMove)
@@ -196,6 +197,7 @@ public class Board
 		boolean isCaptureMove = move.getCapturedPiece() != null;
 		
 		Piece pieceMoved = getPiece(destination);
+		pieceMoved.decrementMoveCounter();
 
 		myPieces.remove(destination);
 		if (isCaptureMove)

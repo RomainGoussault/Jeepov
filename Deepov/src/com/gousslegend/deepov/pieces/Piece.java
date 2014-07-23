@@ -14,6 +14,7 @@ public abstract class Piece
 	protected Position myPosition;
 	protected Board myBoard;
 	protected Color myColor;
+	protected int moveCounter = 0;
 
 	/**
 	 * Default constructor used for testing
@@ -120,7 +121,22 @@ public abstract class Piece
 	{
 		this.myColor = myColor;
 	}
+	
+	public void incrementMoveCounter()
+	{
+		moveCounter++;
+	}
 
+	public void decrementMoveCounter()
+	{
+		moveCounter--;
+	}
+
+	public boolean hasMoved()
+	{
+		return moveCounter == 0;
+	}
+	
 	@Override
 	public String toString()
 	{
