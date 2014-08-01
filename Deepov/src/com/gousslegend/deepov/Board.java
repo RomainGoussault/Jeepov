@@ -67,7 +67,8 @@ public class Board
 	@Override
 	public String toString()
 	{
-		return "Board [myPieces=" + myPieces + ", myMoves=" + myMoves + "]";
+		return getRepresentation();
+		//return "Board [myPieces=" + myPieces + ", myMoves=" + myMoves + "]";
 	}
 
 	public Piece getPiece(Position position)
@@ -169,13 +170,20 @@ public class Board
 		boolean isCaptureMove = move.getCapturedPiece() != null;
 
 		Piece pieceToMove = getPiece(origin);
+		myPieces.remove(origin);
 		pieceToMove.setPosition(destination);
 		pieceToMove.incrementMoveCounter();
 
-		myPieces.remove(origin);
 		if (isCaptureMove)
 		{
 			myPieces.remove(destination);
+
+		}
+		
+		if(getPiece(destination) != null)
+		{
+			System.out.println("ERROR: Destination not null for Move " + move);
+
 		}
 		myPieces.put(destination, pieceToMove);
 		
@@ -300,5 +308,18 @@ public class Board
 		}
 		
 		return board;
+	}
+
+	public MoveList generateMoves(Color color)
+	{
+		List<Piece> pieces = getPieces(color);
+		MoveList moveList = new MoveList(this);
+		
+		for(Piece piece : pieces)
+		{
+			moveList.append(piece.getLegalMoves());
+		}
+		
+		return moveList;
 	}
 }

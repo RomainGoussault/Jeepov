@@ -11,7 +11,7 @@ public class Game
 		board = new Board();
 		board.setupBoard();
 		String boardRepresentation = board.getRepresentation();
-		System.out.print(boardRepresentation);
+		//System.out.print(boardRepresentation);
 	}
 
 	public Player getWhitePlayer()
@@ -38,9 +38,39 @@ public class Game
 	{
 		return board;
 	}
-	
+
 	public static void main(String[] args)
 	{
 		new Game();
+	}
+
+	public int perft(int depth)
+	{
+		int nMoves, i;
+		int nodes = 0;
+
+		Color color = Color.BLACK;
+		if (depth % 2 == 1)
+		{
+			color = Color.WHITE;
+		}
+		if (depth == 0)
+		{
+		//	System.out.println(board);
+			return 1;
+		}
+
+		MoveList moveList = board.generateMoves(color);
+		nMoves = moveList.size();
+
+
+		for (i = 0; i < nMoves; i++)
+		{
+			board.executeMove(moveList.getList().get(i));
+			nodes += perft(depth - 1);
+			board.undoMove(moveList.getList().get(i));
+		}
+		
+		return nodes;
 	}
 }

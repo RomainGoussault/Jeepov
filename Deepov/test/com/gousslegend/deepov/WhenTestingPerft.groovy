@@ -5,33 +5,21 @@ import spock.lang.*
 
 class WhenTestingPerft extends spock.lang.Specification
 {
-	def "Pieces number"()
+	def "Perft12"()
 	{
 		given:
-		Board board = new Board()
-		board.setupBoard();
-
-		def list = board.getPieces()
-
-		expect:
-		list.size() == 32;
-	}
-
-	def "Perft1"()
-	{
-		given:
-		Board board = new Board()
-		board.setupBoard();
-
-		def movesList = new ArrayList<Move>();
-		def pieces = board.getPieces()
-		
-		for(Piece piece: pieces)
-		{
-			movesList.addAll(piece.getLegalMoves().getList())
-		}
+		Game game = new Game()
 		
 		expect:
-		movesList.size() == 20;
+		game.perft(depth) == nodes;
+		
+		where:
+		depth  |  nodes
+		0 	   | 1
+		1 	   | 20
+		2 	   | 400
+		3 	   | 8902
+		4 	   | 197281
+		//5 	   | 4865609
 	}
 }
