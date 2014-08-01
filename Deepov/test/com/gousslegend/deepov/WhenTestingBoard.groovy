@@ -59,6 +59,7 @@ class WhenTestingBoard extends spock.lang.Specification
 		board.addPiece(new Rook(destination, board, Color.WHITE))
 		
 		def move = new Move(origin, destination)
+		move.setCapturedPiece(board.getPiece(destination))
 		board.executeMove(move);
 		def list = board.getPieces(Color.BLACK)
 		

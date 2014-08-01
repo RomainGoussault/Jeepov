@@ -5,10 +5,11 @@ import spock.lang.*
 
 class WhenTestingPerft extends spock.lang.Specification
 {
-	def "Perft12"()
+	@Unroll
+	def "Perft"()
 	{
 		given:
-		Game game = new Game()
+		Game game = new Game(false)
 		
 		expect:
 		game.perft(depth) == nodes;
@@ -20,6 +21,7 @@ class WhenTestingPerft extends spock.lang.Specification
 		2 	   | 400
 		3 	   | 8902
 		4 	   | 197281
-		//5 	   | 4865609
+		5 	   | 4865609
+	//	6      | 119060324
 	}
 }

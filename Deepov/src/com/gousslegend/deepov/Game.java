@@ -8,9 +8,18 @@ public class Game
 
 	public Game()
 	{
+		this(true);
+	}
+	
+	public Game(boolean showBoard)
+	{
 		board = new Board();
 		board.setupBoard();
-		System.out.print(board);
+		
+		if(showBoard)
+		{
+			System.out.print(board);
+		}
 	}
 
 	public Player getWhitePlayer()
@@ -55,13 +64,11 @@ public class Game
 		}
 		if (depth == 0)
 		{
-		//	System.out.println(board);
 			return 1;
 		}
 
 		MoveList moveList = board.generateMoves(color);
 		nMoves = moveList.size();
-
 
 		for (i = 0; i < nMoves; i++)
 		{

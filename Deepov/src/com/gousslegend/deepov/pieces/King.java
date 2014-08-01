@@ -67,7 +67,7 @@ public class King extends Piece
 			}
 		}
 
-		// TODO Castling
+		/*// TODO Castling
 		if (isCastlingPossible)
 		{
 			if (!this.hasMoved()) // && rook
@@ -77,7 +77,7 @@ public class King extends Piece
 			{
 				isCastlingPossible = false;
 			}
-		}
+		}*/
 
 		return pseudoLegalMoves;
 	}
