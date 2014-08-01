@@ -70,7 +70,7 @@ public class Pawn extends Piece
 		} else if (isOnStartingRank()) // +2 square forward move
 		{
 			destination = myPosition.deltaY(2 * direction);
-			if (myBoard.isPositionFree(destination))
+			if (myBoard.isPositionFree(destination) && myBoard.isPositionFree(myPosition.deltaY(direction)))
 			{
 				pseudoLegalMoves.add(new Move(myPosition, destination));
 			}
