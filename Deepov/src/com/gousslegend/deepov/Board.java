@@ -91,7 +91,7 @@ public class Board
 		}
 		
 		board +="   ________________\n";
-		board +="    0 1 2 3 4 5 6 7";
+		board +="    0 1 2 3 4 5 6 7\n";
 		
 		return board;
 	}
@@ -235,7 +235,8 @@ public class Board
 		myPieces.remove(destination);
 		if (isCaptureMove)
 		{
-			myPieces.put(destination, move.getCapturedPiece());
+			Piece pieceCaptured = move.getCapturedPiece();
+			myPieces.put(pieceCaptured.getPosition(), pieceCaptured);
 		}
 		pieceMoved.setPosition(origin);
 		myPieces.put(origin, pieceMoved);
