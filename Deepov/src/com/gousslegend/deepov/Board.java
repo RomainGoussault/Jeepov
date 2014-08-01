@@ -67,8 +67,33 @@ public class Board
 	@Override
 	public String toString()
 	{
-		return getRepresentation();
-		//return "Board [myPieces=" + myPieces + ", myMoves=" + myMoves + "]";
+		String board = "";
+		Piece piece = null;
+		
+		for(int i = 7; i >= 0 ; i--)
+		{
+			board += i + "|  ";
+
+			for(int j = 0; j < 8 ; j++)
+			{
+				piece = getPiece(new Position(j,i));
+				if(piece == null)
+				{
+					board += "* ";
+				}
+				else
+				{
+					board += piece.getChar() + " ";
+				}				
+			}
+			
+			board += " \n";
+		}
+		
+		board +="   ________________\n";
+		board +="    0 1 2 3 4 5 6 7";
+		
+		return board;
 	}
 
 	public Piece getPiece(Position position)
@@ -284,32 +309,6 @@ public class Board
 		return 0;
 	}
 	
-	public String getRepresentation()
-	{
-		String board = "";
-		Piece piece = null;
-		
-		for(int i = 0; i < 8 ; i++)
-		{
-			for(int j = 0; j < 8 ; j++)
-			{
-				piece = getPiece(new Position(j,i));
-				if(piece == null)
-				{
-					board += "* ";
-				}
-				else
-				{
-					board += piece.getChar() + " ";
-				}				
-			}
-			
-			board += " \n";
-		}
-		
-		return board;
-	}
-
 	public MoveList generateMoves(Color color)
 	{
 		List<Piece> pieces = getPieces(color);

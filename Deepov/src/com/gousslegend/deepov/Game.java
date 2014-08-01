@@ -10,8 +10,7 @@ public class Game
 	{
 		board = new Board();
 		board.setupBoard();
-		String boardRepresentation = board.getRepresentation();
-		//System.out.print(boardRepresentation);
+		System.out.print(board);
 	}
 
 	public Player getWhitePlayer()
