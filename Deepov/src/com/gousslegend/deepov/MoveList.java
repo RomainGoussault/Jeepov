@@ -5,7 +5,6 @@ import java.util.List;
 
 public class MoveList
 {
-
 	private List<Move> list;
 	private Board myBoard;
 
