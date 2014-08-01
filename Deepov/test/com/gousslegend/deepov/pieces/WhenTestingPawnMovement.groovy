@@ -29,13 +29,21 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 	def "Testing pawn alone on board"()
 	{
 		given:
-		Pawn pawn = new Pawn(new Position(5,5), board, Color.BLACK)
+		Pawn pawn = new Pawn(whitePawnPosition, board, Color.WHITE)
 		board.addPiece(pawn)
 
 		expect:
-		pawn.getLegalMoves().size() == 1
+		pawn.getLegalMoves().size() == moveSize
+		
+		where:
+		whitePawnPosition  |  moveSize
+		new Position(5, 5) | 1
+		new Position(4, 4) | 1
+		new Position(5, 4) | 1
+		new Position(6, 6) | 1
+		new Position(2, 4) | 1
 	}
-
+	
 	def "Test LegalMoves on Pawn with Ennemy Rook"()
 	{
 		given:
