@@ -52,8 +52,7 @@ public class Knight extends Piece
 				{
 					possibleMove = new Move(myPosition, destination);
 					pseudoLegalMoves.add(possibleMove);
-				}
-				else
+				} else
 				{
 					Piece piece = myBoard.getPiece(destination);
 					// look for capture
@@ -100,5 +99,12 @@ public class Knight extends Piece
 	public String toString()
 	{
 		return myColor + " Knight " + myPosition;
+	}
+
+	@Override
+	public String getChar()
+	{
+		return formatChar("N");
+
 	}
 }

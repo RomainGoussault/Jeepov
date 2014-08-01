@@ -9,6 +9,9 @@ public class Game
 	public Game()
 	{
 		board = new Board();
+		board.setupBoard();
+		String boardRepresentation = board.getRepresentation();
+		System.out.print(boardRepresentation);
 	}
 
 	public Player getWhitePlayer()
@@ -34,5 +37,10 @@ public class Game
 	public Board getBoard()
 	{
 		return board;
+	}
+	
+	public static void main(String[] args)
+	{
+		new Game();
 	}
 }

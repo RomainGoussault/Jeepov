@@ -15,6 +15,7 @@ public class Bishop extends Piece
 	{
 		super();
 	}
+
 	public Bishop(Position position, Board board, Color color)
 	{
 		super(position, board, color);
@@ -24,7 +25,7 @@ public class Bishop extends Piece
 	{
 		Board board = pieceToMove.getBoard();
 		Position position = pieceToMove.getPosition();
-		
+
 		MoveList pseudoLegalMoves = new MoveList(board);
 		int i = 1;
 
@@ -32,7 +33,7 @@ public class Bishop extends Piece
 		Position destination = null;
 
 		i = 1;
-		destination = position.deltaXY(i,-i);
+		destination = position.deltaXY(i, -i);
 		while (board.isPositionOnBoard(destination))
 		{
 			possibleMove = new Move(position, destination);
@@ -40,8 +41,7 @@ public class Bishop extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			}
-			else
+			} else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -54,11 +54,11 @@ public class Bishop extends Piece
 			}
 
 			i++;
-			destination = position.deltaXY(i,-i);
+			destination = position.deltaXY(i, -i);
 		}
 
 		i = 1;
-		destination = position.deltaXY(-i,i);
+		destination = position.deltaXY(-i, i);
 		while (board.isPositionOnBoard(destination))
 		{
 			possibleMove = new Move(position, destination);
@@ -66,8 +66,7 @@ public class Bishop extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			}
-			else
+			} else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -80,11 +79,11 @@ public class Bishop extends Piece
 			}
 
 			i++;
-			destination = position.deltaXY(-i,i);
+			destination = position.deltaXY(-i, i);
 		}
 
 		i = 1;
-		destination = position.deltaXY(i,i);
+		destination = position.deltaXY(i, i);
 		while (board.isPositionOnBoard(destination))
 		{
 			possibleMove = new Move(position, destination);
@@ -92,8 +91,7 @@ public class Bishop extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			}
-			else
+			} else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -106,11 +104,11 @@ public class Bishop extends Piece
 			}
 
 			i++;
-			destination = position.deltaXY(i,i);
+			destination = position.deltaXY(i, i);
 		}
 
 		i = 1;
-		destination = position.deltaXY(-i,-i);
+		destination = position.deltaXY(-i, -i);
 		while (board.isPositionOnBoard(destination))
 		{
 			possibleMove = new Move(position, destination);
@@ -118,8 +116,7 @@ public class Bishop extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			}
-			else
+			} else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -132,11 +129,12 @@ public class Bishop extends Piece
 			}
 
 			i++;
-			destination = position.deltaXY(-i,-i);
+			destination = position.deltaXY(-i, -i);
 		}
 
-		return pseudoLegalMoves;	}
-	
+		return pseudoLegalMoves;
+	}
+
 	@Override
 	public MoveList getPseudoLegalMoves()
 	{
@@ -147,14 +145,14 @@ public class Bishop extends Piece
 	{
 		Board board = piece.getBoard();
 		Position position = piece.getPosition();
-		
+
 		List<Position> attackedPositions = new ArrayList<>();
 		int i = 1;
-		Piece otherPiece= null;
+		Piece otherPiece = null;
 		Position destination = null;
 
 		i = 1;
-		destination = position.deltaXY(i,-i);
+		destination = position.deltaXY(i, -i);
 		while (board.isPositionOnBoard(destination))
 		{
 
@@ -169,11 +167,11 @@ public class Bishop extends Piece
 			}
 
 			i++;
-			destination = position.deltaXY(i,-i);
+			destination = position.deltaXY(i, -i);
 		}
 
 		i = 1;
-		destination = position.deltaXY(-i,i);
+		destination = position.deltaXY(-i, i);
 		while (board.isPositionOnBoard(destination))
 		{
 
@@ -188,11 +186,11 @@ public class Bishop extends Piece
 			}
 
 			i++;
-			destination = position.deltaXY(-i,i);
+			destination = position.deltaXY(-i, i);
 		}
 
 		i = 1;
-		destination = position.deltaXY(i,i);
+		destination = position.deltaXY(i, i);
 		while (board.isPositionOnBoard(destination))
 		{
 
@@ -207,11 +205,11 @@ public class Bishop extends Piece
 			}
 
 			i++;
-			destination = position.deltaXY(i,i);
+			destination = position.deltaXY(i, i);
 		}
-		
+
 		i = 1;
-		destination = position.deltaXY(-i,-i);
+		destination = position.deltaXY(-i, -i);
 		while (board.isPositionOnBoard(destination))
 		{
 
@@ -226,9 +224,9 @@ public class Bishop extends Piece
 			}
 
 			i++;
-			destination = position.deltaXY(-i,-i);
+			destination = position.deltaXY(-i, -i);
 		}
-		
+
 		return attackedPositions;
 	}
 
@@ -237,10 +235,16 @@ public class Bishop extends Piece
 	{
 		return getAttackingSquares(this);
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		return myColor + " Bishop " + myPosition;
+	}
+
+	@Override
+	public String getChar()
+	{
+		return formatChar("B");
 	}
 }

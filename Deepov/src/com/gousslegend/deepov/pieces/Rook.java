@@ -46,8 +46,7 @@ public class Rook extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			}
-			else
+			} else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -72,8 +71,7 @@ public class Rook extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			}
-			else
+			} else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -98,8 +96,7 @@ public class Rook extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			}
-			else
+			} else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -124,8 +121,7 @@ public class Rook extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			}
-			else
+			} else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -154,7 +150,7 @@ public class Rook extends Piece
 	{
 		Position position = piece.getPosition();
 		Board board = piece.getBoard();
-		
+
 		List<Position> attackedPositions = new ArrayList<>();
 		int i = 1;
 		Piece otherPiece = null;
@@ -234,7 +230,6 @@ public class Rook extends Piece
 		return attackedPositions;
 	}
 
-	
 	@Override
 	public List<Position> getAttackingSquares()
 	{
@@ -245,5 +240,11 @@ public class Rook extends Piece
 	public String toString()
 	{
 		return myColor + " Rook " + myPosition;
+	}
+
+	@Override
+	public String getChar()
+	{
+		return formatChar("R");
 	}
 }

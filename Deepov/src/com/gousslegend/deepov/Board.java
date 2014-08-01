@@ -272,8 +272,33 @@ public class Board
 	
 	public int generateMoves(MoveList list)
 	{
-		
-		
+		//TODO
 		return 0;
+	}
+	
+	public String getRepresentation()
+	{
+		String board = "";
+		Piece piece = null;
+		
+		for(int i = 0; i < 8 ; i++)
+		{
+			for(int j = 0; j < 8 ; j++)
+			{
+				piece = getPiece(new Position(j,i));
+				if(piece == null)
+				{
+					board += "* ";
+				}
+				else
+				{
+					board += piece.getChar() + " ";
+				}				
+			}
+			
+			board += " \n";
+		}
+		
+		return board;
 	}
 }

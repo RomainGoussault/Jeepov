@@ -67,18 +67,17 @@ public class Pawn extends Piece
 			{
 				move.setIsPromotion(true);
 			}
-		}
-		else if (isOnStartingRank()) // +2 square forward move
+		} else if (isOnStartingRank()) // +2 square forward move
 		{
 			destination = myPosition.deltaY(2 * direction);
 			if (myBoard.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(new Move(myPosition, destination));
 			}
-		}
-		else if (enPassantCapturePossible())// En Passant
+		} else if (enPassantCapturePossible())// En Passant
 		{
-			Position ennemyPawnPosition = myBoard.getLastMove().getDestination();
+			Position ennemyPawnPosition = myBoard.getLastMove()
+					.getDestination();
 			possibleMove = new Move(myPosition, ennemyPawnPosition);
 			possibleMove.setCapturedPiece(myBoard.getPiece(ennemyPawnPosition));
 			pseudoLegalMoves.add(new Move(myPosition, ennemyPawnPosition));
@@ -103,8 +102,7 @@ public class Pawn extends Piece
 		if (ennemyLastMoveAllowEnPassant())
 		{
 			return true;
-		}
-		else
+		} else
 		{
 			return false;
 		}
@@ -137,8 +135,7 @@ public class Pawn extends Piece
 		if (myColor == Color.WHITE)
 		{
 			return myPosition.getY() == 4;
-		}
-		else
+		} else
 		{
 			return myPosition.getY() == 3;
 		}
@@ -185,8 +182,7 @@ public class Pawn extends Piece
 		if (myColor == Color.WHITE)
 		{
 			return myPosition.getY() == 1;
-		}
-		else
+		} else
 		{
 			return myPosition.getY() == 6;
 		}
@@ -197,8 +193,7 @@ public class Pawn extends Piece
 		if (myColor == Color.WHITE)
 		{
 			return myPosition.getY() == 7;
-		}
-		else
+		} else
 		{
 			return myPosition.getY() == 0;
 		}
@@ -209,8 +204,7 @@ public class Pawn extends Piece
 		if (myColor == Color.WHITE)
 		{
 			return 1;
-		}
-		else
+		} else
 		{
 			return -1;
 		}
@@ -221,10 +215,15 @@ public class Pawn extends Piece
 		if (myColor == Color.WHITE)
 		{
 			return myPosition.getY() == 6;
-		}
-		else
+		} else
 		{
 			return myPosition.getY() == 1;
 		}
+	}
+
+	@Override
+	public String getChar()
+	{
+		return formatChar("P");
 	}
 }

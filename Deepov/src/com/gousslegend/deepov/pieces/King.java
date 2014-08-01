@@ -12,17 +12,17 @@ import com.gousslegend.deepov.Position;
 public class King extends Piece
 {
 	private boolean isCastlingPossible = true;
-	
+
 	public King()
 	{
 		super();
 	}
-	
+
 	public King(Color color)
 	{
 		super(color);
 	}
-	
+
 	public King(Position position, Board board, Color color)
 	{
 		super(position, board, color);
@@ -53,8 +53,7 @@ public class King extends Piece
 				{
 					possibleMove = new Move(myPosition, destination);
 					pseudoLegalMoves.add(possibleMove);
-				}
-				else
+				} else
 				{
 					Piece piece = myBoard.getPiece(destination);
 					// look for capture
@@ -68,19 +67,18 @@ public class King extends Piece
 			}
 		}
 
-		//TODO Castling
-		if(isCastlingPossible)
+		// TODO Castling
+		if (isCastlingPossible)
 		{
-			if(!this.hasMoved()) // && rook
+			if (!this.hasMoved()) // && rook
 			{
-				//check for check
-			}
-			else
+				// check for check
+			} else
 			{
 				isCastlingPossible = false;
 			}
 		}
-		
+
 		return pseudoLegalMoves;
 	}
 
@@ -114,5 +112,11 @@ public class King extends Piece
 	public String toString()
 	{
 		return myColor + " King " + myPosition;
+	}
+
+	@Override
+	public String getChar()
+	{
+		return formatChar("K");
 	}
 }

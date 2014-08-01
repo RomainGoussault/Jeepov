@@ -14,7 +14,7 @@ public class Queen extends Piece
 	{
 		super();
 	}
-	
+
 	public Queen(Position position, Board board, Color color)
 	{
 		super(position, board, color);
@@ -26,23 +26,23 @@ public class Queen extends Piece
 		MoveList pseudoLegalMoves = new MoveList(myBoard);
 		MoveList rookMoves = Rook.getPseudoLegalMoves(this);
 		MoveList bishopMoves = Bishop.getPseudoLegalMoves(this);
-		
+
 		pseudoLegalMoves.append(rookMoves);
 		pseudoLegalMoves.append(bishopMoves);
-		
+
 		return pseudoLegalMoves;
 	}
 
 	@Override
 	public List<Position> getAttackingSquares()
 	{
-		List<Position>  attackedSquares = new ArrayList<>();
-		List<Position>  rookMoves = Rook.getAttackingSquares(this);
-		List<Position>  bishopMoves = Bishop.getAttackingSquares(this);
-		
+		List<Position> attackedSquares = new ArrayList<>();
+		List<Position> rookMoves = Rook.getAttackingSquares(this);
+		List<Position> bishopMoves = Bishop.getAttackingSquares(this);
+
 		attackedSquares.addAll(rookMoves);
 		attackedSquares.addAll(bishopMoves);
-		
+
 		return attackedSquares;
 	}
 
@@ -50,5 +50,11 @@ public class Queen extends Piece
 	public String toString()
 	{
 		return myColor + " Queen " + myPosition;
+	}
+
+	@Override
+	public String getChar()
+	{
+		return formatChar("Q");
 	}
 }
