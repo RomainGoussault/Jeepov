@@ -7,8 +7,8 @@ public class Move
 	private Position myOrigin;
 	private Position myDestination;
 	private Piece myCapturedPiece;
-	private int myScore;
 	private boolean myIsPromotion;
+	private boolean myIsCastling;
 
 	public Move(Position origin, Position destination)
 	{
@@ -36,16 +36,6 @@ public class Move
 		this.myDestination = myDestination;
 	}
 
-	public int getScore()
-	{
-		return myScore;
-	}
-
-	public void setScore(int myScore)
-	{
-		this.myScore = myScore;
-	}
-
 	public Piece getCapturedPiece()
 	{
 		return myCapturedPiece;
@@ -68,9 +58,18 @@ public class Move
 		return myIsPromotion;
 	}
 
-	public void setIsPromotion(boolean myIsPromotion)
+	public void setIsPromotion(boolean isPromotion)
 	{
-		this.myIsPromotion = myIsPromotion;
+		myIsPromotion = isPromotion;
 	}
 
+	public boolean isCastling()
+	{
+		return myIsCastling;
+	}
+
+	public void setisCastling(boolean isCastling)
+	{
+		myIsCastling = isCastling;
+	}
 }

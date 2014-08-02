@@ -110,4 +110,24 @@ class WhenTestingKingMovement extends spock.lang.Specification
 		expect:
 		whiteKing.getLegalMoves().getFistMove().getCapturedPiece() == blackRook;
 	}
+	
+	@Unroll
+	def "Castling"()
+	{
+		given:
+		King whiteKing = new King(whiteKingPosition, board, Color.WHITE)
+		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE)
+
+		board.addPiece(whiteKing)
+		board.addPiece(whiteRook)
+
+		expect:
+		whiteKing.isKingSideCastlingPossible() == castlingAllowed
+
+		where:
+		whiteKingPosition  | whiteRookPosition   | castlingAllowed
+		new Position(4, 0) |  new Position(7, 0)  | true
+		new Position(4, 0) |  new Position(5, 0)  | false
+		new Position(4, 1) |  new Position(7, 0)  | false
+	}
 }

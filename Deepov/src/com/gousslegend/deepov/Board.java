@@ -145,14 +145,28 @@ public class Board
 
 		for (Piece ennemyPiece : ennemyPieces)
 		{
-			if (isPieceChecking(ennemyPiece, kingPosition))
+			if (isPieceAttacking(ennemyPiece, kingPosition))
 			{
 				return true;
 			}
 		}
 		return false;
 	}
+	
+	public boolean isPositionAttacked(Position position, Color color)
+	{
+		List<Piece> ennemyPieces = getEnnemiesPieces(color);
 
+		for (Piece ennemyPiece : ennemyPieces)
+		{
+			if (isPieceAttacking(ennemyPiece, position))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public List<Piece> getEnnemiesPieces(Color color)
 	{
 		return getPieces(color.getOppositeColor());
@@ -270,11 +284,11 @@ public class Board
 		}
 	}
 	
-	private boolean isPieceChecking(Piece ennemyPiece, Position kingPosition)
+	private boolean isPieceAttacking(Piece ennemyPiece, Position positionAttackec)
 	{
 		List<Position> attackingSquares = ennemyPiece.getAttackingSquares();
 		
-		return attackingSquares.contains(kingPosition);
+		return attackingSquares.contains(positionAttackec);
 	}
 	
 	private List<Piece> getPieces(Color color)
