@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Position
 {
-	private int x;
-	private int y;
+	private byte x;
+	private byte y;
 
 	public Position()
 	{
@@ -14,19 +14,34 @@ public class Position
 		y = 0;
 	}
 
-	public Position(int _x, int _y)
+	public Position(byte _x, byte _y)
 	{
 		x = _x;
 		y = _y;
 	}
 	
+	public Position(int x, byte y)
+	{
+		this((byte) x , y);
+	}
+
+	public Position(byte x, int y)
+	{
+		this(x , (byte) y);
+	}
+
+	public Position(int x, int y)
+	{
+		this((byte) x , (byte) y);
+	}
+
 	public static List<Position> getAllPositionOnBoard()
 	{
 		List<Position> positions= new ArrayList<>();
 		
-		for(int i = 0; i<= Board.BOARD_SIZE; i++)
+		for(byte i = 0; i<= Board.BOARD_SIZE; i++)
 		{
-			for(int j = 0; j<= Board.BOARD_SIZE; j++)
+			for(byte j = 0; j<= Board.BOARD_SIZE; j++)
 			{
 				positions.add(new Position(i,j));
 			}
@@ -34,7 +49,6 @@ public class Position
 		
 		return positions;
 	}
-	
 
 	public Position deltaX(int delta)
 	{
@@ -51,27 +65,27 @@ public class Position
 		return new Position(x + deltaX, y + deltaY);
 	}
 
-	public Position deltaXY(int delta)
+	public Position deltaXY(byte delta)
 	{
 		return deltaXY(delta, delta);
 	}
 	
-	public int getX()
+	public byte getX()
 	{
 		return x;
 	}
 
-	public void setX(int x)
+	public void setX(byte x)
 	{
 		this.x = x;
 	}
 
-	public int getY()
+	public byte getY()
 	{
 		return y;
 	}
 
-	public void setY(int y)
+	public void setY(byte y)
 	{
 		this.y = y;
 	}
@@ -85,7 +99,7 @@ public class Position
 	@Override
 	public int hashCode()
 	{
-		final int prime = 31;
+		final byte prime = 31;
 		int result = 1;
 		result = prime * result + x;
 		result = prime * result + y;
