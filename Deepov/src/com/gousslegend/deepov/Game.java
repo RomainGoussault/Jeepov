@@ -49,7 +49,8 @@ public class Game
 
 	public static void main(String[] args)
 	{
-		new Game();
+		Game game = new Game();
+		//System.out.println(game.perft(6));
 	}
 
 	public int perft(int depth)
