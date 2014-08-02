@@ -14,7 +14,6 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 	@Shared
 	Pawn pawn
 
-
 	def setupSpec()
 	{
 		board = new Board()
@@ -192,7 +191,26 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		new Position(0, 5) | 1
 		new Position(7, 5) | 1
 	}
+	
+	@Unroll
+	def "Test en +2 move"()
+	{
+		given: "Two pawns"
+		Pawn whitePawn = new Pawn(whitePawnPosition, board, Color.WHITE)
+		Pawn whitePawn2 = new Pawn(whitePawn2Position, board, Color.WHITE)
+		board.addPiece(whitePawn)
+		board.addPiece(whitePawn2)
 
+		expect:
+		whitePawn.getLegalMoves().size() == moveSize
+
+		where:
+		whitePawnPosition  | whitePawn2Position    | moveSize 
+		new Position(0, 1) | new Position(5, 5)    | 2
+		new Position(0, 1) | new Position(0, 2)    | 0
+		new Position(0, 1) | new Position(0, 3)    | 1
+	}
+	
 	@Unroll
 	def "Test en passant"()
 	{
