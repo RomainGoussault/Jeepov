@@ -59,8 +59,8 @@ public class Move
 	@Override
 	public String toString()
 	{
-		return "Move [myOrigin=" + myOrigin + ", myDestination="
-				+ myDestination + ", myCapturedPiece=" + myCapturedPiece + "]" + "\n";
+		return "Move [org=" + myOrigin + ", dest="
+				+ myDestination + ", Captured=" + myCapturedPiece + "]" + "\n";
 	}
 
 	public boolean isPromotion()

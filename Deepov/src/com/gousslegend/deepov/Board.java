@@ -304,12 +304,6 @@ public class Board
 		return pieces;
 	}
 	
-	public int generateMoves(MoveList list)
-	{
-		//TODO
-		return 0;
-	}
-	
 	public MoveList generateMoves(Color color)
 	{
 		List<Piece> pieces = getPieces(color);
