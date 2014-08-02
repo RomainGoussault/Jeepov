@@ -128,6 +128,5 @@ class WhenTestingKingMovement extends spock.lang.Specification
 		whiteKingPosition  | whiteRookPosition   | castlingAllowed
 		new Position(4, 0) |  new Position(7, 0)  | true
 		new Position(4, 0) |  new Position(5, 0)  | false
-		new Position(4, 1) |  new Position(7, 0)  | false
 	}
 }
