@@ -133,7 +133,7 @@ public abstract class Piece
 
 	public boolean hasMoved()
 	{
-		return moveCounter == 0;
+		return moveCounter != 0;
 	}
 
 	@Override
