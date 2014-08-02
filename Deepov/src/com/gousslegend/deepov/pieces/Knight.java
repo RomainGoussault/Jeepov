@@ -3,11 +3,11 @@ package com.gousslegend.deepov.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
+import com.gousslegend.deepov.board.MapBoard;
 
 public class Knight extends Piece
 {
@@ -22,7 +22,7 @@ public class Knight extends Piece
 		super(color);
 	}
 
-	public Knight(Position position, Board board, Color color)
+	public Knight(Position position, MapBoard board, Color color)
 	{
 		super(position, board, color);
 	}

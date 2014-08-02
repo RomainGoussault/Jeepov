@@ -21,7 +21,8 @@ class WhenTestingPerft extends spock.lang.Specification
 		2 	   | 400
 		3 	   | 8902
 		4 	   | 197281
-		5 	   | 4865609
+	//	5 	   | 4865609
 	//	6      | 119060324
+	//	7      | 3195901860
 	}
 }

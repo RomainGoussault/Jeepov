@@ -1,5 +1,8 @@
 package com.gousslegend.deepov;
 
+import com.gousslegend.deepov.board.Board;
+import com.gousslegend.deepov.board.MapBoard;
+
 public class Game
 {
 	private Board board;
@@ -13,7 +16,7 @@ public class Game
 	
 	public Game(boolean showBoard)
 	{
-		board = new Board();
+		board = new MapBoard();
 		board.setupBoard();
 		
 		if(showBoard)

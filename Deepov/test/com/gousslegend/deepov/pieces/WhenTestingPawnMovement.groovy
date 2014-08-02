@@ -1,10 +1,11 @@
 package com.gousslegend.deepov.pieces
 import spock.lang.*
 
-import com.gousslegend.deepov.Board
 import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Move
 import com.gousslegend.deepov.Position
+import com.gousslegend.deepov.board.Board;
+import com.gousslegend.deepov.board.MapBoard;
 
 class WhenTestingPawnMovement extends spock.lang.Specification
 {
@@ -13,16 +14,16 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 	Board board
 	@Shared
 	Pawn pawn
-
+	
 	def setupSpec()
 	{
-		board = new Board()
+		board = new MapBoard()
 		pawn = new Pawn()
 	}
 
 	def cleanup()
 	{
-		board = new Board()
+		board = new MapBoard()
 	}
 
 	def "Testing pawn alone on board"()

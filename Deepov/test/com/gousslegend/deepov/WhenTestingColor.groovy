@@ -5,9 +5,9 @@ import org.junit.Test
 
 import spock.lang.*
 
-import com.gousslegend.deepov.Board
 import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Position
+import com.gousslegend.deepov.board.MapBoard;
 
 class WhenTestingColor extends spock.lang.Specification
 {

@@ -1,4 +1,4 @@
-package com.gousslegend.deepov;
+package com.gousslegend.deepov.board;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.gousslegend.deepov.Color;
+import com.gousslegend.deepov.Move;
+import com.gousslegend.deepov.Position;
 import com.gousslegend.deepov.pieces.Bishop;
 import com.gousslegend.deepov.pieces.King;
 import com.gousslegend.deepov.pieces.Knight;
@@ -14,15 +17,10 @@ import com.gousslegend.deepov.pieces.Piece;
 import com.gousslegend.deepov.pieces.Queen;
 import com.gousslegend.deepov.pieces.Rook;
 
-public class Board
+public class MapBoard extends Board
 {
 	private Map<Position, Piece> myPieces;
-	public static final int BOARD_SIZE = 7;
-	
-	/** Move taken in this game so far */
-	private List<Move> myMoves;
-
-	public Board()
+	public MapBoard()
 	{
 		myPieces = new HashMap<>(40);
 		myMoves = new ArrayList<>();
@@ -64,38 +62,6 @@ public class Board
 		addPiece(new King(new Position(4,7), this, Color.BLACK));
 	}
 	
-	@Override
-	public String toString()
-	{
-		String board = "";
-		Piece piece = null;
-		
-		for(int i = 7; i >= 0 ; i--)
-		{
-			board += i + "|  ";
-
-			for(int j = 0; j < 8 ; j++)
-			{
-				piece = getPiece(new Position(j,i));
-				if(piece == null)
-				{
-					board += "* ";
-				}
-				else
-				{
-					board += piece.getChar() + " ";
-				}				
-			}
-			
-			board += " \n";
-		}
-		
-		board +="   ________________\n";
-		board +="    0 1 2 3 4 5 6 7\n";
-		
-		return board;
-	}
-
 	public Piece getPiece(Position position)
 	{
 		return myPieces.get(position);
@@ -117,59 +83,6 @@ public class Board
 		}
 
 		return !myPieces.containsKey(position);
-	}
-	
-	public boolean isPositionOnBoard(Position position)
-	{
-		int x = position.getX();
-		int y = position.getY();
-
-		if (x > BOARD_SIZE || y > BOARD_SIZE)
-		{
-			return false;
-		}
-
-		if (x < 0 || y < 0)
-		{
-			return false;
-		}
-
-		return true;
-	}
-
-	public boolean isCheck(Color color)
-	{
-		Position kingPosition = getKingPosition(color);
-
-		List<Piece> ennemyPieces = getEnnemiesPieces(color);
-
-		for (Piece ennemyPiece : ennemyPieces)
-		{
-			if (isPieceAttacking(ennemyPiece, kingPosition))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean isPositionAttacked(Position position, Color color)
-	{
-		List<Piece> ennemyPieces = getEnnemiesPieces(color);
-
-		for (Piece ennemyPiece : ennemyPieces)
-		{
-			if (isPieceAttacking(ennemyPiece, position))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public List<Piece> getEnnemiesPieces(Color color)
-	{
-		return getPieces(color.getOppositeColor());
 	}
 	
 	public Piece getKing(Color color)
@@ -258,40 +171,7 @@ public class Board
 		myMoves.remove(getLastMove());
 	}
 	
-	public List<Move> getMoves()
-	{
-		return myMoves;
-	}
-	
-	/**
-	 * This method return the number of active pieces on the board
-	 * @return
-	 */
-	public int getNumberOfPieces()
-	{
-		return getPieces().size();
-	}
-	
-	public Move getLastMove()
-	{
-		if(myMoves.size() > 0)
-		{
-			return myMoves.get(myMoves.size()-1);
-		}
-		else
-		{
-			return null;
-		}
-	}
-	
-	private boolean isPieceAttacking(Piece ennemyPiece, Position positionAttackec)
-	{
-		List<Position> attackingSquares = ennemyPiece.getAttackingSquares();
-		
-		return attackingSquares.contains(positionAttackec);
-	}
-	
-	private List<Piece> getPieces(Color color)
+	protected List<Piece> getPieces(Color color)
 	{
 		List<Piece> pieces = new ArrayList<>();
 		
@@ -306,7 +186,7 @@ public class Board
 		return pieces;
 	}
 	
-	private List<Piece> getPieces()
+	protected List<Piece> getPieces()
 	{
 		List<Piece> pieces = new ArrayList<>();
 		
@@ -316,18 +196,5 @@ public class Board
 			pieces.add(piece);
 		}
 		return pieces;
-	}
-	
-	public MoveList generateMoves(Color color)
-	{
-		List<Piece> pieces = getPieces(color);
-		MoveList moveList = new MoveList(this);
-		
-		for(Piece piece : pieces)
-		{
-			moveList.append(piece.getLegalMoves());
-		}
-		
-		return moveList;
 	}
 }

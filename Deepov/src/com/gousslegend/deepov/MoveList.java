@@ -3,6 +3,8 @@ package com.gousslegend.deepov;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gousslegend.deepov.board.Board;
+
 public class MoveList
 {
 	private List<Move> list;

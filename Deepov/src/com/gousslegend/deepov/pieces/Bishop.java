@@ -3,11 +3,11 @@ package com.gousslegend.deepov.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
+import com.gousslegend.deepov.board.MapBoard;
 
 public class Bishop extends Piece
 {
@@ -16,14 +16,14 @@ public class Bishop extends Piece
 		super();
 	}
 
-	public Bishop(Position position, Board board, Color color)
+	public Bishop(Position position, MapBoard board, Color color)
 	{
 		super(position, board, color);
 	}
 
 	public static MoveList getPseudoLegalMoves(Piece pieceToMove)
 	{
-		Board board = pieceToMove.getBoard();
+		MapBoard board = pieceToMove.getBoard();
 		Position position = pieceToMove.getPosition();
 
 		MoveList pseudoLegalMoves = new MoveList(board);
@@ -143,7 +143,7 @@ public class Bishop extends Piece
 
 	public static List<Position> getAttackingSquares(Piece piece)
 	{
-		Board board = piece.getBoard();
+		MapBoard board = piece.getBoard();
 		Position position = piece.getPosition();
 
 		List<Position> attackedPositions = new ArrayList<>();

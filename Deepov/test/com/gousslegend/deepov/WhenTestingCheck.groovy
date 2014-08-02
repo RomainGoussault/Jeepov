@@ -5,9 +5,9 @@ import org.junit.Test
 
 import spock.lang.*
 
-import com.gousslegend.deepov.Board
 import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Position
+import com.gousslegend.deepov.board.MapBoard;
 import com.gousslegend.deepov.pieces.King;
 import com.gousslegend.deepov.pieces.Pawn;
 import com.gousslegend.deepov.pieces.Rook;
@@ -22,7 +22,7 @@ class WhenTestingCheck extends spock.lang.Specification
 
 	def setup()
 	{
-		board = new Board()
+		board = new MapBoard()
 		rook = new Rook()
 	}
 
