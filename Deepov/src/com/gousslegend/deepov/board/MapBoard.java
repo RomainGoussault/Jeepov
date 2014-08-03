@@ -32,35 +32,6 @@ public class MapBoard extends Board
 		myPieces.put(position, piece);
 	}
 
-	public void setupBoard()
-	{
-		//Add Pawns
-		for(int i = 0; i<=7; i++)
-		{
-			addPiece(new Pawn(new Position(i,1), this, Color.WHITE));
-			addPiece(new Pawn(new Position(i,6), this, Color.BLACK));
-		}
-
-		addPiece(new Rook(new Position(0,0), this, Color.WHITE));
-		addPiece(new Rook(new Position(7,0), this, Color.WHITE));
-		addPiece(new Rook(new Position(0,7), this, Color.BLACK));
-		addPiece(new Rook(new Position(7,7), this, Color.BLACK));
-		
-		addPiece(new Knight(new Position(1,0), this, Color.WHITE));
-		addPiece(new Knight(new Position(6,0), this, Color.WHITE));
-		addPiece(new Knight(new Position(1,7), this, Color.BLACK));
-		addPiece(new Knight(new Position(6,7), this, Color.BLACK));
-		
-		addPiece(new Bishop(new Position(2,0), this, Color.WHITE));
-		addPiece(new Bishop(new Position(5,0), this, Color.WHITE));
-		addPiece(new Bishop(new Position(2,7), this, Color.BLACK));
-		addPiece(new Bishop(new Position(5,7), this, Color.BLACK));
-		
-		addPiece(new Queen(new Position(3,0), this, Color.WHITE));
-		addPiece(new Queen(new Position(3,7), this, Color.BLACK));
-		addPiece(new King(new Position(4,0), this, Color.WHITE));
-		addPiece(new King(new Position(4,7), this, Color.BLACK));
-	}
 	
 	public Piece getPiece(Position position)
 	{
@@ -115,62 +86,6 @@ public class MapBoard extends Board
 		return null;
 	}
 
-	public void executeMove(Move move)
-	{
-		Position origin = move.getOrigin();
-		Position destination = move.getDestination();
-		boolean isCaptureMove = move.getCapturedPiece() != null;
-
-		Piece pieceToMove = getPiece(origin);
-		myPieces.remove(origin);
-		pieceToMove.setPosition(destination);
-		pieceToMove.incrementMoveCounter();
-
-		if (isCaptureMove)
-		{
-			myPieces.remove(destination);
-
-		}
-		
-		if(getPiece(destination) != null)
-		{
-			System.out.println("ERROR: Destination not null for Move " + move);
-
-		}
-		myPieces.put(destination, pieceToMove);
-		
-		if(move.isPromotion())
-		{
-			//remove the pawn
-			myPieces.remove(destination);
-			//add a queen
-			myPieces.put(destination, new Queen(destination, this, pieceToMove.getColor()));
-		}
-		
-		myMoves.add(move);
-	}
-
-	public void undoMove(Move move)
-	{
-		Position origin = move.getOrigin();
-		Position destination = move.getDestination();
-		boolean isCaptureMove = move.getCapturedPiece() != null;
-		
-		Piece pieceMoved = getPiece(destination);
-		pieceMoved.decrementMoveCounter();
-
-		myPieces.remove(destination);
-		if (isCaptureMove)
-		{
-			Piece pieceCaptured = move.getCapturedPiece();
-			myPieces.put(pieceCaptured.getPosition(), pieceCaptured);
-		}
-		pieceMoved.setPosition(origin);
-		myPieces.put(origin, pieceMoved);
-		
-		myMoves.remove(getLastMove());
-	}
-	
 	protected List<Piece> getPieces(Color color)
 	{
 		List<Piece> pieces = new ArrayList<>();
@@ -196,5 +111,11 @@ public class MapBoard extends Board
 			pieces.add(piece);
 		}
 		return pieces;
+	}
+
+	@Override
+	public void removePiece(Position position)
+	{
+		myPieces.remove(position);
 	}
 }

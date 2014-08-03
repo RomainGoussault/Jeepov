@@ -7,7 +7,8 @@ import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
-import com.gousslegend.deepov.board.MapBoard;
+import com.gousslegend.deepov.board.Board;
+import com.gousslegend.deepov.board.Board;
 
 public class Rook extends Piece
 {
@@ -21,14 +22,14 @@ public class Rook extends Piece
 		super(color);
 	}
 
-	public Rook(Position position, MapBoard board, Color color)
+	public Rook(Position position,Board board, Color color)
 	{
 		super(position, board, color);
 	}
 
 	public static MoveList getPseudoLegalMoves(Piece pieceToMove)
 	{
-		MapBoard board = pieceToMove.getBoard();
+		Board board = pieceToMove.getBoard();
 		Position position = pieceToMove.getPosition();
 
 		MoveList pseudoLegalMoves = new MoveList(board);
@@ -149,7 +150,7 @@ public class Rook extends Piece
 	public static List<Position> getAttackingSquares(Piece piece)
 	{
 		Position position = piece.getPosition();
-		MapBoard board = piece.getBoard();
+		Board board = piece.getBoard();
 
 		List<Position> attackedPositions = new ArrayList<>();
 		int i = 1;

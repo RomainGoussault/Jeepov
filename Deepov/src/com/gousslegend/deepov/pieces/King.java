@@ -7,7 +7,7 @@ import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
-import com.gousslegend.deepov.board.MapBoard;
+import com.gousslegend.deepov.board.Board;
 
 public class King extends Piece
 {
@@ -23,7 +23,7 @@ public class King extends Piece
 		super(color);
 	}
 
-	public King(Position position, MapBoard board, Color color)
+	public King(Position position,Board board, Color color)
 	{
 		super(position, board, color);
 	}

@@ -7,7 +7,7 @@ import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
-import com.gousslegend.deepov.board.MapBoard;
+import com.gousslegend.deepov.board.Board;
 
 public class Knight extends Piece
 {
@@ -22,7 +22,7 @@ public class Knight extends Piece
 		super(color);
 	}
 
-	public Knight(Position position, MapBoard board, Color color)
+	public Knight(Position position, Board board, Color color)
 	{
 		super(position, board, color);
 	}

@@ -7,12 +7,13 @@ import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
+import com.gousslegend.deepov.board.Board;
 import com.gousslegend.deepov.board.MapBoard;
 
 public abstract class Piece
 {
 	protected Position myPosition;
-	protected MapBoard myBoard;
+	protected Board myBoard;
 	protected Color myColor;
 	protected int moveCounter = 0;
 
@@ -33,7 +34,7 @@ public abstract class Piece
 		myColor = color;
 	}
 
-	public Piece(Position position, MapBoard board, Color color)
+	public Piece(Position position, Board board, Color color)
 	{
 		myPosition = position;
 		myBoard = board;
@@ -101,12 +102,12 @@ public abstract class Piece
 		this.myPosition = myPosition;
 	}
 
-	public MapBoard getBoard()
+	public Board getBoard()
 	{
 		return myBoard;
 	}
 
-	public void setBoard(MapBoard myBoard)
+	public void setBoard(Board myBoard)
 	{
 		this.myBoard = myBoard;
 	}

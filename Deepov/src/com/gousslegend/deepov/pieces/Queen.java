@@ -6,7 +6,7 @@ import java.util.List;
 import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
-import com.gousslegend.deepov.board.MapBoard;
+import com.gousslegend.deepov.board.Board;
 
 public class Queen extends Piece
 {
@@ -15,7 +15,7 @@ public class Queen extends Piece
 		super();
 	}
 
-	public Queen(Position position, MapBoard board, Color color)
+	public Queen(Position position,Board board, Color color)
 	{
 		super(position, board, color);
 	}
