@@ -125,7 +125,7 @@ public class ListBoard extends Board
 
 		if (isCaptureMove)
 		{
-			removePiece(destination);
+			removePiece(move.getCapturedPiece().getPosition());
 		}
 		
 		if(getPiece(destination) != null)
@@ -160,9 +160,7 @@ public class ListBoard extends Board
 		Piece pieceMoved = getPiece(destination);
 		pieceMoved.decrementMoveCounter();
 
-		//removePiece(destination);
 		pieceMoved.setPosition(origin);
-		//addPiece(pieceMoved);
 		if (isCaptureMove)
 		{
 			Piece pieceCaptured = move.getCapturedPiece();
