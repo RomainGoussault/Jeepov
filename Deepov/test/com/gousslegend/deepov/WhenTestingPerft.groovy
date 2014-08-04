@@ -1,7 +1,8 @@
 package com.gousslegend.deepov
 import static org.junit.Assert.assertEquals
-import com.gousslegend.deepov.pieces.Piece
 import spock.lang.*
+
+import com.gousslegend.deepov.board.Board
 
 class WhenTestingPerft extends spock.lang.Specification
 {

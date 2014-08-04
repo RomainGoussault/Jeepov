@@ -17,8 +17,8 @@ public class Game
 	
 	public Game(boolean showBoard)
 	{
-		board = new ListBoard();
-		//board = new MapBoard();
+		//board = new ListBoard();
+		board = new MapBoard();
 		board.setupBoard();
 		
 		if(showBoard)
