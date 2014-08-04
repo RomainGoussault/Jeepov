@@ -2,10 +2,11 @@ package com.gousslegend.deepov.pieces
 import spock.lang.*
 
 import com.gousslegend.deepov.Color
+import com.gousslegend.deepov.Game
 import com.gousslegend.deepov.Move
 import com.gousslegend.deepov.Position
-import com.gousslegend.deepov.board.Board;
-import com.gousslegend.deepov.board.MapBoard;
+import com.gousslegend.deepov.board.Board
+import com.gousslegend.deepov.board.MapBoard
 
 class WhenTestingPawnMovement extends spock.lang.Specification
 {
@@ -318,6 +319,30 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		whitePawnPositionOrigin  | blackPawnPositionOrigin  | whitePawnPositionDestination
 		new Position(0, 1)       | new Position(1, 3)       | new Position(0, 3)
 		new Position(2, 1)       | new Position(1, 3)       | new Position(2, 3)
+	}
+	
+	def "Test undoing several pawn moves"()
+	{
+		when:
+		Game game = new Game(false)
+		Board board = game.getBoard()
+		Move move1 = new Move(new Position(0,1),new Position(0,3));
+		Move move2 = new Move(new Position(4,6),new Position(4,5));
+		Move move3 = new Move(new Position(1,0),new Position(0,2));
+		Move move4 = new Move(new Position(1,6),new Position(1,4));
+		board.executeMove(move1)
+		board.executeMove(move2)
+		board.executeMove(move3)
+		board.executeMove(move4)
+		board.undoMove(move1)
+		board.undoMove(move2)
+		board.undoMove(move3)
+		board.undoMove(move4)
+		
+		System.out.println(board)
+		
+		then:
+		board.getNumberOfPieces() == 32;
 	}
 	
 	@Unroll
