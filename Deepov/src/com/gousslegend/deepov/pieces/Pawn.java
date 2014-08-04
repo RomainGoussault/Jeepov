@@ -82,7 +82,7 @@ public class Pawn extends Piece
 		{
 			Position ennemyPawnPosition = myBoard.getLastMove()
 					.getDestination();
-			possibleMove = new Move(myPosition, ennemyPawnPosition.deltaY(1));
+			possibleMove = new Move(myPosition, ennemyPawnPosition.deltaY(direction));
 			possibleMove.setCapturedPiece(myBoard.getPiece(ennemyPawnPosition));
 			pseudoLegalMoves.add(possibleMove);
 		}

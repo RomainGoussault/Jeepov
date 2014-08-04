@@ -55,7 +55,7 @@ public abstract class Board
 
 		if (isCaptureMove)
 		{
-			removePiece(destination);
+			removePiece(move.getCapturedPiece().getPosition());
 		}
 		
 		if(getPiece(destination) != null)

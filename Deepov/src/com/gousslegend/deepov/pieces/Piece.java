@@ -64,11 +64,15 @@ public abstract class Piece
 		{
 			Move move = moveIterator.next();
 			myBoard.executeMove(move);
-			if (legalMoves.getBoard().isCheck(myColor))
+			if (myBoard.isCheck(myColor))
 			{
+				myBoard.undoMove(move);
 				moveIterator.remove();
 			}
-			myBoard.undoMove(move);
+			else
+			{
+				myBoard.undoMove(move);
+			}
 		}
 
 		return legalMoves;
