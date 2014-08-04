@@ -2,9 +2,9 @@ package com.gousslegend.deepov.pieces
 import static org.junit.Assert.assertEquals
 import spock.lang.*
 
-import com.gousslegend.deepov.Board
 import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Position
+import com.gousslegend.deepov.board.MapBoard;
 
 class WhenTestingKnightMovement extends spock.lang.Specification
 {
@@ -17,13 +17,13 @@ class WhenTestingKnightMovement extends spock.lang.Specification
 
 	def setupSpec()
 	{
-		board = new Board()
+		board = new MapBoard()
 		knight = new Knight()
 	}
 	
 	def cleanup()
 	{
-		board = new Board()
+		board = new MapBoard()
 	}
 
 	def "Testing knight alone on board"()

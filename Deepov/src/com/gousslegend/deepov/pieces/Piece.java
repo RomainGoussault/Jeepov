@@ -3,11 +3,12 @@ package com.gousslegend.deepov.pieces;
 import java.util.Iterator;
 import java.util.List;
 
-import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
+import com.gousslegend.deepov.board.Board;
+import com.gousslegend.deepov.board.MapBoard;
 
 public abstract class Piece
 {
@@ -22,14 +23,14 @@ public abstract class Piece
 	public Piece()
 	{
 		myPosition = new Position();
-		myBoard = new Board();
+		myBoard = new MapBoard();
 		myColor = Color.BLACK;
 	}
 
 	public Piece(Color color)
 	{
 		myPosition = new Position();
-		myBoard = new Board();
+		myBoard = new MapBoard();
 		myColor = color;
 	}
 
@@ -63,11 +64,15 @@ public abstract class Piece
 		{
 			Move move = moveIterator.next();
 			myBoard.executeMove(move);
-			if (legalMoves.getBoard().isCheck(myColor))
+			if (myBoard.isCheck(myColor))
 			{
+				myBoard.undoMove(move);
 				moveIterator.remove();
 			}
-			myBoard.undoMove(move);
+			else
+			{
+				myBoard.undoMove(move);
+			}
 		}
 
 		return legalMoves;

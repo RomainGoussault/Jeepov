@@ -3,11 +3,12 @@ package com.gousslegend.deepov.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
+import com.gousslegend.deepov.board.Board;
+import com.gousslegend.deepov.board.MapBoard;
 
 public class Pawn extends Piece
 {
@@ -81,7 +82,7 @@ public class Pawn extends Piece
 		{
 			Position ennemyPawnPosition = myBoard.getLastMove()
 					.getDestination();
-			possibleMove = new Move(myPosition, ennemyPawnPosition.deltaY(1));
+			possibleMove = new Move(myPosition, ennemyPawnPosition.deltaY(direction));
 			possibleMove.setCapturedPiece(myBoard.getPiece(ennemyPawnPosition));
 			pseudoLegalMoves.add(possibleMove);
 		}

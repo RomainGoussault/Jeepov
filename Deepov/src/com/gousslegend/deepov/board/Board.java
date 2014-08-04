@@ -1,11 +1,11 @@
-package com.gousslegend.deepov;
+package com.gousslegend.deepov.board;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
+import com.gousslegend.deepov.Color;
+import com.gousslegend.deepov.Move;
+import com.gousslegend.deepov.MoveList;
+import com.gousslegend.deepov.Position;
 import com.gousslegend.deepov.pieces.Bishop;
 import com.gousslegend.deepov.pieces.King;
 import com.gousslegend.deepov.pieces.Knight;
@@ -14,26 +14,88 @@ import com.gousslegend.deepov.pieces.Piece;
 import com.gousslegend.deepov.pieces.Queen;
 import com.gousslegend.deepov.pieces.Rook;
 
-public class Board
+public abstract class Board
 {
-	private Map<Position, Piece> myPieces;
 	public static final int BOARD_SIZE = 7;
 	
 	/** Move taken in this game so far */
-	private List<Move> myMoves;
-
+	protected List<Move> myMoves;
+	
 	public Board()
 	{
-		myPieces = new HashMap<>(40);
-		myMoves = new ArrayList<>();
+		super();
 	}
+	
+	public abstract void addPiece(Piece piece);
 
-	public void addPiece(Piece piece)
+	public abstract Piece getPiece(Position position);
+
+	public abstract boolean isPositionFree(Position position);
+	
+	protected abstract List<Piece> getPieces(Color color);
+	
+	protected abstract List<Piece> getPieces();
+
+	public abstract Piece getKing(Color color);
+
+	public abstract Position getKingPosition(Color color);
+
+	public abstract void removePiece(Position position);
+	
+	public void executeMove(Move move)
 	{
-		Position position = piece.getPosition();
-		myPieces.put(position, piece);
-	}
+		Position origin = move.getOrigin();
+		Position destination = move.getDestination();
+		boolean isCaptureMove = move.getCapturedPiece() != null;
 
+		Piece pieceToMove = getPiece(origin);
+		removePiece(origin);
+		pieceToMove.setPosition(destination);
+		pieceToMove.incrementMoveCounter();
+
+		if (isCaptureMove)
+		{
+			removePiece(move.getCapturedPiece().getPosition());
+		}
+		
+		if(getPiece(destination) != null)
+		{
+			System.out.println("ERROR: Destination not null for Move " + move);
+
+		}
+		addPiece(pieceToMove);
+		
+		if(move.isPromotion())
+		{
+			//remove the pawn
+			removePiece(destination);
+			//add a queen
+			addPiece(new Queen(destination, this, pieceToMove.getColor()));
+		}
+		
+		myMoves.add(move);
+	}
+	
+	public void undoMove(Move move)
+	{
+		Position origin = move.getOrigin();
+		Position destination = move.getDestination();
+		boolean isCaptureMove = move.getCapturedPiece() != null;
+		
+		Piece pieceMoved = getPiece(destination);
+		pieceMoved.decrementMoveCounter();
+
+		removePiece(destination);
+		if (isCaptureMove)
+		{
+			Piece pieceCaptured = move.getCapturedPiece();
+			addPiece(pieceCaptured);
+		}
+		pieceMoved.setPosition(origin);
+		addPiece(pieceMoved);
+		
+		myMoves.remove(getLastMove());
+	}
 	public void setupBoard()
 	{
 		//Add Pawns
@@ -64,7 +126,6 @@ public class Board
 		addPiece(new King(new Position(4,7), this, Color.BLACK));
 	}
 	
-	@Override
 	public String toString()
 	{
 		String board = "";
@@ -94,29 +155,6 @@ public class Board
 		board +="    0 1 2 3 4 5 6 7\n";
 		
 		return board;
-	}
-
-	public Piece getPiece(Position position)
-	{
-		return myPieces.get(position);
-	}
-
-	public boolean isPositionFree(Position position)
-	{
-		int x = position.getX();
-		int y = position.getY();
-
-		if (x > BOARD_SIZE || y > BOARD_SIZE)
-		{
-			return false;
-		}
-
-		if (x < 0 || y < 0)
-		{
-			return false;
-		}
-
-		return !myPieces.containsKey(position);
 	}
 	
 	public boolean isPositionOnBoard(Position position)
@@ -171,93 +209,21 @@ public class Board
 	{
 		return getPieces(color.getOppositeColor());
 	}
-	
-	public Piece getKing(Color color)
-	{
-		for (Entry<Position, Piece> entry : myPieces.entrySet())
-		{
-			Piece piece = entry.getValue();
-			if (piece instanceof King && piece.getColor() == color)
-			{
-				return piece;
-			}
-		}
 
-		// There should always be a king for each color on the board
-		return null;
+
+	public MoveList generateMoves(Color color)
+	{
+		List<Piece> pieces = getPieces(color);
+		MoveList moveList = new MoveList(this);
+		
+		for(Piece piece : pieces)
+		{
+			moveList.append(piece.getLegalMoves());
+		}
+		
+		return moveList;
 	}
 
-	public Position getKingPosition(Color color)
-	{
-		for (Entry<Position, Piece> entry : myPieces.entrySet())
-		{
-			Piece piece = entry.getValue();
-			if (piece instanceof King && piece.getColor() == color)
-			{
-				return piece.getPosition();
-			}
-		}
-
-		// There should always be a king for each color on the board
-		return null;
-	}
-
-	public void executeMove(Move move)
-	{
-		Position origin = move.getOrigin();
-		Position destination = move.getDestination();
-		boolean isCaptureMove = move.getCapturedPiece() != null;
-
-		Piece pieceToMove = getPiece(origin);
-		myPieces.remove(origin);
-		pieceToMove.setPosition(destination);
-		pieceToMove.incrementMoveCounter();
-
-		if (isCaptureMove)
-		{
-			myPieces.remove(destination);
-
-		}
-		
-		if(getPiece(destination) != null)
-		{
-			System.out.println("ERROR: Destination not null for Move " + move);
-
-		}
-		myPieces.put(destination, pieceToMove);
-		
-		if(move.isPromotion())
-		{
-			//remove the pawn
-			myPieces.remove(destination);
-			//add a queen
-			myPieces.put(destination, new Queen(destination, this, pieceToMove.getColor()));
-		}
-		
-		myMoves.add(move);
-	}
-
-	public void undoMove(Move move)
-	{
-		Position origin = move.getOrigin();
-		Position destination = move.getDestination();
-		boolean isCaptureMove = move.getCapturedPiece() != null;
-		
-		Piece pieceMoved = getPiece(destination);
-		pieceMoved.decrementMoveCounter();
-
-		myPieces.remove(destination);
-		if (isCaptureMove)
-		{
-			Piece pieceCaptured = move.getCapturedPiece();
-			myPieces.put(pieceCaptured.getPosition(), pieceCaptured);
-		}
-		pieceMoved.setPosition(origin);
-		myPieces.put(origin, pieceMoved);
-		
-		myMoves.remove(getLastMove());
-	}
-	
 	public List<Move> getMoves()
 	{
 		return myMoves;
@@ -289,45 +255,5 @@ public class Board
 		List<Position> attackingSquares = ennemyPiece.getAttackingSquares();
 		
 		return attackingSquares.contains(positionAttackec);
-	}
-	
-	private List<Piece> getPieces(Color color)
-	{
-		List<Piece> pieces = new ArrayList<>();
-		
-		for (Entry<Position, Piece> entry : myPieces.entrySet())
-		{
-			Piece piece = entry.getValue();
-			if (piece.getColor() == color)
-			{
-				pieces.add(piece);
-			}
-		}
-		return pieces;
-	}
-	
-	private List<Piece> getPieces()
-	{
-		List<Piece> pieces = new ArrayList<>();
-		
-		for (Entry<Position, Piece> entry : myPieces.entrySet())
-		{
-			Piece piece = entry.getValue();
-			pieces.add(piece);
-		}
-		return pieces;
-	}
-	
-	public MoveList generateMoves(Color color)
-	{
-		List<Piece> pieces = getPieces(color);
-		MoveList moveList = new MoveList(this);
-		
-		for(Piece piece : pieces)
-		{
-			moveList.append(piece.getLegalMoves());
-		}
-		
-		return moveList;
 	}
 }

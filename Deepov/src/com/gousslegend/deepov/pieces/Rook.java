@@ -3,11 +3,12 @@ package com.gousslegend.deepov.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gousslegend.deepov.Board;
 import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
+import com.gousslegend.deepov.board.Board;
+import com.gousslegend.deepov.board.Board;
 
 public class Rook extends Piece
 {
@@ -21,7 +22,7 @@ public class Rook extends Piece
 		super(color);
 	}
 
-	public Rook(Position position, Board board, Color color)
+	public Rook(Position position,Board board, Color color)
 	{
 		super(position, board, color);
 	}

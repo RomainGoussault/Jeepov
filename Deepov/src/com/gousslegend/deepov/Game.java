@@ -1,5 +1,9 @@
 package com.gousslegend.deepov;
 
+import com.gousslegend.deepov.board.Board;
+import com.gousslegend.deepov.board.ListBoard;
+import com.gousslegend.deepov.board.MapBoard;
+
 public class Game
 {
 	private Board board;
@@ -13,7 +17,8 @@ public class Game
 	
 	public Game(boolean showBoard)
 	{
-		board = new Board();
+		//board = new ListBoard();
+		board = new MapBoard();
 		board.setupBoard();
 		
 		if(showBoard)
@@ -50,7 +55,7 @@ public class Game
 	public static void main(String[] args)
 	{
 		Game game = new Game();
-		//System.out.println(game.perft(6));
+		System.out.println(game.perft(5));
 	}
 
 	public int perft(int depth)
