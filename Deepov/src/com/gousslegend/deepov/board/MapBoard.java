@@ -32,7 +32,6 @@ public class MapBoard extends Board
 		myPieces.put(position, piece);
 	}
 
-	
 	public Piece getPiece(Position position)
 	{
 		return myPieces.get(position);
