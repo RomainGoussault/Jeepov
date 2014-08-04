@@ -261,7 +261,65 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		new Position(1, 4) | new Position(0, 6)       | new Position(0, 4)            | false
 		new Position(1, 4) | new Position(2, 6)       | new Position(2, 4)            | false
 	}
+	
+	@Unroll
+	def "Test Undoing en passant Moves WHITE"()
+	{
+		given: "Two pawns"
+		Pawn whitePawn = new Pawn(whitePawnPositionOrigin, board, Color.WHITE)
+		Pawn blackPawn = new Pawn(blackPawnPositionOrigin, board, Color.BLACK)
+		board.addPiece(whitePawn)
+		board.addPiece(blackPawn)
+	
+		Move move1 = new Move(blackPawnPositionOrigin, blackPawnPositionDestination);
+		Move move2 = new Move(whitePawnPositionOrigin, blackPawnPositionDestination.deltaY(1));
+		move2.setCapturedPiece(blackPawn);
+	
+		board.executeMove(move1)
+		board.executeMove(move2)
+		board.undoMove(move2)
+		board.undoMove(move1)
 
+		expect:
+		board.getNumberOfPieces() == 2
+		board.getPieces(Color.BLACK).get(0).getPosition().equals(blackPawnPositionOrigin)
+		board.getPieces(Color.WHITE).get(0).getPosition().equals(whitePawnPositionOrigin)
+		
+		where:
+		whitePawnPositionOrigin  | blackPawnPositionOrigin  | blackPawnPositionDestination  
+		new Position(1, 4)       | new Position(0, 6)       | new Position(0, 4)            
+		new Position(1, 4)       | new Position(2, 6)       | new Position(2, 4)            
+	}
+	
+	@Unroll
+	def "Test Undoing en passant Moves BLACK"()
+	{
+		given: "Two pawns"
+		Pawn whitePawn = new Pawn(whitePawnPositionOrigin, board, Color.WHITE)
+		Pawn blackPawn = new Pawn(blackPawnPositionOrigin, board, Color.BLACK)
+		board.addPiece(whitePawn)
+		board.addPiece(blackPawn)
+	
+		Move move1 = new Move(whitePawnPositionOrigin, whitePawnPositionDestination);
+		Move move2 = new Move(blackPawnPositionOrigin, whitePawnPositionDestination.deltaY(-1));
+		move2.setCapturedPiece(whitePawn);
+	
+		board.executeMove(move1)
+		board.executeMove(move2)
+		board.undoMove(move2)
+		board.undoMove(move1)
+
+		expect:
+		board.getNumberOfPieces() == 2
+		board.getPieces(Color.BLACK).get(0).getPosition().equals(blackPawnPositionOrigin)
+		board.getPieces(Color.WHITE).get(0).getPosition().equals(whitePawnPositionOrigin)
+		
+		where:
+		whitePawnPositionOrigin  | blackPawnPositionOrigin  | whitePawnPositionDestination
+		new Position(0, 1)       | new Position(1, 3)       | new Position(0, 3)
+		new Position(2, 1)       | new Position(1, 3)       | new Position(2, 3)
+	}
+	
 	@Unroll
 	def "Test legal Moves"()
 	{
