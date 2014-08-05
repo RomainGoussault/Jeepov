@@ -171,6 +171,7 @@ public class Rook extends Piece
 				break;
 			}
 
+			attackedPositions.add(destination);
 			i++;
 			destination = position.deltaX(i);
 		}
@@ -188,6 +189,8 @@ public class Rook extends Piece
 				}
 				break;
 			}
+			
+			attackedPositions.add(destination);
 			i--;
 			destination = position.deltaX(i);
 		}
@@ -206,6 +209,7 @@ public class Rook extends Piece
 				break;
 			}
 
+			attackedPositions.add(destination);
 			i--;
 			destination = position.deltaY(i);
 		}
@@ -224,6 +228,7 @@ public class Rook extends Piece
 				break;
 			}
 
+			attackedPositions.add(destination);
 			i++;
 			destination = position.deltaY(i);
 		}

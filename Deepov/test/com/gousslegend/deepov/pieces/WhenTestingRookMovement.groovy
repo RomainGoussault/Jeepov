@@ -33,6 +33,7 @@ class WhenTestingRookMovement extends spock.lang.Specification
 		
 		expect:
 		rook.getLegalMoves().size() == 14
+		rook.getAttackingSquares().size() == 14;
 
 		where:
 		position << Position.getAllPositionOnBoard()
@@ -114,5 +115,26 @@ class WhenTestingRookMovement extends spock.lang.Specification
 		blackRookPosition 	| whiteRookPosition   | blackKingPosition | moveSize
 		new Position(3, 3) |  new Position(7, 0) | new Position(0, 0) | 1
 		new Position(3, 3) |  new Position(7, 2) | new Position(2, 2) | 1
+	}
+	
+	def "Test attacking squares on Rook"()
+	{
+		given:
+		Rook blackRook = new Rook(blackRookPosition, board, Color.BLACK);
+		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE);
+		King blackKing = new King(blackKingPosition, board, Color.BLACK);
+		
+		board.addPiece(blackRook)
+		board.addPiece(whiteRook)
+		board.addPiece(blackKing)
+
+		expect:
+		blackRook.getAttackingSquares().size() == attackingSquareSize;
+
+		where:
+		blackRookPosition 	| whiteRookPosition   | blackKingPosition | attackingSquareSize
+		new Position(0, 0) |  new Position(1, 0) | new Position(0, 1) | 1
+		new Position(0, 0) |  new Position(2, 0) | new Position(0, 1) | 2
+		new Position(0, 0) |  new Position(1, 0) | new Position(0, 2) | 2
 	}
 }
