@@ -6,7 +6,7 @@ import com.gousslegend.deepov.board.MapBoard;
 
 public class Game
 {
-	private Board board;
+	private Board myBoard;
 	private Player whitePlayer;
 	private Player blackPlayer;
 
@@ -18,12 +18,12 @@ public class Game
 	public Game(boolean showBoard)
 	{
 		//board = new ListBoard();
-		board = new MapBoard();
-		board.setupBoard();
+		myBoard = new MapBoard();
+		myBoard.setupBoard();
 		
 		if(showBoard)
 		{
-			System.out.print(board);
+			System.out.print(myBoard);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class Game
 
 	public Board getBoard()
 	{
-		return board;
+		return myBoard;
 	}
 
 	public static void main(String[] args)
@@ -73,14 +73,14 @@ public class Game
 			return 1;
 		}
 
-		MoveList moveList = board.generateMoves(color);
+		MoveList moveList = myBoard.generateMoves(color);
 		nMoves = moveList.size();
 
 		for (i = 0; i < nMoves; i++)
 		{
-			board.executeMove(moveList.getList().get(i));
+			myBoard.executeMove(moveList.getList().get(i));
 			nodes += perft(depth - 1);
-			board.undoMove(moveList.getList().get(i));
+			myBoard.undoMove(moveList.getList().get(i));
 		}
 		
 		return nodes;
