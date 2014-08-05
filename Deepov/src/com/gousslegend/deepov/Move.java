@@ -49,8 +49,14 @@ public class Move
 	@Override
 	public String toString()
 	{
+		String castling = "";
+		if(isCastling()) castling = " CASTLING";
+		
+		String capture = "";
+		if(myCapturedPiece != null) capture = " Capture: " + myCapturedPiece;
+		
 		return "Move [org=" + myOrigin + ", dest="
-				+ myDestination + ", Captured=" + myCapturedPiece + "]" + "\n";
+				+ myDestination + castling + capture + "]" + "\n";
 	}
 
 	public boolean isPromotion()
