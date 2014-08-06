@@ -154,24 +154,19 @@ public class Rook extends Piece
 
 		List<Position> attackedPositions = new ArrayList<>();
 		int i = 1;
-		Piece otherPiece = null;
 		Position destination = null;
 
 		i = 1;
 		destination = position.deltaX(i);
 		while (board.isPositionOnBoard(destination))
 		{
+			attackedPositions.add(destination);
+
 			if (!board.isPositionFree(destination))
 			{
-				otherPiece = board.getPiece(destination);
-				if (piece.areColorDifferent(otherPiece))
-				{
-					attackedPositions.add(destination);
-				}
 				break;
 			}
 
-			attackedPositions.add(destination);
 			i++;
 			destination = position.deltaX(i);
 		}
@@ -180,17 +175,13 @@ public class Rook extends Piece
 		destination = position.deltaX(i);
 		while (board.isPositionOnBoard(destination))
 		{
+			attackedPositions.add(destination);
+
 			if (!board.isPositionFree(destination))
 			{
-				otherPiece = board.getPiece(destination);
-				if (piece.areColorDifferent(otherPiece))
-				{
-					attackedPositions.add(destination);
-				}
 				break;
 			}
 			
-			attackedPositions.add(destination);
 			i--;
 			destination = position.deltaX(i);
 		}
@@ -199,17 +190,13 @@ public class Rook extends Piece
 		destination = position.deltaY(i);
 		while (board.isPositionOnBoard(destination))
 		{
+			attackedPositions.add(destination);
+
 			if (!board.isPositionFree(destination))
 			{
-				otherPiece = board.getPiece(destination);
-				if (piece.areColorDifferent(otherPiece))
-				{
-					attackedPositions.add(destination);
-				}
 				break;
 			}
 
-			attackedPositions.add(destination);
 			i--;
 			destination = position.deltaY(i);
 		}
@@ -218,17 +205,13 @@ public class Rook extends Piece
 		destination = position.deltaY(i);
 		while (board.isPositionOnBoard(destination))
 		{
+			attackedPositions.add(destination);
+
 			if (!board.isPositionFree(destination))
 			{
-				otherPiece = board.getPiece(destination);
-				if (piece.areColorDifferent(otherPiece))
-				{
-					attackedPositions.add(destination);
-				}
 				break;
 			}
 
-			attackedPositions.add(destination);
 			i++;
 			destination = position.deltaY(i);
 		}

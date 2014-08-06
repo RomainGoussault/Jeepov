@@ -82,7 +82,8 @@ public class Pawn extends Piece
 		{
 			Position ennemyPawnPosition = myBoard.getLastMove()
 					.getDestination();
-			possibleMove = new Move(myPosition, ennemyPawnPosition.deltaY(direction));
+			possibleMove = new Move(myPosition,
+					ennemyPawnPosition.deltaY(direction));
 			possibleMove.setCapturedPiece(myBoard.getPiece(ennemyPawnPosition));
 			pseudoLegalMoves.add(possibleMove);
 		}
@@ -157,27 +158,13 @@ public class Pawn extends Piece
 		destination = myPosition.deltaXY(-1, direction);
 		if (myBoard.isPositionOnBoard(destination))
 		{
-			if (!myBoard.isPositionFree(destination))
-			{
-				Piece piece = myBoard.getPiece(destination);
-				if (areColorDifferent(piece))
-				{
-					attackedPositions.add(destination);
-				}
-			}
+			attackedPositions.add(destination);
 		}
 
 		destination = myPosition.deltaXY(1, direction);
 		if (myBoard.isPositionOnBoard(destination))
 		{
-			if (!myBoard.isPositionFree(destination))
-			{
-				Piece piece = myBoard.getPiece(destination);
-				if (areColorDifferent(piece))
-				{
-					attackedPositions.add(destination);
-				}
-			}
+			attackedPositions.add(destination);
 		}
 
 		return attackedPositions;

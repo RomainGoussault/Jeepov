@@ -4,15 +4,16 @@ import spock.lang.*
 
 import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Position
-import com.gousslegend.deepov.board.MapBoard;
+import com.gousslegend.deepov.board.Board
+import com.gousslegend.deepov.board.MapBoard
 
 class WhenTestingBishopMovement extends spock.lang.Specification
 {
 
 	@Shared
-	def board
+	Board board
 	@Shared
-	def bishop
+	Bishop bishop
 
 
 	def setupSpec()
@@ -34,6 +35,8 @@ class WhenTestingBishopMovement extends spock.lang.Specification
 		expect:
 		bishop.getLegalMoves().size() <= 14
 		bishop.getLegalMoves().size() >= 7
+		bishop.getAttackingSquares().size() <= 14
+		bishop.getAttackingSquares().size() >= 7
 		
 		where:
 		position << Position.getAllPositionOnBoard()
@@ -148,5 +151,27 @@ class WhenTestingBishopMovement extends spock.lang.Specification
 
 		expect:
 		whiteBishop.getLegalMoves().getFistMove().getCapturedPiece() == blackRook;
+	}
+	
+	def "Test attacking squares on Bishop"()
+	{
+		given:
+		Bishop blackBishop = new Bishop(blackBishopPosition, board, Color.BLACK);
+		Bishop whiteBishop = new Bishop(whiteBishopPosition, board, Color.WHITE);
+		King blackKing = new King(blackKingPosition, board, Color.BLACK);
+		
+		board.addPiece(blackBishop)
+		board.addPiece(whiteBishop)
+		board.addPiece(blackKing)
+
+		expect:
+		blackBishop.getAttackingSquares().size() == attackingSquareSize;
+
+		where:
+		blackBishopPosition| whiteBishopPosition   | blackKingPosition | attackingSquareSize
+		new Position(0, 0) |  new Position(1, 1) | new Position(0, 1) | 1
+		new Position(0, 0) |  new Position(2, 2) | new Position(0, 1) | 2
+		new Position(1, 1) |  new Position(2, 2) | new Position(0, 0) | 4
+		new Position(1, 1) |  new Position(2, 2) | new Position(0, 3) | 4
 	}
 }

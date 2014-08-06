@@ -41,7 +41,8 @@ public class Bishop extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			} else
+			}
+			else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -66,7 +67,8 @@ public class Bishop extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			} else
+			}
+			else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -91,7 +93,8 @@ public class Bishop extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			} else
+			}
+			else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -116,7 +119,8 @@ public class Bishop extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			} else
+			}
+			else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -148,21 +152,16 @@ public class Bishop extends Piece
 
 		List<Position> attackedPositions = new ArrayList<>();
 		int i = 1;
-		Piece otherPiece = null;
 		Position destination = null;
 
 		i = 1;
 		destination = position.deltaXY(i, -i);
 		while (board.isPositionOnBoard(destination))
 		{
+			attackedPositions.add(destination);
 
 			if (!board.isPositionFree(destination))
 			{
-				otherPiece = board.getPiece(destination);
-				if (piece.areColorDifferent(otherPiece))
-				{
-					attackedPositions.add(destination);
-				}
 				break;
 			}
 
@@ -174,14 +173,10 @@ public class Bishop extends Piece
 		destination = position.deltaXY(-i, i);
 		while (board.isPositionOnBoard(destination))
 		{
+			attackedPositions.add(destination);
 
 			if (!board.isPositionFree(destination))
 			{
-				otherPiece = board.getPiece(destination);
-				if (piece.areColorDifferent(otherPiece))
-				{
-					attackedPositions.add(destination);
-				}
 				break;
 			}
 
@@ -193,14 +188,10 @@ public class Bishop extends Piece
 		destination = position.deltaXY(i, i);
 		while (board.isPositionOnBoard(destination))
 		{
+			attackedPositions.add(destination);
 
 			if (!board.isPositionFree(destination))
 			{
-				otherPiece = board.getPiece(destination);
-				if (piece.areColorDifferent(otherPiece))
-				{
-					attackedPositions.add(destination);
-				}
 				break;
 			}
 
@@ -212,14 +203,10 @@ public class Bishop extends Piece
 		destination = position.deltaXY(-i, -i);
 		while (board.isPositionOnBoard(destination))
 		{
+			attackedPositions.add(destination);
 
 			if (!board.isPositionFree(destination))
 			{
-				otherPiece = board.getPiece(destination);
-				if (piece.areColorDifferent(otherPiece))
-				{
-					attackedPositions.add(destination);
-				}
 				break;
 			}
 
