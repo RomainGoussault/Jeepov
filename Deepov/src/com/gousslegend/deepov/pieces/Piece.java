@@ -41,6 +41,13 @@ public abstract class Piece
 		myColor = color;
 	}
 
+	public Piece(Position position, Color color)
+	{
+		myPosition = position;
+		myBoard = null;
+		myColor = color;
+	}
+
 	/**
 	 * This method get all the pseudo legal (possibly leaving the king in check)
 	 * moves for the piece

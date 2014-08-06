@@ -15,6 +15,11 @@ public class Queen extends Piece
 		super();
 	}
 
+	public Queen(Position position, Color color)
+	{
+		super(position, color);
+	}
+	
 	public Queen(Position position,Board board, Color color)
 	{
 		super(position, board, color);

@@ -21,6 +21,11 @@ public class Bishop extends Piece
 		super(position, board, color);
 	}
 
+	public Bishop(Position position, Color color)
+	{
+		super(position, color);
+	}
+
 	public static MoveList getPseudoLegalMoves(Piece pieceToMove)
 	{
 		Board board = pieceToMove.getBoard();

@@ -22,6 +22,11 @@ public class Knight extends Piece
 		super(color);
 	}
 
+	public Knight(Position position, Color color)
+	{
+		super(position, color);
+	}
+	
 	public Knight(Position position, Board board, Color color)
 	{
 		super(position, board, color);

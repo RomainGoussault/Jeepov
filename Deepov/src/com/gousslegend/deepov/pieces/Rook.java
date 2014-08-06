@@ -22,11 +22,16 @@ public class Rook extends Piece
 		super(color);
 	}
 
-	public Rook(Position position,Board board, Color color)
+	public Rook(Position position, Board board, Color color)
 	{
 		super(position, board, color);
 	}
 
+	public Rook(Position position, Color color)
+	{
+		super(position, color);
+	}
+	
 	public static MoveList getPseudoLegalMoves(Piece pieceToMove)
 	{
 		Board board = pieceToMove.getBoard();

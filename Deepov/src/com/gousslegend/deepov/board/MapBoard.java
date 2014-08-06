@@ -32,6 +32,15 @@ public class MapBoard extends Board
 		myPieces.put(position, piece);
 	}
 
+	public void addPieces(List<Piece> pieces)
+	{
+		for(Piece piece : pieces)
+		{
+			Position position = piece.getPosition();
+			myPieces.put(position, piece);
+		}
+	}
+
 	public Piece getPiece(Position position)
 	{
 		return myPieces.get(position);

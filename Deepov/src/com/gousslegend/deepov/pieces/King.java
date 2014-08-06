@@ -23,6 +23,11 @@ public class King extends Piece
 		super(color);
 	}
 
+	public King(Position position, Color color)
+	{
+		super(position, color);
+	}
+	
 	public King(Position position,Board board, Color color)
 	{
 		super(position, board, color);

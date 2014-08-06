@@ -16,7 +16,11 @@ public class Pawn extends Piece
 	public Pawn(Position position, Board board, Color color)
 	{
 		super(position, board, color);
-		// TODO Auto-generated constructor stub
+	}
+
+	public Pawn(Position position, Color color)
+	{
+		super(position, color);
 	}
 
 	public Pawn()
