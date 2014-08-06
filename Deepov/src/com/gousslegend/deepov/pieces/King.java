@@ -76,11 +76,14 @@ public class King extends Piece
 				{
 					possibleMove = new Move(myPosition, new Position(6, myPosition.getY()));
 					possibleMove.setisCastling(true);
+					pseudoLegalMoves.add(possibleMove);
+
 				}
 				if(isQueenSideCastlingPossible())
 				{
-					possibleMove = new Move(myPosition, new Position(3, myPosition.getY()));
-					possibleMove.setisCastling(true);	
+					possibleMove = new Move(myPosition, new Position(2, myPosition.getY()));
+					possibleMove.setisCastling(true);
+					pseudoLegalMoves.add(possibleMove);
 				}
 			}
 			else
@@ -102,16 +105,22 @@ public class King extends Piece
 		{
 			int y = myColor == Color.WHITE ? 0 : 7 ;
 			
-			//check if the positions are in check
+			//check if the positions are not in check
 			List<Position> positions = new ArrayList<>();
+			positions.add(new Position(0,y));
+			positions.add(new Position(1,y));
 			positions.add(new Position(2,y));
 			positions.add(new Position(3,y));
 			positions.add(new Position(4,y));
 			
 			for(Position position : positions)
 			{
-				isQueenSideCastlingPossible = isQueenSideCastlingPossible && myBoard.isPositionAttacked(position, myColor);
+				isQueenSideCastlingPossible = isQueenSideCastlingPossible && !myBoard.isPositionAttacked(position, myColor);
 			}
+				
+			isQueenSideCastlingPossible = isQueenSideCastlingPossible && myBoard.isPositionFree(new Position(1,y));
+			isQueenSideCastlingPossible = isQueenSideCastlingPossible && myBoard.isPositionFree(new Position(2,y));
+			isQueenSideCastlingPossible = isQueenSideCastlingPossible && myBoard.isPositionFree(new Position(3,y));
 		}
 		else
 		{
@@ -143,6 +152,11 @@ public class King extends Piece
 			{
 				isKingSideCastlingPossible = isKingSideCastlingPossible && !myBoard.isPositionAttacked(position, myColor);
 			}
+			
+			//check if positions are free
+			isKingSideCastlingPossible = isKingSideCastlingPossible && myBoard.isPositionFree(new Position(5,y));
+			isKingSideCastlingPossible = isKingSideCastlingPossible && myBoard.isPositionFree(new Position(6,y));
+
 		}
 		else
 		{
@@ -155,15 +169,7 @@ public class King extends Piece
 
 	private Rook getKingSideRook()
 	{
-		Position rookPosition = null;
-		if(myColor == Color.WHITE)
-		{
-			rookPosition = new Position(7,0);
-		}
-		else
-		{
-			rookPosition = new Position(7,7);
-		}
+		Position rookPosition = new Position(7,myPosition.getY());
 		
 		Piece possibleRook = myBoard.getPiece(rookPosition);
 		
@@ -179,15 +185,7 @@ public class King extends Piece
 	
 	private Rook getQueenSideRook()
 	{
-		Position rookPosition = null;
-		if(myColor == Color.WHITE)
-		{
-			rookPosition = new Position(0,0);
-		}
-		else
-		{
-			rookPosition = new Position(0,7);
-		}
+		Position rookPosition = new Position(0,myPosition.getY());
 		
 		Piece possibleRook = myBoard.getPiece(rookPosition);
 		
@@ -227,6 +225,22 @@ public class King extends Piece
 		return attackedSquares;
 	}
 
+	public List<Move> getCastlingMoves()
+	{
+		MoveList moves = getPseudoLegalMoves();
+		ArrayList<Move> castlingMoves = new ArrayList<>();
+		
+		for(Move move : moves.getList())
+		{
+			if(move.isCastling())
+			{
+				castlingMoves.add(move);
+			}
+		}
+		
+		return castlingMoves;
+	}
+	
 	@Override
 	public String toString()
 	{
@@ -237,5 +251,15 @@ public class King extends Piece
 	public String getChar()
 	{
 		return formatChar("K");
+	}
+
+	public boolean isCastlingPossible()
+	{
+		return isCastlingPossible;
+	}
+
+	public void setCastlingPossible(boolean isCastlingPossible)
+	{
+		this.isCastlingPossible = isCastlingPossible;
 	}
 }

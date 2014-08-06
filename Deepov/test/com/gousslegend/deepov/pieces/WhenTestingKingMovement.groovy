@@ -3,16 +3,18 @@ import static org.junit.Assert.assertEquals
 import spock.lang.*
 
 import com.gousslegend.deepov.Color
+import com.gousslegend.deepov.Move
 import com.gousslegend.deepov.Position
-import com.gousslegend.deepov.board.MapBoard;
+import com.gousslegend.deepov.board.Board
+import com.gousslegend.deepov.board.MapBoard
 
 class WhenTestingKingMovement extends spock.lang.Specification
 {
 
 	@Shared
-	def board
+	Board board
 	@Shared
-	def king
+	King king
 
 
 	def setupSpec()
@@ -112,7 +114,62 @@ class WhenTestingKingMovement extends spock.lang.Specification
 	}
 	
 	@Unroll
-	def "Castling"()
+	def "isKingSideCastlingPossible"()
+	{
+		given:
+		King whiteKing = new King(whiteKingPosition, board, Color.WHITE)
+		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE)
+		Rook blackRook = new Rook(blackRookPosition, board, Color.BLACK)
+
+		board.addPiece(whiteKing)
+		board.addPiece(whiteRook)
+		board.addPiece(blackRook)
+		
+		expect:
+		whiteKing.isKingSideCastlingPossible() == castlingAllowed
+
+		where:
+		whiteKingPosition  | whiteRookPosition    | blackRookPosition   | castlingAllowed
+		new Position(4, 0) |  new Position(7, 0)  |  new Position(5, 7) | false
+		new Position(4, 0) |  new Position(7, 0)  |  new Position(4, 7) | false
+		new Position(4, 0) |  new Position(7, 0)  |  new Position(6, 7) | false
+		new Position(4, 0) |  new Position(7, 0)  |  new Position(7, 7) | false
+		new Position(4, 0) |  new Position(7, 0)  |  new Position(1, 7) | true
+		new Position(4, 0) |  new Position(7, 0)  |  new Position(2, 5) | true
+		new Position(4, 0) |  new Position(7, 0)  |  new Position(3, 3) | true
+		new Position(4, 0) |  new Position(5, 0)  |  new Position(7, 0) | false
+	}
+	
+	@Unroll
+	def "isQueenSideCastlingPossible"()
+	{
+		given:
+		King whiteKing = new King(whiteKingPosition, board, Color.WHITE)
+		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE)
+		Rook blackRook = new Rook(blackRookPosition, board, Color.BLACK)
+
+		board.addPiece(whiteKing)
+		board.addPiece(whiteRook)
+		board.addPiece(blackRook)
+		
+		expect:
+		whiteKing.isQueenSideCastlingPossible() == castlingAllowed
+
+		where:
+		whiteKingPosition  | whiteRookPosition    | blackRookPosition   | castlingAllowed
+		new Position(4, 0) |  new Position(0, 0)  |  new Position(0, 7) | false
+		new Position(4, 0) |  new Position(0, 0)  |  new Position(1, 5) | false
+		new Position(4, 0) |  new Position(0, 0)  |  new Position(2, 7) | false
+		new Position(4, 0) |  new Position(0, 0)  |  new Position(3, 7) | false
+		new Position(4, 0) |  new Position(0, 0)  |  new Position(4, 7) | false
+		new Position(4, 0) |  new Position(0, 0)  |  new Position(5, 7) | true
+		new Position(4, 0) |  new Position(0, 0)  |  new Position(6, 5) | true
+		new Position(4, 0) |  new Position(0, 0)  |  new Position(7, 3) | true
+		new Position(4, 0) |  new Position(5, 0)  |  new Position(3, 3) | false
+	}
+	
+	@Unroll
+	def "Executing castling move"()
 	{
 		given:
 		King whiteKing = new King(whiteKingPosition, board, Color.WHITE)
@@ -120,13 +177,40 @@ class WhenTestingKingMovement extends spock.lang.Specification
 
 		board.addPiece(whiteKing)
 		board.addPiece(whiteRook)
-
+		Move castlingMove = whiteKing.getCastlingMoves().get(0);
+		board.executeMove(castlingMove);
+		
 		expect:
 		whiteKing.isKingSideCastlingPossible() == castlingAllowed
 
 		where:
 		whiteKingPosition  | whiteRookPosition   | castlingAllowed
-		new Position(4, 0) |  new Position(7, 0)  | true
-		new Position(4, 0) |  new Position(5, 0)  | false
+		new Position(4, 0) |  new Position(0, 0)  | false
+		new Position(4, 0) |  new Position(7, 0)  | false
+	}
+	
+	@Unroll
+	def "Undoing castling move"()
+	{
+		given:
+		King whiteKing = new King(whiteKingPosition, board, Color.BLACK)
+		Rook whiteRook = new Rook(whiteRookPosition, board, Color.BLACK)
+
+		board.addPiece(whiteKing)
+		board.addPiece(whiteRook)
+		Move castlingMove = whiteKing.getCastlingMoves().get(0);
+		
+		board.executeMove(castlingMove);
+		board.undoMove(castlingMove);
+		
+		
+		expect:
+		board.getNumberOfPieces() == 2;
+		board.getKingPosition(Color.BLACK).equals(whiteKingPosition);
+
+		where:
+		whiteKingPosition  | whiteRookPosition   
+		new Position(4, 0) |  new Position(0, 0)
+		new Position(4, 0) |  new Position(7, 0)
 	}
 }
