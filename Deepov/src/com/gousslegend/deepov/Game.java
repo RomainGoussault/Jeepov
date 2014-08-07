@@ -26,6 +26,16 @@ public class Game
 			System.out.print(myBoard);
 		}
 	}
+	
+	public Game(boolean showBoard, String fen)
+	{
+		myBoard = new MapBoard(fen);
+		
+		if(showBoard)
+		{
+			System.out.print(myBoard);
+		}
+	}
 
 	public Player getWhitePlayer()
 	{
@@ -50,6 +60,11 @@ public class Game
 	public Board getBoard()
 	{
 		return myBoard;
+	}
+
+	public void setBoard(Board board)
+	{
+		myBoard = board;
 	}
 
 	public static void main(String[] args)
@@ -78,11 +93,54 @@ public class Game
 
 		for (i = 0; i < nMoves; i++)
 		{
-			myBoard.executeMove(moveList.getList().get(i));
+			Move move = moveList.getList().get(i);
+			myBoard.executeMove(move);
 			nodes += perft(depth - 1);
-			myBoard.undoMove(moveList.getList().get(i));
+			myBoard.undoMove(move);
 		}
 		
 		return nodes;
+	}
+	
+	public int[] perftWithData(int depth)
+	{
+		int nMoves, i;
+		int nodes;
+		int[] data = new int[4];
+		int[] dataTemp = new int[4];
+
+		Color color = Color.BLACK;
+		if (depth % 2 == 1)
+		{
+			color = Color.WHITE;
+		}
+		
+		if (depth == 0)
+		{	
+			int node = 1;
+			int capture = myBoard.getLastMove().getCapturedPiece() == null ? 0 : 1 ;
+			int castling = myBoard.getLastMove().isCastling() ? 1 : 0 ;
+			int promotion = myBoard.getLastMove().isPromotion() ? 1 : 0 ;
+			return new int[]{node, capture, castling, promotion};
+		}
+
+		MoveList moveList = myBoard.generateMoves(color);
+		nMoves = moveList.size();
+
+		for (i = 0; i < nMoves; i++)
+		{
+			Move move = moveList.getList().get(i);
+			myBoard.executeMove(move);
+			
+			dataTemp = perftWithData(depth - 1);
+			data[0] += dataTemp[0];
+			data[1] += dataTemp[1];
+			data[2] += dataTemp[2];
+			data[3] += dataTemp[3];
+			
+			myBoard.undoMove(move);
+		}
+		
+		return data;
 	}
 }
