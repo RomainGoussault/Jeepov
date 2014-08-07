@@ -40,6 +40,7 @@ class WhenTestingKingMovement extends spock.lang.Specification
 		where:
 		position << Position.getAllPositionOnBoard()
 	}
+
 	def "Test blocked King with ennemy pieces"()
 	{
 		given:
