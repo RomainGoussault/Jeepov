@@ -82,9 +82,9 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 
 		where:
 		whitePawnPosition  |  blackRookPosition|  blackRookPosition2  | attackingSquaresSize
-		new Position(1, 1) |  new Position(5, 5) |  new Position(6, 6)| 0
+		new Position(1, 1) |  new Position(5, 5) |  new Position(6, 6)| 2
 		new Position(1, 3) |  new Position(0, 4) |  new Position(2, 4)| 2
-		new Position(1, 3) |  new Position(2, 4) |  new Position(7, 4)| 1
+		new Position(1, 3) |  new Position(2, 4) |  new Position(7, 4)| 2
 	}
 
 	def "Test 4 Moves on Pawn"()
