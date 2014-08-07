@@ -18,7 +18,7 @@ import com.gousslegend.deepov.pieces.Rook;
 
 public class Utils
 {
-	public static Board readFen(String fen)
+	public static Board getBoardFromFen(String fen)
 	{
 		MapBoard board = new MapBoard();
 		String[] spaceSplit = fen.split(" ");
@@ -34,7 +34,23 @@ public class Utils
 		return board;
 	}
 	
-	private static List<Piece> getPieces(String piecesString, int rank)
+	public static List<Piece> getPiecesFromFen(String fen)
+	{
+		List<Piece> pieces = new ArrayList<>();
+		String[] spaceSplit = fen.split(" ");
+		String[] piecesByRank = spaceSplit[0].split("/");
+		
+		int rank = 7;
+		for(String piecesRank : piecesByRank)
+		{
+			pieces.addAll(getPieces(piecesRank, rank));
+			rank--;
+		}
+		
+		return pieces;
+	}
+	
+	public static List<Piece> getPieces(String piecesString, int rank)
 	{
 		List<Piece> pieces = new ArrayList<>();
 		int x = -1;
@@ -46,7 +62,7 @@ public class Utils
 		{
 			if(Character.isDigit(pieceChar))
 			{
-				x = pieceChar;
+				x += Character.getNumericValue(pieceChar);
 			}
 			else
 			{
@@ -88,9 +104,9 @@ public class Utils
 
 	public static void main(String[] args)
 	{
-		String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-		Board board = Utils.readFen(fen);
+		//String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+		String fen = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq ";
+		Board board = Utils.getBoardFromFen(fen);
 		System.out.println(board);
-		
 	}
 }

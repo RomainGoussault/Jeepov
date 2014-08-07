@@ -16,6 +16,7 @@ import com.gousslegend.deepov.pieces.Pawn;
 import com.gousslegend.deepov.pieces.Piece;
 import com.gousslegend.deepov.pieces.Queen;
 import com.gousslegend.deepov.pieces.Rook;
+import com.gousslegend.deepov.utils.Utils;
 
 public class MapBoard extends Board
 {
@@ -25,7 +26,15 @@ public class MapBoard extends Board
 		myPieces = new HashMap<>(40);
 		myMoves = new ArrayList<>();
 	}
-
+	
+	public MapBoard(String fen)
+	{
+		myPieces = new HashMap<>(40);
+		myMoves = new ArrayList<>();
+		
+		addPieces(Utils.getPiecesFromFen(fen));
+	}
+	
 	public void addPiece(Piece piece)
 	{
 		Position position = piece.getPosition();
@@ -36,6 +45,7 @@ public class MapBoard extends Board
 	{
 		for(Piece piece : pieces)
 		{
+			piece.setBoard(this);
 			Position position = piece.getPosition();
 			myPieces.put(position, piece);
 		}
