@@ -193,23 +193,23 @@ class WhenTestingKingMovement extends spock.lang.Specification
 	def "Undoing castling move"()
 	{
 		given:
-		King whiteKing = new King(whiteKingPosition, board, Color.BLACK)
-		Rook whiteRook = new Rook(whiteRookPosition, board, Color.BLACK)
+		King blackKing = new King(blackKingPosition, board, Color.BLACK)
+		Rook blackRook = new Rook(blackRookPosition, board, Color.BLACK)
 
-		board.addPiece(whiteKing)
-		board.addPiece(whiteRook)
-		Move castlingMove = whiteKing.getCastlingMoves().get(0);
+		board.addPiece(blackKing)
+		board.addPiece(blackRook)
+		Move castlingMove = blackKing.getCastlingMoves().get(0);
 		
 		board.executeMove(castlingMove);
 		board.undoMove(castlingMove);
 		
-		
 		expect:
 		board.getNumberOfPieces() == 2;
-		board.getKingPosition(Color.BLACK).equals(whiteKingPosition);
+		blackKing.getCastlingMoves().size() == 1
+		board.getKingPosition(Color.BLACK).equals(blackKingPosition);
 
 		where:
-		whiteKingPosition  | whiteRookPosition   
+		blackKingPosition  | blackRookPosition   
 		new Position(4, 0) |  new Position(0, 0)
 		new Position(4, 0) |  new Position(7, 0)
 	}
