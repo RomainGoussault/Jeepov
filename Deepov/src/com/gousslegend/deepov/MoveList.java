@@ -72,4 +72,9 @@ public class MoveList
 	{
 		return "MoveList [myList=" + list + "]";
 	}
+
+	public void addAll(List<Move> moves)
+	{
+		list.addAll(moves);
+	}
 }

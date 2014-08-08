@@ -8,6 +8,7 @@ public class Move
 	private Position myDestination;
 	private Piece myCapturedPiece;
 	private boolean myIsPromotion;
+	private Piece promotedPiece;
 	private boolean myIsCastling;
 
 	public Move(Position origin, Position destination)
@@ -82,5 +83,15 @@ public class Move
 	public void setisCastling(boolean isCastling)
 	{
 		myIsCastling = isCastling;
+	}
+
+	public Piece getPromotedPiece()
+	{
+		return promotedPiece;
+	}
+
+	public void setPromotedPiece(Piece promotedPiece)
+	{
+		this.promotedPiece = promotedPiece;
 	}
 }

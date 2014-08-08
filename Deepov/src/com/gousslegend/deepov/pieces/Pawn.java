@@ -12,7 +12,6 @@ import com.gousslegend.deepov.board.MapBoard;
 
 public class Pawn extends Piece
 {
-
 	public Pawn(Position position, Board board, Color color)
 	{
 		super(position, board, color);
@@ -32,48 +31,14 @@ public class Pawn extends Piece
 	public MoveList getPseudoLegalMoves()
 	{
 		MoveList pseudoLegalMoves = new MoveList(myBoard);
-
 		int direction = getDirection();
+		boolean promotion = isGoingToPromote();
 		Position destination = null;
-
-		// no need to check if we are on the edge on the board:
-		// it should not happen because it will be promoted before
-		destination = myPosition.deltaY(direction);
-		if (myBoard.isPositionFree(destination))
-		{
-			pseudoLegalMoves.add(new Move(myPosition, destination));
-		}
-
 		// check to the right and the left for capture
 		Piece possibleCapture = null;
 		Move possibleMove = null;
-
-		destination = myPosition.deltaXY(1, direction);
-		possibleCapture = myBoard.getPiece(destination);
-		if (possibleCapture != null && areColorDifferent(possibleCapture))
-		{
-			possibleMove = new Move(myPosition, destination);
-			possibleMove.setCapturedPiece(possibleCapture);
-			pseudoLegalMoves.add(possibleMove);
-		}
-
-		destination = myPosition.deltaXY(-1, direction);
-		possibleCapture = myBoard.getPiece(destination);
-		if (possibleCapture != null && areColorDifferent(possibleCapture))
-		{
-			possibleMove = new Move(myPosition, destination);
-			possibleMove.setCapturedPiece(possibleCapture);
-			pseudoLegalMoves.add(possibleMove);
-		}
-
-		if (isGoingToPromote()) // Promotion
-		{
-			for (Move move : pseudoLegalMoves.getList())
-			{
-				move.setIsPromotion(true);
-			}
-		}
-		else if (isOnStartingRank()) // +2 square forward move
+		
+		if (isOnStartingRank()) // +2 square forward move
 		{
 			destination = myPosition.deltaY(2 * direction);
 			if (myBoard.isPositionFree(destination)
@@ -92,9 +57,75 @@ public class Pawn extends Piece
 			pseudoLegalMoves.add(possibleMove);
 		}
 
+		// no need to check if we are on the edge on the board:
+		// it should not happen because it will be promoted before
+		destination = myPosition.deltaY(direction);
+		if (myBoard.isPositionFree(destination))
+		{
+			if(promotion)
+			{				
+				pseudoLegalMoves.addAll(getPromotionMoves(destination));
+			}
+			else
+			{
+				possibleMove = new Move(myPosition, destination);
+				pseudoLegalMoves.add(possibleMove);
+			}
+		}
+
+		int[] y = new int[]{-1,1};
+		for(int i = 0; i <= 1 ; i++ )
+		{
+			destination = myPosition.deltaXY(y[i], direction);
+			possibleCapture = myBoard.getPiece(destination);
+			
+			if (possibleCapture != null && areColorDifferent(possibleCapture))
+			{
+				if(promotion)
+				{
+					pseudoLegalMoves.addAll(getPromotionMovesWithCapture(destination));
+				}
+				else
+				{
+					possibleMove = new Move(myPosition, destination);
+					possibleMove.setCapturedPiece(possibleCapture);
+					pseudoLegalMoves.add(possibleMove);
+				}
+			}
+		}
+
 		return pseudoLegalMoves;
 	}
+	
+	public List<Move> getPromotionMovesWithCapture(Position destination)
+	{
+		List<Move> moves = new ArrayList<>();
+		Move possibleMove = null;
 
+		possibleMove = new Move(myPosition, destination);
+		possibleMove.setIsPromotion(true);
+		possibleMove.setPromotedPiece(new Queen(destination, myBoard, myColor));
+		
+		Piece possibleCapture = myBoard.getPiece(destination);
+		possibleMove.setCapturedPiece(possibleCapture);
+		
+		moves.add(possibleMove);
+		return moves;
+	}
+	
+	public List<Move> getPromotionMoves(Position destination)
+	{
+		List<Move> moves = new ArrayList<>();
+		Move possibleMove = null;
+		
+		possibleMove = new Move(myPosition, destination);
+		possibleMove.setIsPromotion(true);
+		possibleMove.setPromotedPiece(new Queen(destination, myBoard, myColor));
+		
+		moves.add(possibleMove);
+		return moves;
+	}
+	
 	@Override
 	public String toString()
 	{
