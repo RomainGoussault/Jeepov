@@ -60,7 +60,7 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		whitePawnPosition	|  blackRookPosition|  moveSize
 		new Position(1, 1) |  new Position(0, 0) | 2
 		new Position(2, 2) |  new Position(0, 0) | 1
-		new Position(4, 0) |  new Position(0, 0) | 1
+		new Position(4, 1) |  new Position(0, 0) | 2
 		new Position(1, 1) |  new Position(2, 2) | 3
 		new Position(1, 1) |  new Position(0, 2) | 3
 		new Position(0, 4) |  new Position(0, 5) | 0
@@ -163,10 +163,9 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 	def "Test Undo Promotion with capture"()
 	{
 		given:
-		Position whitePawnPosition = new Position(7,6);
 		Pawn whitePawn = new Pawn(whitePawnPosition, board, Color.WHITE)
-		Rook whiteRook = new Rook(new Position(7,7), board, Color.WHITE)
-		Rook blackRook = new Rook(new Position(6,7), board, Color.BLACK)
+		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE)
+		Rook blackRook = new Rook(blackRookPosition, board, Color.BLACK)
 		board.addPiece(whitePawn)
 		board.addPiece(whiteRook)
 		board.addPiece(blackRook)
@@ -178,7 +177,15 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 				
 		then:
 		board.getPiece(whitePawnPosition) instanceof Pawn
+		board.getPiece(whiteRookPosition).equals(whiteRook);
+		board.getPiece(blackRookPosition).equals(blackRook);
 		board.getNumberOfPieces() == 3
+		
+		where:
+		whitePawnPosition  | whiteRookPosition      | blackRookPosition
+		new Position(7, 6) | new Position(7, 7)     | new Position(6, 7)
+		new Position(7, 6) | new Position(5, 7)     | new Position(6, 7)
+		new Position(1, 6) | new Position(5, 7)     | new Position(0, 7)
 	}
 
 	def "Test Promotion with capture"()
@@ -358,6 +365,7 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		whitePawnPositionOrigin  | blackPawnPositionOrigin  | whitePawnPositionDestination
 		new Position(0, 1)       | new Position(1, 3)       | new Position(0, 3)
 		new Position(2, 1)       | new Position(1, 3)       | new Position(2, 3)
+		new Position(2, 1)       | new Position(6, 3)       | new Position(2, 3)
 	}
 	
 	def "Test undoing several pawn moves"()
