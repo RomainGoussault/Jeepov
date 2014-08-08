@@ -20,12 +20,11 @@ class WhenTestingPerft extends spock.lang.Specification
 		2 	   | 400			| 0			| 0		   | 0           | 0
 		3 	   | 8902			| 34		| 0		   | 0           | 0
 		4 	   | 197281			| 1576		| 0		   | 0           | 0
-	//	5 	   | 4865609		| 82719		| 0		   | 0           | 0
+		5 	   | 4865609		| 82719		| 0		   | 0           | 258
 	//	6	   | 119060324		| 2812008	| 0		   | 0           | 0
 	//	7      | 3195901860		| 0			| 0		   | 0           | 0
 	}
 	
-	@Unroll
 	def "Perft Kiwipete"()
 	{
 		given:

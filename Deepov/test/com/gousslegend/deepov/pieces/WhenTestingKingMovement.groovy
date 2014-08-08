@@ -5,8 +5,8 @@ import spock.lang.*
 import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Move
 import com.gousslegend.deepov.Position
+import com.gousslegend.deepov.board.ArrayBoard
 import com.gousslegend.deepov.board.Board
-import com.gousslegend.deepov.board.MapBoard
 
 class WhenTestingKingMovement extends spock.lang.Specification
 {
@@ -19,13 +19,13 @@ class WhenTestingKingMovement extends spock.lang.Specification
 
 	def setupSpec()
 	{
-		board = new MapBoard()
+		board = new ArrayBoard()
 		king = new King()
 	}
 	
 	def cleanup()
 	{
-		board = new MapBoard()
+		board = new ArrayBoard()
 	}
 
 	def "Testing king alone on board"()
@@ -211,8 +211,8 @@ class WhenTestingKingMovement extends spock.lang.Specification
 
 		where:
 		blackKingPosition  | blackRookPosition   
-		new Position(4, 0) |  new Position(0, 0)
-		new Position(4, 0) |  new Position(7, 0)
+		new Position(4, 7) |  new Position(0, 7)
+		new Position(4, 7) |  new Position(7, 7)
 	}
 	
 	@Unroll
@@ -236,7 +236,7 @@ class WhenTestingKingMovement extends spock.lang.Specification
 
 		where:
 		blackKingPosition  | blackRookPosition
-		new Position(4, 0) |  new Position(0, 0)
-		new Position(4, 0) |  new Position(7, 0)
+		new Position(4, 7) |  new Position(0, 7)
+		new Position(4, 7) |  new Position(7, 7)
 	}
 }

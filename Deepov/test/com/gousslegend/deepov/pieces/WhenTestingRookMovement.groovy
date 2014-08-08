@@ -4,7 +4,7 @@ import spock.lang.*
 
 import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Position
-import com.gousslegend.deepov.board.MapBoard;
+import com.gousslegend.deepov.board.ArrayBoard
 
 class WhenTestingRookMovement extends spock.lang.Specification
 {
@@ -17,13 +17,13 @@ class WhenTestingRookMovement extends spock.lang.Specification
 
 	def setupSpec()
 	{
-		board = new MapBoard()
+		board = new ArrayBoard()
 		rook = new Rook()
 	}
 	
 	def cleanup()
 	{
-		board = new MapBoard()
+		board = new ArrayBoard()
 	}
 
 	def "Testing rook alone on board"()

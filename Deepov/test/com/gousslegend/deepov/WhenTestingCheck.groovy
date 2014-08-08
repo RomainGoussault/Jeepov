@@ -1,16 +1,11 @@
 package com.gousslegend.deepov
 import static org.junit.Assert.assertEquals
-
-import org.junit.Test
-
 import spock.lang.*
 
-import com.gousslegend.deepov.Color
-import com.gousslegend.deepov.Position
-import com.gousslegend.deepov.board.MapBoard;
-import com.gousslegend.deepov.pieces.King;
-import com.gousslegend.deepov.pieces.Pawn;
-import com.gousslegend.deepov.pieces.Rook;
+import com.gousslegend.deepov.board.ArrayBoard
+import com.gousslegend.deepov.pieces.King
+import com.gousslegend.deepov.pieces.Pawn
+import com.gousslegend.deepov.pieces.Rook
 
 class WhenTestingCheck extends spock.lang.Specification
 {
@@ -22,7 +17,7 @@ class WhenTestingCheck extends spock.lang.Specification
 
 	def setup()
 	{
-		board = new MapBoard()
+		board = new ArrayBoard()
 		rook = new Rook()
 	}
 

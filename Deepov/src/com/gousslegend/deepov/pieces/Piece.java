@@ -7,8 +7,8 @@ import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
+import com.gousslegend.deepov.board.ArrayBoard;
 import com.gousslegend.deepov.board.Board;
-import com.gousslegend.deepov.board.MapBoard;
 
 public abstract class Piece
 {
@@ -23,14 +23,14 @@ public abstract class Piece
 	public Piece()
 	{
 		myPosition = new Position();
-		myBoard = new MapBoard();
+		myBoard = new ArrayBoard();
 		myColor = Color.BLACK;
 	}
 
 	public Piece(Color color)
 	{
 		myPosition = new Position();
-		myBoard = new MapBoard();
+		myBoard = new ArrayBoard();
 		myColor = color;
 	}
 

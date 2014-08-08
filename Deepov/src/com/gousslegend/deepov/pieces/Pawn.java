@@ -8,7 +8,6 @@ import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.MoveList;
 import com.gousslegend.deepov.Position;
 import com.gousslegend.deepov.board.Board;
-import com.gousslegend.deepov.board.MapBoard;
 
 public class Pawn extends Piece
 {
@@ -37,7 +36,7 @@ public class Pawn extends Piece
 		// check to the right and the left for capture
 		Piece possibleCapture = null;
 		Move possibleMove = null;
-		
+
 		if (isOnStartingRank()) // +2 square forward move
 		{
 			destination = myPosition.deltaY(2 * direction);
@@ -63,8 +62,8 @@ public class Pawn extends Piece
 		destination = myPosition.deltaY(direction);
 		if (myBoard.isPositionFree(destination))
 		{
-			if(promotion)
-			{				
+			if (promotion)
+			{
 				pseudoLegalMoves.addAll(getPromotionMoves(destination));
 			}
 			else
@@ -74,96 +73,105 @@ public class Pawn extends Piece
 			}
 		}
 
-		int[] y = new int[]{-1,1};
-		for(int i = 0; i <= 1 ; i++ )
+		int[] y = new int[] { -1, 1 };
+		for (int i = 0; i <= 1; i++)
 		{
 			destination = myPosition.deltaXY(y[i], direction);
-			possibleCapture = myBoard.getPiece(destination);
-			
-			if (possibleCapture != null && areColorDifferent(possibleCapture))
+			if (myBoard.isPositionOnBoard(destination))
 			{
-				if(promotion)
+
+				possibleCapture = myBoard.getPiece(destination);
+
+				if (possibleCapture != null
+						&& areColorDifferent(possibleCapture))
 				{
-					pseudoLegalMoves.addAll(getPromotionMovesWithCapture(destination));
-				}
-				else
-				{
-					possibleMove = new Move(myPosition, destination);
-					possibleMove.setCapturedPiece(possibleCapture);
-					pseudoLegalMoves.add(possibleMove);
+					if (promotion)
+					{
+						pseudoLegalMoves
+								.addAll(getPromotionMovesWithCapture(destination));
+					}
+					else
+					{
+						possibleMove = new Move(myPosition, destination);
+						possibleMove.setCapturedPiece(possibleCapture);
+						pseudoLegalMoves.add(possibleMove);
+					}
 				}
 			}
 		}
 
 		return pseudoLegalMoves;
 	}
-	
+
 	public List<Move> getPromotionMovesWithCapture(Position destination)
 	{
 		List<Move> moves = new ArrayList<>();
 		Move possibleMove = null;
 		Piece possibleCapture = null;
 
-
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
 		possibleMove.setPromotedPiece(new Queen(destination, myBoard, myColor));
 		possibleCapture = myBoard.getPiece(destination);
 		possibleMove.setCapturedPiece(possibleCapture);
 		moves.add(possibleMove);
-		
+
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
 		possibleMove.setPromotedPiece(new Rook(destination, myBoard, myColor));
 		possibleCapture = myBoard.getPiece(destination);
 		possibleMove.setCapturedPiece(possibleCapture);
 		moves.add(possibleMove);
-		
+
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
-		possibleMove.setPromotedPiece(new Bishop(destination, myBoard, myColor));
+		possibleMove
+				.setPromotedPiece(new Bishop(destination, myBoard, myColor));
 		possibleCapture = myBoard.getPiece(destination);
 		possibleMove.setCapturedPiece(possibleCapture);
 		moves.add(possibleMove);
-		
+
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
-		possibleMove.setPromotedPiece(new Knight(destination, myBoard, myColor));
+		possibleMove
+				.setPromotedPiece(new Knight(destination, myBoard, myColor));
 		possibleCapture = myBoard.getPiece(destination);
 		possibleMove.setCapturedPiece(possibleCapture);
 		moves.add(possibleMove);
-		
+
 		return moves;
 	}
-	
+
 	public List<Move> getPromotionMoves(Position destination)
 	{
 		List<Move> moves = new ArrayList<>();
 		Move possibleMove = null;
-		
+
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
 		possibleMove.setPromotedPiece(new Queen(destination, myBoard, myColor));
 		moves.add(possibleMove);
-	
+
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
 		possibleMove.setPromotedPiece(new Rook(destination, myBoard, myColor));
 		moves.add(possibleMove);
-		
+
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
-		possibleMove.setPromotedPiece(new Bishop(destination, myBoard, myColor));
+		possibleMove
+				.setPromotedPiece(new Bishop(destination, myBoard, myColor));
 		moves.add(possibleMove);
-		
+
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
-		possibleMove.setPromotedPiece(new Knight(destination, myBoard, myColor));
+		possibleMove
+				.setPromotedPiece(new Knight(destination, myBoard, myColor));
 		moves.add(possibleMove);
-		
+
 		return moves;
 	}
-	
+
 	@Override
 	public String toString()
 	{
