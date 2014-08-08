@@ -4,8 +4,7 @@ import spock.lang.*
 
 class WhenTestingPerft extends spock.lang.Specification
 {
-	//@Ignore //WORKING
-	@Unroll
+	@Ignore //WORKING
 	def "Perft"()
 	{
 		given:
@@ -26,7 +25,6 @@ class WhenTestingPerft extends spock.lang.Specification
 	//	7      | 3195901860		| 0			| 0		   | 0           | 0
 	}
 	
-	@Ignore
 	def "Perft Kiwipete"()
 	{
 		given:
@@ -45,7 +43,7 @@ class WhenTestingPerft extends spock.lang.Specification
 		4 	   | 4085603		| 757163	| 128013   | 15172      | 1929
 	}
 	
-	//@Ignore //WORKING
+	@Ignore //WORKING
 	def "Perft Position 3 "()
 	{
 		given:
@@ -65,7 +63,7 @@ class WhenTestingPerft extends spock.lang.Specification
 		5 	   | 674624			| 52051		| 0	       | 0          | 1165
 	}
 	
-	//@Ignore //WORKING
+	@Ignore //WORKING
 	def "Perft Position 4"()
 	{
 		given:
@@ -87,7 +85,7 @@ class WhenTestingPerft extends spock.lang.Specification
 	//	5      | 70202861
 	}
 	
-	//@Ignore //WORKING
+	@Ignore //WORKING
 	def "Perft 5"()
 	{
 		given:
@@ -106,7 +104,7 @@ class WhenTestingPerft extends spock.lang.Specification
 	//	5      | 70202861
 	}
 	
-	//@Ignore //WORKING
+	@Ignore //WORKING
 	def "Perft 6"()
 	{
 		given:
