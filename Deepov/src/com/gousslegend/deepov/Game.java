@@ -1,8 +1,8 @@
 package com.gousslegend.deepov;
 
 import com.gousslegend.deepov.board.Board;
-import com.gousslegend.deepov.board.ListBoard;
 import com.gousslegend.deepov.board.MapBoard;
+import com.gousslegend.deepov.utils.Utils;
 
 public class Game
 {
@@ -129,8 +129,8 @@ public class Game
 	public int[] perftWithData(int depth)
 	{
 		int nMoves, i;
-		int[] data = new int[4];
-		int[] dataTemp = new int[4];
+		int[] data = new int[5];
+		int[] dataTemp = new int[5];
 
 		if (depth == 0)
 		{	
@@ -138,7 +138,8 @@ public class Game
 			int capture = myBoard.getLastMove().getCapturedPiece() == null ? 0 : 1 ;
 			int castling = myBoard.getLastMove().isCastling() ? 1 : 0 ;
 			int promotion = myBoard.getLastMove().isPromotion() ? 1 : 0 ;
-			return new int[]{node, capture, castling, promotion};
+			int enPassant = myBoard.getLastMove().isEnPassant() ? 1 : 0 ;
+			return new int[]{node, capture, castling, promotion, enPassant};
 		}
 
 		MoveList moveList = myBoard.generateMoves();
@@ -147,14 +148,16 @@ public class Game
 		for (i = 0; i < nMoves; i++)
 		{
 			Move move = moveList.getList().get(i);
+			
 			myBoard.executeMove(move);
 			//System.out.println(move.toShortString());
-				
+
 			dataTemp = perftWithData(depth - 1);
 			data[0] += dataTemp[0];
 			data[1] += dataTemp[1];
 			data[2] += dataTemp[2];
 			data[3] += dataTemp[3];
+			data[4] += dataTemp[4];
 			
 			myBoard.undoMove(move);
 		}

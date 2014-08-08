@@ -10,6 +10,7 @@ public class Move
 	private boolean myIsPromotion;
 	private Piece promotedPiece;
 	private boolean myIsCastling;
+	private boolean enPassant;
 
 	public Move(Position origin, Position destination)
 	{
@@ -56,8 +57,14 @@ public class Move
 		String capture = "";
 		if(myCapturedPiece != null) capture = " Capture: " + myCapturedPiece;
 		
+		String promotion = "";
+		if(isPromotion()) promotion = " PROMOTION";
+
+		String enPassant = "";
+		if(isEnPassant()) enPassant = " ENPASSANT";
+		
 		return "Move [org=" + myOrigin + ", dest="
-				+ myDestination + castling + capture + "]" + "\n";
+				+ myDestination + castling + capture + promotion + enPassant + "]" + "\n";
 	}
 
 	public String toShortString()
@@ -93,5 +100,15 @@ public class Move
 	public void setPromotedPiece(Piece promotedPiece)
 	{
 		this.promotedPiece = promotedPiece;
+	}
+
+	public boolean isEnPassant()
+	{
+		return enPassant;
+	}
+
+	public void setIsEnPassant(boolean myIsEnPassant)
+	{
+		this.enPassant = myIsEnPassant;
 	}
 }
