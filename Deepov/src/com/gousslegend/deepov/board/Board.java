@@ -329,4 +329,14 @@ public abstract class Board
 
 		return attackingSquares.contains(positionAttackec);
 	}
+
+	public Color getColorToPlay()
+	{
+		return colorToPlay;
+	}
+
+	public void setColorToPlay(Color colorToPlay)
+	{
+		this.colorToPlay = colorToPlay;
+	}
 }

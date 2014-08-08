@@ -23,6 +23,11 @@ public class Utils
 		MapBoard board = new MapBoard();
 		String[] spaceSplit = fen.split(" ");
 		String[] piecesByRank = spaceSplit[0].split("/");
+		String colorToplay = spaceSplit[1];
+		String castlingAvailability = spaceSplit[2];
+		String enPassantTarget = spaceSplit[3];
+		String halfMoveNumber = spaceSplit[4];
+		String MoveNumber = spaceSplit[5];
 		
 		int rank = 7;
 		for(String pieces : piecesByRank)
@@ -30,6 +35,9 @@ public class Utils
 			board.addPieces(getPieces(pieces, rank));
 			rank--;
 		}
+
+		Color color = colorToplay.equalsIgnoreCase("w") ? Color.WHITE : Color.BLACK;
+		board.setColorToPlay(color);
 		
 		return board;
 	}
