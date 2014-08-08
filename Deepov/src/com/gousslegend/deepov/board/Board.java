@@ -350,13 +350,6 @@ public abstract class Board
 		}
 	}
 
-	private boolean isPieceAttacking(Piece ennemyPiece, Position positionAttackec)
-	{
-		List<Position> attackingSquares = ennemyPiece.getAttackingSquares();
-
-		return attackingSquares.contains(positionAttackec);
-	}
-
 	public Color getColorToPlay()
 	{
 		return colorToPlay;
@@ -385,6 +378,11 @@ public abstract class Board
 			piece.setBoard(this);
 			addPiece(piece);
 		}
+	}
+	
+	public void removePiece(Piece piece)
+	{
+		removePiece(piece.getPosition());
 	}
 	
 	public List<Piece> getPinnedPieces(Color color)
@@ -634,8 +632,10 @@ public abstract class Board
 		addPiece(piece);
 	}
 	
-	public void removePiece(Piece piece)
+	private boolean isPieceAttacking(Piece ennemyPiece, Position positionAttackec)
 	{
-		removePiece(piece.getPosition());
+		List<Position> attackingSquares = ennemyPiece.getAttackingSquares();
+
+		return attackingSquares.contains(positionAttackec);
 	}
 }

@@ -62,7 +62,7 @@ public class Deepov extends Player
 	{
 		int nMoves, i;
 		int score = 0;
-		int max = -10000;
+		int max = -1000000;
 
 		MoveList moveList = myBoard.getLegalMoves();
 		nMoves = moveList.size();
@@ -87,7 +87,7 @@ public class Deepov extends Player
 	{
 		int nMoves, i;
 		int score = 0;
-		int max = -10000;
+		int max = -100000;
 		
 		if (depth == 0)
 		{
@@ -207,7 +207,7 @@ public class Deepov extends Player
 
 	public static void main(String[] args)
 	{
-		String fen = "rnbqkb1r/pppp1ppp/5n2/4p3/4P3/5Q2/PPPP1PPP/RNB1KBNR w KQkq - 0 1";
+		String fen = "2k5/1p1b3p/8/1pK2r2/q4P2/6P1/7P/8 w - - 0 1";
 
 		Board board = new ArrayBoard(fen);
 		System.out.println(board);

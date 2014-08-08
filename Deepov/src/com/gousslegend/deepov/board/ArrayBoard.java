@@ -138,10 +138,6 @@ public class ArrayBoard extends Board
 	@Override
 	public void removePiece(Position position)
 	{
-		if(isPositionFree(position))
-		{
-			System.out.println("BIG MISTAKE REMOVE");
-		}
 		myPieces[position.getX()][position.getY()] = null;
 	}
 }

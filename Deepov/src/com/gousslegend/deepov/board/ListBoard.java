@@ -128,18 +128,10 @@ public class ListBoard extends Board
 			removePiece(move.getCapturedPiece().getPosition());
 		}
 		
-		if(getPiece(destination) != null)
-		{
-			//	System.out.println("ERROR: Destination not null for Move " + move);
-		}
 		Piece pieceToMove = getPiece(origin);
-		//removePiece(origin);
 		pieceToMove.setPosition(destination);
 		pieceToMove.incrementMoveCounter();
 
-		
-		//addPiece(pieceToMove);
-		
 		if(move.isPromotion())
 		{
 			//remove the pawn
