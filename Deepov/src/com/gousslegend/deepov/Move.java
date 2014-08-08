@@ -59,6 +59,11 @@ public class Move
 				+ myDestination + castling + capture + "]" + "\n";
 	}
 
+	public String toShortString()
+	{
+		return myOrigin.toShortString() +  myDestination.toShortString();
+	}
+	
 	public boolean isPromotion()
 	{
 		return myIsPromotion;

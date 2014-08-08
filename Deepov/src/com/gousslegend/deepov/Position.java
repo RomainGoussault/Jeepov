@@ -119,4 +119,12 @@ public class Position
 		}
 		return false;
 	}
+
+	public String toShortString()
+	{
+		String[] letters = new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
+		int yy = y + 1;
+		
+		return letters[x] + yy;
+	}
 }
