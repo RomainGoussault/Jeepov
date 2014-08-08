@@ -20,6 +20,8 @@ public abstract class Board
 
 	/** Move taken in this game so far */
 	protected List<Move> myMoves;
+	
+	protected Color colorToPlay = Color.WHITE;
 
 	public Board()
 	{
@@ -55,6 +57,10 @@ public abstract class Board
 
 		if (isCaptureMove)
 		{
+			if(getPiece(move.getCapturedPiece().getPosition()) == null)
+			{
+				System.out.println("ERROR: Removing null piece for Move " + move);
+			}
 			removePiece(move.getCapturedPiece().getPosition());
 		}
 
@@ -67,7 +73,6 @@ public abstract class Board
 		if(move.isCastling())
 		{
 			King king = (King) pieceToMove;
-			king.setCastlingPossible(false);
 
 			//move the rook
 			boolean isKingSideCastling = move.getDestination().getX() == 6;
@@ -101,6 +106,7 @@ public abstract class Board
 		}
 
 		myMoves.add(move);
+		colorToPlay = colorToPlay.getOppositeColor();
 	}
 
 	public void undoMove(Move move)
@@ -116,6 +122,10 @@ public abstract class Board
 		if (isCaptureMove)
 		{
 			Piece pieceCaptured = move.getCapturedPiece();
+			if(pieceCaptured == null)
+			{
+				System.out.println("ERROR: adding null piece for Move " + move);
+			}
 			addPiece(pieceCaptured);
 		}
 		
@@ -125,7 +135,6 @@ public abstract class Board
 		if(move.isCastling())
 		{
 			King king = (King) pieceMoved;
-			king.setCastlingPossible(true);
 
 			//move back the rook
 			boolean isKingSideCastling = move.getDestination().getX() == 6;
@@ -151,6 +160,8 @@ public abstract class Board
 		}
 
 		myMoves.remove(getLastMove());
+		colorToPlay = colorToPlay.getOppositeColor();
+
 		//TODO undo promotion
 	}
 	public void setupBoard()
@@ -265,6 +276,11 @@ public abstract class Board
 	public List<Piece> getEnnemiesPieces(Color color)
 	{
 		return getPieces(color.getOppositeColor());
+	}
+
+	public MoveList generateMoves()
+	{
+		return generateMoves(colorToPlay);
 	}
 
 
