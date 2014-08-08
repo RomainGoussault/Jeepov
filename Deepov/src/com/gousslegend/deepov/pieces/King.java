@@ -71,7 +71,7 @@ public class King extends Piece
 			}
 		}
 
-		if (!this.hasMoved())
+		if (!this.hasMoved() && getInitialKingPosition().equals(myPosition))
 		{
 			if(isKingSideCastlingPossible())
 			{
@@ -89,6 +89,12 @@ public class King extends Piece
 		}
 
 		return pseudoLegalMoves;
+	}
+
+	private Position getInitialKingPosition()
+	{
+		int y = myColor == Color.WHITE ? 0 : 7 ;
+		return new Position(4,y);
 	}
 
 	private boolean isQueenSideCastlingPossible()

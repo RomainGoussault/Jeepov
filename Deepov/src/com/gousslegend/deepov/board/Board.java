@@ -49,62 +49,87 @@ public abstract class Board
 		Position origin = move.getOrigin();
 		Position destination = move.getDestination();
 		boolean isCaptureMove = move.getCapturedPiece() != null;
-
 		Piece pieceToMove = getPiece(origin);
-		removePiece(origin);
-		pieceToMove.setPosition(destination);
-		pieceToMove.incrementMoveCounter();
-
-		if (isCaptureMove)
-		{
-			if(getPiece(move.getCapturedPiece().getPosition()) == null)
-			{
-				System.out.println("ERROR: Removing null piece for Move " + move);
-			}
-			removePiece(move.getCapturedPiece().getPosition());
-		}
-
-		if(getPiece(destination) != null)
-		{
-			System.out.println("ERROR: Destination not null for Move " + move);
-		}
-		addPiece(pieceToMove);
-
-		if(move.isCastling())
-		{
-			//move the rook
-			boolean isKingSideCastling = move.getDestination().getX() == 6;
-			Position rookOrigin;
-			Position rookDestination;
-
-			if(isKingSideCastling)
-			{
-				rookOrigin = new Position(7, destination.getY());
-				rookDestination = new Position(5, destination.getY());
-			}
-			else
-			{
-				rookOrigin = new Position(0, destination.getY());
-				rookDestination = new Position(3, destination.getY());
-			}
-
-			Rook rook = (Rook) getPiece(rookOrigin);
-			removePiece(rookOrigin);
-			rook.setPosition(rookDestination);
-			rook.incrementMoveCounter();
-			addPiece(rook);
-		}
 
 		if(move.isPromotion())
 		{
 			//remove the pawn
-			removePiece(destination);
-			//add a queen
+			removePiece(origin);
+
+			//remove the captured piece if capture
+			if (isCaptureMove)
+			{
+				if(getPiece(move.getCapturedPiece().getPosition()) == null)
+				{
+					System.out.println("ERROR EXE MOVE: Removing null piece for Move " + move);
+				}
+				if(!move.getCapturedPiece().getPosition().equals(destination))
+				{
+					System.out.println("ERROR EXE PROMOTION MOVE:" + move);
+				}
+				
+				removePiece(move.getCapturedPiece().getPosition());
+			}
+			
+			//add the promoted piece 
 			addPiece(move.getPromotedPiece());
+		}
+		else
+		{
+			removePiece(origin);
+			pieceToMove.setPosition(destination);
+			pieceToMove.incrementMoveCounter();
+
+			if (isCaptureMove)
+			{
+				if(getPiece(move.getCapturedPiece().getPosition()) == null)
+				{
+					System.out.println("ERROR EXE MOVE: Removing null piece for Move " + move);
+				}
+				removePiece(move.getCapturedPiece().getPosition());
+			}
+
+			if(getPiece(destination) != null)
+			{
+				System.out.println("ERROR EXE MOVE: Destination not null for Move " + move);
+			}
+			addPiece(pieceToMove);
+
+			if(move.isCastling())
+			{
+				//move the rook
+				boolean isKingSideCastling = move.getDestination().getX() == 6;
+				Position rookOrigin;
+				Position rookDestination;
+
+				if(isKingSideCastling)
+				{
+					rookOrigin = new Position(7, destination.getY());
+					rookDestination = new Position(5, destination.getY());
+				}
+				else
+				{
+					rookOrigin = new Position(0, destination.getY());
+					rookDestination = new Position(3, destination.getY());
+				}
+
+				Rook rook = (Rook) getPiece(rookOrigin);
+				removePiece(rookOrigin);
+				rook.setPosition(rookDestination);
+				rook.incrementMoveCounter();
+				addPiece(rook);
+			}
+		}
+
+		//Make sure the destination contains a piece:
+		if(getPiece(destination) == null)
+		{
+			System.out.println("ERROR EXE MOVE: destination is null for move " + move);
 		}
 
 		myMoves.add(move);
 		colorToPlay = colorToPlay.getOppositeColor();
+
 	}
 
 	public void undoMove(Move move)
@@ -112,10 +137,7 @@ public abstract class Board
 		Position origin = move.getOrigin();
 		Position destination = move.getDestination();
 		boolean isCaptureMove = move.getCapturedPiece() != null;
-
 		Piece pieceMoved = getPiece(destination);
-		pieceMoved.decrementMoveCounter();
-		removePiece(destination);
 
 		if(move.isPromotion())
 		{
@@ -124,25 +146,33 @@ public abstract class Board
 
 			//add the pawn again
 			addPiece(new Pawn(origin, this, move.getPromotedPiece().getColor()));
-		
+
 			if (isCaptureMove)
 			{
 				Piece pieceCaptured = move.getCapturedPiece();
+				addPiece(pieceCaptured);
+				
 				if(pieceCaptured == null)
 				{
-					System.out.println("ERROR: adding null piece for Move " + move);
+					System.out.println("ERROR UNDO MOVE: adding null piece for Move " + move);
 				}
-				addPiece(pieceCaptured);
+				if(!move.getCapturedPiece().getPosition().equals(destination))
+				{
+					System.out.println("ERROR UNDO PROMOTION MOVE:" + move);
+				}
 			}
 		}
 		else
 		{
+			pieceMoved.decrementMoveCounter();
+			removePiece(destination);
+
 			if (isCaptureMove)
 			{
 				Piece pieceCaptured = move.getCapturedPiece();
 				if(pieceCaptured == null)
 				{
-					System.out.println("ERROR: adding null piece for Move " + move);
+					System.out.println("ERROR UNDO MOVE: adding null piece for Move " + move);
 				}
 				addPiece(pieceCaptured);
 			}
@@ -179,6 +209,7 @@ public abstract class Board
 		myMoves.remove(getLastMove());
 		colorToPlay = colorToPlay.getOppositeColor();
 	}
+	
 	public void setupBoard()
 	{
 		//Add Pawns
@@ -353,5 +384,21 @@ public abstract class Board
 	public void setColorToPlay(Color colorToPlay)
 	{
 		this.colorToPlay = colorToPlay;
+	}
+
+	public void checkForNoPawnOnBackRank()
+	{
+		List<Piece> pieces = getPieces();
+
+		for(Piece piece : pieces)
+		{
+			if(piece instanceof Pawn)
+			{
+				if(piece.getPosition().getY() == 0 | piece.getPosition().getY() == 7)
+				{
+					System.out.println("ERROR NO PAWN ON BACK RANKS");
+				}
+			}
+		}
 	}
 }
