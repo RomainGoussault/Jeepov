@@ -11,8 +11,6 @@ import com.gousslegend.deepov.board.Board;
 
 public class King extends Piece
 {
-	private boolean isCastlingPossible = true;
-
 	public King()
 	{
 		super();
@@ -73,27 +71,20 @@ public class King extends Piece
 			}
 		}
 
-		if (isCastlingPossible)
+		if (!this.hasMoved())
 		{
-			if (!this.hasMoved())
+			if(isKingSideCastlingPossible())
 			{
-				if(isKingSideCastlingPossible())
-				{
-					possibleMove = new Move(myPosition, new Position(6, myPosition.getY()));
-					possibleMove.setisCastling(true);
-					pseudoLegalMoves.add(possibleMove);
+				possibleMove = new Move(myPosition, new Position(6, myPosition.getY()));
+				possibleMove.setisCastling(true);
+				pseudoLegalMoves.add(possibleMove);
 
-				}
-				if(isQueenSideCastlingPossible())
-				{
-					possibleMove = new Move(myPosition, new Position(2, myPosition.getY()));
-					possibleMove.setisCastling(true);
-					pseudoLegalMoves.add(possibleMove);
-				}
 			}
-			else
+			if(isQueenSideCastlingPossible())
 			{
-				isCastlingPossible = false;
+				possibleMove = new Move(myPosition, new Position(2, myPosition.getY()));
+				possibleMove.setisCastling(true);
+				pseudoLegalMoves.add(possibleMove);
 			}
 		}
 
@@ -112,8 +103,6 @@ public class King extends Piece
 			
 			//check if the positions are not in check
 			List<Position> positions = new ArrayList<>();
-			positions.add(new Position(0,y));
-			positions.add(new Position(1,y));
 			positions.add(new Position(2,y));
 			positions.add(new Position(3,y));
 			positions.add(new Position(4,y));
@@ -129,7 +118,7 @@ public class King extends Piece
 		}
 		else
 		{
-			isCastlingPossible = false;
+			//isCastlingPossible = false;
 			return false;
 		}
 		
@@ -151,7 +140,6 @@ public class King extends Piece
 			positions.add(new Position(4,y));
 			positions.add(new Position(5,y));
 			positions.add(new Position(6,y));
-			positions.add(new Position(7,y));
 			
 			for(Position position : positions)
 			{
@@ -165,7 +153,7 @@ public class King extends Piece
 		}
 		else
 		{
-			isCastlingPossible = false;
+			//isCastlingPossible = false;
 			return false;
 		}
 		
@@ -256,15 +244,5 @@ public class King extends Piece
 	public String getChar()
 	{
 		return formatChar("K");
-	}
-
-	public boolean isCastlingPossible()
-	{
-		return isCastlingPossible;
-	}
-
-	public void setCastlingPossible(boolean isCastlingPossible)
-	{
-		this.isCastlingPossible = isCastlingPossible;
 	}
 }

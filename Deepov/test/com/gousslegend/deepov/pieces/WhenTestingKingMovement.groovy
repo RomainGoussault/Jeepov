@@ -134,7 +134,7 @@ class WhenTestingKingMovement extends spock.lang.Specification
 		new Position(4, 0) |  new Position(7, 0)  |  new Position(5, 7) | false
 		new Position(4, 0) |  new Position(7, 0)  |  new Position(4, 7) | false
 		new Position(4, 0) |  new Position(7, 0)  |  new Position(6, 7) | false
-		new Position(4, 0) |  new Position(7, 0)  |  new Position(7, 7) | false
+		new Position(4, 0) |  new Position(7, 0)  |  new Position(7, 7) | true
 		new Position(4, 0) |  new Position(7, 0)  |  new Position(1, 7) | true
 		new Position(4, 0) |  new Position(7, 0)  |  new Position(2, 5) | true
 		new Position(4, 0) |  new Position(7, 0)  |  new Position(3, 3) | true
@@ -158,8 +158,8 @@ class WhenTestingKingMovement extends spock.lang.Specification
 
 		where:
 		whiteKingPosition  | whiteRookPosition    | blackRookPosition   | castlingAllowed
-		new Position(4, 0) |  new Position(0, 0)  |  new Position(0, 7) | false
-		new Position(4, 0) |  new Position(0, 0)  |  new Position(1, 5) | false
+		new Position(4, 0) |  new Position(0, 0)  |  new Position(0, 7) | true
+		new Position(4, 0) |  new Position(0, 0)  |  new Position(1, 5) | true
 		new Position(4, 0) |  new Position(0, 0)  |  new Position(2, 7) | false
 		new Position(4, 0) |  new Position(0, 0)  |  new Position(3, 7) | false
 		new Position(4, 0) |  new Position(0, 0)  |  new Position(4, 7) | false
@@ -211,6 +211,31 @@ class WhenTestingKingMovement extends spock.lang.Specification
 
 		where:
 		blackKingPosition  | blackRookPosition   
+		new Position(4, 0) |  new Position(0, 0)
+		new Position(4, 0) |  new Position(7, 0)
+	}
+	
+	@Unroll
+	def "Undoing castling move 2"()
+	{
+		given:
+		King blackKing = new King(blackKingPosition, board, Color.BLACK)
+		Rook blackRook = new Rook(blackRookPosition, board, Color.BLACK)
+
+		board.addPiece(blackKing)
+		board.addPiece(blackRook)
+		Move castlingMove = blackKing.getCastlingMoves().get(0);
+		
+		board.executeMove(castlingMove);
+		board.undoMove(castlingMove);
+		
+		expect:
+		board.getNumberOfPieces() == 2;
+		blackKing.getCastlingMoves().size() == 1
+		board.getKingPosition(Color.BLACK).equals(blackKingPosition);
+
+		where:
+		blackKingPosition  | blackRookPosition
 		new Position(4, 0) |  new Position(0, 0)
 		new Position(4, 0) |  new Position(7, 0)
 	}
