@@ -401,4 +401,13 @@ public abstract class Board
 			}
 		}
 	}
+
+	public void addPieces(List<Piece> pieces)
+	{
+		for (Piece piece : pieces)
+		{
+			piece.setBoard(this);
+			addPiece(piece);
+		}
+	}
 }

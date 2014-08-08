@@ -4,8 +4,8 @@ import spock.lang.*
 
 import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Position
+import com.gousslegend.deepov.board.ArrayBoard
 import com.gousslegend.deepov.board.Board
-import com.gousslegend.deepov.board.MapBoard
 
 class WhenTestingBishopMovement extends spock.lang.Specification
 {
@@ -18,13 +18,13 @@ class WhenTestingBishopMovement extends spock.lang.Specification
 
 	def setupSpec()
 	{
-		board = new MapBoard()
+		board = new ArrayBoard()
 		bishop = new Bishop()
 	}
 	
 	def cleanup()
 	{
-		board = new MapBoard()
+		board = new ArrayBoard()
 	}
 
 	def "Testing bishop alone on board"()

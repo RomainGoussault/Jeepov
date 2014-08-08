@@ -1,8 +1,7 @@
 package com.gousslegend.deepov;
 
+import com.gousslegend.deepov.board.ArrayBoard;
 import com.gousslegend.deepov.board.Board;
-import com.gousslegend.deepov.board.MapBoard;
-import com.gousslegend.deepov.utils.Utils;
 
 public class Game
 {
@@ -18,7 +17,8 @@ public class Game
 	public Game(boolean showBoard)
 	{
 		//board = new ListBoard();
-		myBoard = new MapBoard();
+		//myBoard = new MapBoard();
+		myBoard = new ArrayBoard();
 		myBoard.setupBoard();
 		
 		if(showBoard)
@@ -29,7 +29,9 @@ public class Game
 	
 	public Game(boolean showBoard, String fen)
 	{
-		myBoard = new MapBoard(fen);
+		//myBoard = new MapBoard(fen);
+		myBoard = new ArrayBoard(fen);
+
 		
 		if(showBoard)
 		{

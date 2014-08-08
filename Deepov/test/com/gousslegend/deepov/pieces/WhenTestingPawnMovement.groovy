@@ -5,8 +5,8 @@ import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Game
 import com.gousslegend.deepov.Move
 import com.gousslegend.deepov.Position
+import com.gousslegend.deepov.board.ArrayBoard
 import com.gousslegend.deepov.board.Board
-import com.gousslegend.deepov.board.MapBoard
 
 class WhenTestingPawnMovement extends spock.lang.Specification
 {
@@ -18,13 +18,13 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 	
 	def setupSpec()
 	{
-		board = new MapBoard()
+		board = new ArrayBoard()
 		pawn = new Pawn()
 	}
 
 	def cleanup()
 	{
-		board = new MapBoard()
+		board = new ArrayBoard()
 	}
 
 	def "Testing pawn alone on board"()
@@ -371,12 +371,13 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 	def "Test undoing several pawn moves"()
 	{
 		when:
-		Game game = new Game(false)
+		Game game = new Game(true)
 		Board board = game.getBoard()
 		Move move1 = new Move(new Position(0,1),new Position(0,3));
 		Move move2 = new Move(new Position(4,6),new Position(4,5));
-		Move move3 = new Move(new Position(1,0),new Position(0,2));
+		Move move3 = new Move(new Position(1,1),new Position(0,2));
 		Move move4 = new Move(new Position(1,6),new Position(1,4));
+		
 		board.executeMove(move1)
 		board.executeMove(move2)
 		board.executeMove(move3)

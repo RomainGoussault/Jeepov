@@ -8,7 +8,7 @@ import spock.lang.*
 import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Move
 import com.gousslegend.deepov.Position
-import com.gousslegend.deepov.board.MapBoard;
+import com.gousslegend.deepov.board.ArrayBoard;
 import com.gousslegend.deepov.pieces.Rook;
 
 class WhenTestingBoard extends spock.lang.Specification
@@ -16,7 +16,7 @@ class WhenTestingBoard extends spock.lang.Specification
 	def "Moving a rook"()
 	{
 		given:
-		MapBoard board = new MapBoard()
+		ArrayBoard board = new ArrayBoard()
 		def origin = new Position(0,0);
 		def destination = new Position(3,0);
 		board.addPiece(new Rook(origin, board, Color.BLACK))
@@ -33,7 +33,7 @@ class WhenTestingBoard extends spock.lang.Specification
 	def "Undoing a move"()
 	{
 		given:
-		MapBoard board = new MapBoard()
+		ArrayBoard board = new ArrayBoard()
 		def origin = new Position(0,0);
 		def destination = new Position(3,0);
 		board.addPiece(new Rook(origin, board, Color.BLACK))
@@ -52,7 +52,7 @@ class WhenTestingBoard extends spock.lang.Specification
 	def "Moving with capture"()
 	{
 		given:
-		MapBoard board = new MapBoard()
+		ArrayBoard board = new ArrayBoard()
 		def origin = new Position(0,0);
 		def destination = new Position(3,0);
 		board.addPiece(new Rook(origin, board, Color.BLACK))
@@ -70,7 +70,7 @@ class WhenTestingBoard extends spock.lang.Specification
 	def "Undoing a Move with capture"()
 	{
 		given:
-		MapBoard board = new MapBoard()
+		ArrayBoard board = new ArrayBoard()
 		def origin = new Position(0,0);
 		def destination = new Position(3,0);
 		def blackRook = new Rook(origin, board, Color.BLACK)

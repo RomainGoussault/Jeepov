@@ -6,8 +6,8 @@ import java.util.List;
 import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Game;
 import com.gousslegend.deepov.Position;
+import com.gousslegend.deepov.board.ArrayBoard;
 import com.gousslegend.deepov.board.Board;
-import com.gousslegend.deepov.board.MapBoard;
 import com.gousslegend.deepov.pieces.Bishop;
 import com.gousslegend.deepov.pieces.King;
 import com.gousslegend.deepov.pieces.Knight;
@@ -20,7 +20,7 @@ public class Utils
 {
 	public static Board getBoardFromFen(String fen)
 	{
-		MapBoard board = new MapBoard();
+		Board board = new ArrayBoard();
 		String[] spaceSplit = fen.split(" ");
 		String[] piecesByRank = spaceSplit[0].split("/");
 		String colorToplay = spaceSplit[1];
