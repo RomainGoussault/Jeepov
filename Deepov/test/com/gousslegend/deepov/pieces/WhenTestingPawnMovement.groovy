@@ -41,7 +41,7 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		new Position(5, 5) | 1
 		new Position(4, 4) | 1
 		new Position(5, 4) | 1
-		new Position(6, 6) | 1
+		new Position(6, 6) | 4
 		new Position(2, 4) | 1
 	}
 	
@@ -137,11 +137,50 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		board.executeMove(promotionMove)
 
 		then:
-		board.getPiece(new Position(5,7)) instanceof Queen
+		(board.getPiece(new Position(5,7)) instanceof Pawn) == false
 		board.getNumberOfPieces() == 1
 	}
 
 	@Unroll
+	def "Test Undo Promotion"()
+	{
+		given:
+		Position pawnPosition = new Position(0,1);
+		Pawn pawn = new Pawn(pawnPosition, board, Color.BLACK)
+		board.addPiece(pawn)
+
+		when:
+		Move promotionMove = pawn.getLegalMoves().getFistMove()
+		board.executeMove(promotionMove)
+		board.undoMove(promotionMove)
+		
+		then:
+		board.getPiece(pawnPosition) instanceof Pawn
+		board.getNumberOfPieces() == 1
+	}
+	
+	@Unroll
+	def "Test Undo Promotion with capture"()
+	{
+		given:
+		Position whitePawnPosition = new Position(7,6);
+		Pawn whitePawn = new Pawn(whitePawnPosition, board, Color.WHITE)
+		Rook whiteRook = new Rook(new Position(7,7), board, Color.WHITE)
+		Rook blackRook = new Rook(new Position(6,7), board, Color.BLACK)
+		board.addPiece(whitePawn)
+		board.addPiece(whiteRook)
+		board.addPiece(blackRook)
+
+		when:
+		Move promotionMove = whitePawn.getLegalMoves().getFistMove()
+		board.executeMove(promotionMove)
+		board.undoMove(promotionMove)
+				
+		then:
+		board.getPiece(whitePawnPosition) instanceof Pawn
+		board.getNumberOfPieces() == 3
+	}
+
 	def "Test Promotion with capture"()
 	{
 		given:
@@ -338,8 +377,6 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		board.undoMove(move2)
 		board.undoMove(move3)
 		board.undoMove(move4)
-		
-		System.out.println(board)
 		
 		then:
 		board.getNumberOfPieces() == 32;

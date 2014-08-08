@@ -101,15 +101,37 @@ public class Pawn extends Piece
 	{
 		List<Move> moves = new ArrayList<>();
 		Move possibleMove = null;
+		Piece possibleCapture = null;
+
 
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
 		possibleMove.setPromotedPiece(new Queen(destination, myBoard, myColor));
-		
-		Piece possibleCapture = myBoard.getPiece(destination);
+		possibleCapture = myBoard.getPiece(destination);
 		possibleMove.setCapturedPiece(possibleCapture);
-		
 		moves.add(possibleMove);
+		
+		possibleMove = new Move(myPosition, destination);
+		possibleMove.setIsPromotion(true);
+		possibleMove.setPromotedPiece(new Rook(destination, myBoard, myColor));
+		possibleCapture = myBoard.getPiece(destination);
+		possibleMove.setCapturedPiece(possibleCapture);
+		moves.add(possibleMove);
+		
+		possibleMove = new Move(myPosition, destination);
+		possibleMove.setIsPromotion(true);
+		possibleMove.setPromotedPiece(new Bishop(destination, myBoard, myColor));
+		possibleCapture = myBoard.getPiece(destination);
+		possibleMove.setCapturedPiece(possibleCapture);
+		moves.add(possibleMove);
+		
+		possibleMove = new Move(myPosition, destination);
+		possibleMove.setIsPromotion(true);
+		possibleMove.setPromotedPiece(new Knight(destination, myBoard, myColor));
+		possibleCapture = myBoard.getPiece(destination);
+		possibleMove.setCapturedPiece(possibleCapture);
+		moves.add(possibleMove);
+		
 		return moves;
 	}
 	
@@ -121,8 +143,23 @@ public class Pawn extends Piece
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
 		possibleMove.setPromotedPiece(new Queen(destination, myBoard, myColor));
-		
 		moves.add(possibleMove);
+	
+		possibleMove = new Move(myPosition, destination);
+		possibleMove.setIsPromotion(true);
+		possibleMove.setPromotedPiece(new Rook(destination, myBoard, myColor));
+		moves.add(possibleMove);
+		
+		possibleMove = new Move(myPosition, destination);
+		possibleMove.setIsPromotion(true);
+		possibleMove.setPromotedPiece(new Bishop(destination, myBoard, myColor));
+		moves.add(possibleMove);
+		
+		possibleMove = new Move(myPosition, destination);
+		possibleMove.setIsPromotion(true);
+		possibleMove.setPromotedPiece(new Knight(destination, myBoard, myColor));
+		moves.add(possibleMove);
+		
 		return moves;
 	}
 	
