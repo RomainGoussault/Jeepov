@@ -31,7 +31,7 @@ public class Rook extends Piece
 	{
 		super(position, color);
 	}
-	
+
 	public static MoveList getPseudoLegalMoves(Piece pieceToMove)
 	{
 		Board board = pieceToMove.getBoard();
@@ -52,7 +52,8 @@ public class Rook extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			} else
+			}
+			else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -77,7 +78,8 @@ public class Rook extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			} else
+			}
+			else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -102,7 +104,8 @@ public class Rook extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			} else
+			}
+			else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -127,7 +130,8 @@ public class Rook extends Piece
 			if (board.isPositionFree(destination))
 			{
 				pseudoLegalMoves.add(possibleMove);
-			} else
+			}
+			else
 			{
 				Piece piece = board.getPiece(destination);
 				// look for capture
@@ -186,7 +190,7 @@ public class Rook extends Piece
 			{
 				break;
 			}
-			
+
 			i--;
 			destination = position.deltaX(i);
 		}

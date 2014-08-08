@@ -16,5 +16,4 @@ public enum Color
     {
 	return opposite;
     }
-
 }
