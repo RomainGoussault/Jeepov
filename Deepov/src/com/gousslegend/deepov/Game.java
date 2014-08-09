@@ -31,7 +31,6 @@ public class Game
 	{
 		//myBoard = new MapBoard(fen);
 		myBoard = new ArrayBoard(fen);
-
 		
 		if(showBoard)
 		{

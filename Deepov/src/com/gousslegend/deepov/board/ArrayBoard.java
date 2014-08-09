@@ -182,10 +182,11 @@ public class ArrayBoard extends Board
 		else if(move.isPromotion())
 		{
 			//remove the promoted piece
-			removePiece(move.getPromotedPiece());
+			Piece promotedPiece = move.getPromotedPiece();
+			removePiece(promotedPiece);
 			
 			//add the pawn back
-			addPiece(new Pawn(origin, this, move.getPromotedPiece().getColor())); //queen get board? save pawn
+			addPiece(new Pawn(origin, this, promotedPiece.getColor())); //queen get board? save pawn
 			
 			if(isCaptureMove)
 			{

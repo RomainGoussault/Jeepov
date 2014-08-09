@@ -33,7 +33,6 @@ public class Pawn extends Piece
 		int direction = getDirection();
 		boolean promotion = isGoingToPromote();
 		Position destination = null;
-		// check to the right and the left for capture
 		Piece possibleCapture = null;
 		Move possibleMove = null;
 
@@ -79,11 +78,9 @@ public class Pawn extends Piece
 			destination = myPosition.deltaXY(y[i], direction);
 			if (myBoard.isPositionOnBoard(destination))
 			{
-
 				possibleCapture = myBoard.getPiece(destination);
 
-				if (possibleCapture != null
-						&& areColorDifferent(possibleCapture))
+				if (possibleCapture != null	&& areColorDifferent(possibleCapture))
 				{
 					if (promotion)
 					{
@@ -165,8 +162,7 @@ public class Pawn extends Piece
 
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
-		possibleMove
-				.setPromotedPiece(new Knight(destination, myBoard, myColor));
+		possibleMove.setPromotedPiece(new Knight(destination, myBoard, myColor));
 		moves.add(possibleMove);
 
 		return moves;
