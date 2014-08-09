@@ -108,6 +108,7 @@ public class Pawn extends Piece
 
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
+		possibleMove.setPromotedPawn(this);
 		possibleMove.setPromotedPiece(new Queen(destination, myBoard, myColor));
 		possibleCapture = myBoard.getPiece(destination);
 		possibleMove.setCapturedPiece(possibleCapture);
@@ -115,6 +116,7 @@ public class Pawn extends Piece
 
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
+		possibleMove.setPromotedPawn(this);
 		possibleMove.setPromotedPiece(new Rook(destination, myBoard, myColor));
 		possibleCapture = myBoard.getPiece(destination);
 		possibleMove.setCapturedPiece(possibleCapture);
@@ -122,16 +124,16 @@ public class Pawn extends Piece
 
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
-		possibleMove
-				.setPromotedPiece(new Bishop(destination, myBoard, myColor));
+		possibleMove.setPromotedPawn(this);
+		possibleMove.setPromotedPiece(new Bishop(destination, myBoard, myColor));
 		possibleCapture = myBoard.getPiece(destination);
 		possibleMove.setCapturedPiece(possibleCapture);
 		moves.add(possibleMove);
 
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
-		possibleMove
-				.setPromotedPiece(new Knight(destination, myBoard, myColor));
+		possibleMove.setPromotedPawn(this);
+		possibleMove.setPromotedPiece(new Knight(destination, myBoard, myColor));
 		possibleCapture = myBoard.getPiece(destination);
 		possibleMove.setCapturedPiece(possibleCapture);
 		moves.add(possibleMove);
@@ -146,22 +148,26 @@ public class Pawn extends Piece
 
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
+		possibleMove.setPromotedPawn(this);
 		possibleMove.setPromotedPiece(new Queen(destination, myBoard, myColor));
 		moves.add(possibleMove);
 
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
+		possibleMove.setPromotedPawn(this);
+		possibleMove.setPromotedPiece(this);
 		possibleMove.setPromotedPiece(new Rook(destination, myBoard, myColor));
 		moves.add(possibleMove);
 
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
-		possibleMove
-				.setPromotedPiece(new Bishop(destination, myBoard, myColor));
+		possibleMove.setPromotedPawn(this);
+		possibleMove.setPromotedPiece(new Bishop(destination, myBoard, myColor));
 		moves.add(possibleMove);
 
 		possibleMove = new Move(myPosition, destination);
 		possibleMove.setIsPromotion(true);
+		possibleMove.setPromotedPawn(this);
 		possibleMove.setPromotedPiece(new Knight(destination, myBoard, myColor));
 		moves.add(possibleMove);
 

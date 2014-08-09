@@ -371,7 +371,7 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 	def "Test undoing several pawn moves"()
 	{
 		when:
-		Game game = new Game(true)
+		Game game = new Game(false)
 		Board board = game.getBoard()
 		Move move1 = new Move(new Position(0,1),new Position(0,3));
 		Move move2 = new Move(new Position(4,6),new Position(4,5));
@@ -414,6 +414,47 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		new Position(2, 4) | new Position(1, 5)    | new Position(3, 4)    | 1					| 2
 		new Position(2, 4) | new Position(1, 5)    | new Position(0, 0)    | 2					| 2
 	}
+	
+	
+	@Unroll
+	def "Test capture"()
+	{
+		given: "Two pawns"
+		Pawn whitePawn = new Pawn(whitePawnPosition, board, Color.BLACK)
+		Rook blackRook = new Rook(blackRookPosition, board, Color.WHITE)
+
+		board.addPiece(whitePawn)
+		board.addPiece(blackRook)
+
+		expect:
+		whitePawn.getLegalMoves().size() == legalMovePossibles
+
+		where:
+		whitePawnPosition  | blackRookPosition    | legalMovePossibles
+		new Position(6, 1) | new Position(7, 0)   | 4+4
+		new Position(7, 1) | new Position(7, 0)   | 0
+	}
+	
+	def "Test Undo capture"()
+	{
+		given: "Two pawns"
+		Pawn blackPawn = new Pawn(blackPawnPosition, board, Color.BLACK)
+		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE)
+
+		board.addPiece(blackPawn)
+		board.addPiece(whiteRook)
+		board.addPiece(new Rook(new Position(6,0), Color.BLACK))
+		Move move = blackPawn.getLegalMoves().getList().get(0)
+		board.executeMove(move)
+		board.undoMove(move)
+		
+		expect:
+		blackPawn.getLegalMoves().size() == legalMovePossibles
+
+		where:
+		blackPawnPosition  | whiteRookPosition    | legalMovePossibles
+		new Position(6, 1) | new Position(7, 0)   | 4
+	}
 
 	@Unroll
 	def "Test pawn checking"()
@@ -433,5 +474,16 @@ class WhenTestingPawnMovement extends spock.lang.Specification
 		where:
 		blackPawnPosition  | whiteKingPosition  | whiteRookPosition  | legalMovePossibles
 		new Position(1, 2) | new Position(0, 1) | new Position(7, 2) | 1
+	}
+	
+	@Ignore
+	def "Debug kiwipete"()
+	{
+		given: "Two pawns"
+		//Game game = new Game(true,"k7/8/K7/8/8/5R1p/8/8 w - -")
+		  Game game = new Game(true,"8/8/8/8/8/4R1p1/8/8 w - -")
+		  
+		expect:
+		game.perft(4) == 672
 	}
 }

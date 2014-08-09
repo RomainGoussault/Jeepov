@@ -9,6 +9,7 @@ public class Move
 	private Piece myCapturedPiece;
 	private boolean myIsPromotion;
 	private Piece promotedPiece;
+	private Piece promotedPawn;
 	private boolean myIsCastling;
 	private boolean enPassant;
 
@@ -110,5 +111,15 @@ public class Move
 	public void setIsEnPassant(boolean myIsEnPassant)
 	{
 		this.enPassant = myIsEnPassant;
+	}
+
+	public Piece getPromotedPawn()
+	{
+		return promotedPawn;
+	}
+
+	public void setPromotedPawn(Piece promotedPawn)
+	{
+		this.promotedPawn = promotedPawn;
 	}
 }

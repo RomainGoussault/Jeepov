@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gousslegend.deepov.Color;
-import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.Position;
 import com.gousslegend.deepov.pieces.King;
-import com.gousslegend.deepov.pieces.Pawn;
 import com.gousslegend.deepov.pieces.Piece;
-import com.gousslegend.deepov.pieces.Rook;
 import com.gousslegend.deepov.utils.Utils;
 
 public class ArrayBoard extends Board
@@ -28,6 +25,8 @@ public class ArrayBoard extends Board
 		myMoves = new ArrayList<>();
 
 		addPieces(Utils.getPiecesFromFen(fen));
+		
+		colorToPlay = Utils.getColorToPLay(fen);
 	}
 
 	public void addPiece(Piece piece)
