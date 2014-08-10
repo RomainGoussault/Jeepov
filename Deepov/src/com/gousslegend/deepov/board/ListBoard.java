@@ -79,7 +79,7 @@ public class ListBoard extends Board
 	}
 
 	@Override
-	public Piece getKing(Color color)
+	public King getKing(Color color)
 	{
 		for(Piece piece : myPieces)
 		{
@@ -87,7 +87,7 @@ public class ListBoard extends Board
 			{
 				if(piece instanceof King)
 				{
-					return piece;
+					return (King) piece;
 				}
 			}
 		}

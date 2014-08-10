@@ -65,7 +65,7 @@ public class ArrayBoard extends Board
 		return getPiece(position) == null;
 	}
 
-	public Piece getKing(Color color)
+	public King getKing(Color color)
 	{
 		for (int i = 0; i < 8; i++)
 		{
@@ -74,7 +74,7 @@ public class ArrayBoard extends Board
 				Piece piece = myPieces[i][j];
 				if (piece != null && piece instanceof King && piece.getColor() == color)
 				{
-					return piece;
+					return (King) piece;
 				}
 			}
 		}
@@ -85,7 +85,7 @@ public class ArrayBoard extends Board
 
 	public Position getKingPosition(Color color)
 	{
-		King king = (King) getKing(color);
+		King king = getKing(color);
 		
 		if(king == null)
 		{

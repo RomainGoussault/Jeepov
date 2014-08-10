@@ -1,5 +1,6 @@
 package com.gousslegend.deepov.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.gousslegend.deepov.Color;
@@ -38,7 +39,7 @@ public abstract class Board
 
 	protected abstract List<Piece> getPieces();
 
-	public abstract Piece getKing(Color color);
+	public abstract King getKing(Color color);
 
 	public abstract Position getKingPosition(Color color);
 
@@ -111,6 +112,7 @@ public abstract class Board
 		
 		myMoves.add(move);
 		colorToPlay = colorToPlay.getOppositeColor();
+		//updatePinnedPieces(colorToPlay);
 	}
 
 	public void undoMove(Move move)
@@ -153,7 +155,8 @@ public abstract class Board
 			removePiece(promotedPiece);
 			
 			//add the pawn back
-			addPiece(new Pawn(origin, this, promotedPiece.getColor())); //queen get board? save pawn
+			//addPiece(new Pawn(origin, this, promotedPiece.getColor())); 
+			addPiece(move.getPromotedPawn()); //TODO understand why previous line does not work with Kiwipete perft(4)
 			
 			if(isCaptureMove)
 			{
@@ -182,6 +185,8 @@ public abstract class Board
 		
 		myMoves.remove(getLastMove());
 		colorToPlay = colorToPlay.getOppositeColor();
+		//updatePinnedPieces(colorToPlay);
+
 	}
 	
 	public void setupBoard()
@@ -385,6 +390,247 @@ public abstract class Board
 		}
 	}
 	
+	public List<Piece> getPinnedPieces(Color color)
+	{
+		King king = getKing(color);
+		List<Piece> pinnedPieces = new ArrayList<>();
+		
+		if(king == null) return pinnedPieces;
+		List<Piece> possiblePinnedPieces = null;
+		List<Piece> rookSlidingPieces = getRookSlidingPieces(color.getOppositeColor());
+		List<Piece> bishopSlidingPieces = getBishopSlidingPieces(color.getOppositeColor());
+		byte kingX = king.getPosition().getX();
+		byte kingY = king.getPosition().getY();
+		Piece possiblePinnedPiece = null;
+		
+		for(Piece piece : rookSlidingPieces)
+		{
+			//is the king on the same row/column?
+			if(piece.getPosition().getX() == kingX )
+			{
+				possiblePinnedPieces = getPiecesInBetweenY(piece, king);
+				if(possiblePinnedPieces.size() == 1)
+				{
+					possiblePinnedPiece = possiblePinnedPieces.get(0);
+					if(possiblePinnedPiece.getColor().equals(color))
+					{
+						pinnedPieces.add(possiblePinnedPiece);
+					}
+				}
+			}
+			else if(piece.getPosition().getY() == kingY )
+			{
+				possiblePinnedPieces = getPiecesInBetweenX(piece, king);
+				if(possiblePinnedPieces.size() == 1)
+				{
+					possiblePinnedPiece = possiblePinnedPieces.get(0);
+					if(possiblePinnedPiece.getColor().equals(color))
+					{
+						pinnedPieces.add(possiblePinnedPiece);
+					}
+				}
+			}
+		}
+		
+		for(Piece piece : bishopSlidingPieces)
+		{
+			List<Position> attackedTransPositions = piece.getAttackingSquaresTrans();
+			if(attackedTransPositions.contains(king.getPosition()))
+			{
+				possiblePinnedPieces = getPiecesInBetweenXY(piece, king);
+				if(possiblePinnedPieces.size() == 1)
+				{
+					possiblePinnedPiece = possiblePinnedPieces.get(0);
+					if(possiblePinnedPiece.getColor().equals(color))
+					{
+						pinnedPieces.add(possiblePinnedPiece);
+					}
+				}
+			}
+		}
+		
+		return pinnedPieces;
+	}
+	
+	public void updatePinnedPieces()
+	{
+		King king = getKing(colorToPlay);
+		
+		List<Piece> pieces = getPieces(colorToPlay);
+		for(Piece piece : pieces)
+		{
+			piece.setPinned(false);
+		}
+		
+		
+		if(king == null) return;
+		List<Piece> possiblePinnedPieces = null;
+		List<Piece> rookSlidingPieces = getRookSlidingPieces(colorToPlay.getOppositeColor());
+		List<Piece> bishopSlidingPieces = getBishopSlidingPieces(colorToPlay.getOppositeColor());
+		byte kingX = king.getPosition().getX();
+		byte kingY = king.getPosition().getY();
+		Piece possiblePinnedPiece = null;
+		
+		for(Piece piece : rookSlidingPieces)
+		{
+			//is the king on the same row/column?
+			if(piece.getPosition().getX() == kingX )
+			{
+				possiblePinnedPieces = getPiecesInBetweenY(piece, king);
+				if(possiblePinnedPieces.size() == 1)
+				{
+					possiblePinnedPiece = possiblePinnedPieces.get(0);
+					if(possiblePinnedPiece.getColor().equals(colorToPlay))
+					{
+						possiblePinnedPiece.setPinned(true);
+					}
+				}
+			}
+			else if(piece.getPosition().getY() == kingY )
+			{
+				possiblePinnedPieces = getPiecesInBetweenX(piece, king);
+				if(possiblePinnedPieces.size() == 1)
+				{
+					possiblePinnedPiece = possiblePinnedPieces.get(0);
+					if(possiblePinnedPiece.getColor().equals(colorToPlay))
+					{
+						possiblePinnedPiece.setPinned(true);
+					}
+				}
+			}
+		}
+		
+		for(Piece piece : bishopSlidingPieces)
+		{
+			List<Position> attackedTransPositions = piece.getAttackingSquaresTrans();
+			if(attackedTransPositions.contains(king.getPosition()))
+			{
+				possiblePinnedPieces = getPiecesInBetweenXY(piece, king);
+				if(possiblePinnedPieces.size() == 1)
+				{
+					possiblePinnedPiece = possiblePinnedPieces.get(0);
+					if(possiblePinnedPiece.getColor().equals(colorToPlay))
+					{
+						possiblePinnedPiece.setPinned(true);
+					}
+				}
+			}
+		}
+		
+	}
+	
+	private List<Piece> getPiecesInBetweenXY(Piece piece, King king)
+	{
+		List<Piece> pieces = new ArrayList<>();
+		Piece possiblePiece = null;
+		
+		byte x = piece.getPosition().getX();
+		byte y = piece.getPosition().getY();
+		byte xKing = king.getPosition().getX();
+		byte yKing = king.getPosition().getY();
+		
+		//Delta to go from piece to king
+		int deltaX = (x < xKing ? 1 : -1);
+		int deltaY = (y < yKing ? 1 : -1);
+		
+		Position position = null;
+		position = piece.getPosition().deltaXY(deltaX, deltaY);
+		while(position.getX() != xKing)
+		{
+			possiblePiece = getPiece(position);
+			if(possiblePiece != null)
+			{
+				pieces.add(possiblePiece);
+			}
+			position = position.deltaXY(deltaX, deltaY);
+		}
+		
+		return pieces;
+	}
+
+	private List<Piece> getPiecesInBetweenX(
+			Piece piece, King king)
+	{
+		List<Piece> pieces = new ArrayList<>();
+		Position position = null;
+		Piece possiblePiece = null;
+		
+		byte x = piece.getPosition().getX();
+		byte xKing = king.getPosition().getX();
+		
+		int deltaX = (x < xKing ? 1 : -1);
+		
+		position = piece.getPosition().deltaX(deltaX);
+		while(position.getX() != xKing)
+		{
+			possiblePiece = getPiece(position);
+			if(possiblePiece != null)
+			{
+				pieces.add(possiblePiece);
+			}
+			position = position.deltaX(deltaX);
+		}
+		
+		return pieces;
+	}
+	
+	private List<Piece> getPiecesInBetweenY(
+			Piece piece, King king)
+	{
+		List<Piece> pieces = new ArrayList<>();
+		Position position = null;
+		Piece possiblePiece = null;
+		
+		byte y = piece.getPosition().getY();
+		byte yKing = king.getPosition().getY();
+		
+		int deltaY = (y < yKing ? 1 : -1);
+		
+		position = piece.getPosition().deltaY(deltaY);
+		while(position.getY() != yKing)
+		{
+			possiblePiece = getPiece(position);
+			if(possiblePiece != null)
+			{
+				pieces.add(possiblePiece);
+			}
+			position = position.deltaY(deltaY);
+		}
+		
+		return pieces;
+	}
+	private List<Piece> getBishopSlidingPieces(Color color)
+	{
+		 List<Piece> rookSlidlingPieces = new ArrayList<>();
+		 List<Piece> pieces = getPieces(color);
+		 
+		 for(Piece piece : pieces)
+		 {
+			 if(piece instanceof Bishop || piece instanceof Queen)
+			 {
+				 rookSlidlingPieces.add(piece);
+			 }
+		 }
+		 
+		 return rookSlidlingPieces;
+	}
+	
+	private List<Piece> getRookSlidingPieces(Color color)
+	{
+		 List<Piece> rookSlidlingPieces = new ArrayList<>();
+		 List<Piece> pieces = getPieces(color);
+		 
+		 for(Piece piece : pieces)
+		 {
+			 if(piece instanceof Rook || piece instanceof Queen)
+			 {
+				 rookSlidlingPieces.add(piece);
+			 }
+		 }
+		 
+		 return rookSlidlingPieces;
+	}
+
 	private void executeMove(Piece piece, Position destination)
 	{
 		removePiece(piece);

@@ -4,7 +4,8 @@ import spock.lang.*
 
 class WhenTestingPerft extends spock.lang.Specification
 {
-	@Ignore //WORKING
+	//@Ignore //WORKING
+	@Unroll
 	def "Perft"()
 	{
 		given:
@@ -25,6 +26,8 @@ class WhenTestingPerft extends spock.lang.Specification
 	//	7      | 3195901860		| 0			| 0		   | 0           | 0
 	}
 	
+	@Unroll
+	//@Ignore
 	def "Perft Kiwipete"()
 	{
 		given:
@@ -41,6 +44,7 @@ class WhenTestingPerft extends spock.lang.Specification
 		2 	   | 2039			| 351		| 91       | 0          | 1
 		3 	   | 97862			| 17102		| 3162     | 0          | 45
 		4 	   | 4085603		| 757163	| 128013   | 15172      | 1929
+	//	5 	   | 193690690		| 35043416	| 4993637  | 8392       | 73365
 	}
 	
 	@Ignore //WORKING

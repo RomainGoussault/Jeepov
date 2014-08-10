@@ -5,15 +5,15 @@ import spock.lang.*
 import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Position
 import com.gousslegend.deepov.board.ArrayBoard
+import com.gousslegend.deepov.board.Board
 
 class WhenTestingRookMovement extends spock.lang.Specification
 {
 
 	@Shared
-	def board
+	Board board
 	@Shared
-	def rook
-
+	Rook rook
 
 	def setupSpec()
 	{

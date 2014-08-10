@@ -1,6 +1,7 @@
 package com.gousslegend.deepov.pieces;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.gousslegend.deepov.Color;
@@ -30,7 +31,35 @@ public class King extends Piece
 	{
 		super(position, board, color);
 	}
+	/**
+	 * This method get all the legal moves for the piece
+	 * 
+	 * @return
+	 */
+	public MoveList getLegalMoves()
+	{
+		MoveList legalMoves = getPseudoLegalMoves();
+		legalMoves.setBoard(myBoard);
+		
+		Iterator<Move> moveIterator = legalMoves.getList().iterator();
+		while (moveIterator.hasNext())
+		{
+			Move move = moveIterator.next();
 
+				myBoard.executeMove(move);
+				if (myBoard.isCheck(myColor))
+				{
+					myBoard.undoMove(move);
+					moveIterator.remove();
+				}
+				else
+				{
+					myBoard.undoMove(move);
+				}
+		}
+
+		return legalMoves;
+	}
 	@Override
 	public MoveList getPseudoLegalMoves()
 	{

@@ -16,6 +16,17 @@ public abstract class Piece
 	protected Board myBoard;
 	protected Color myColor;
 	protected int moveCounter = 0;
+	protected boolean isPinned = false;
+
+	public boolean isPinned()
+	{
+		return isPinned;
+	}
+
+	public void setPinned(boolean isPinned)
+	{
+		this.isPinned = isPinned;
+	}
 
 	/**
 	 * Default constructor used for testing
@@ -65,20 +76,27 @@ public abstract class Piece
 	{
 		MoveList legalMoves = getPseudoLegalMoves();
 		legalMoves.setBoard(myBoard);
-
+		boolean isCheck = myBoard.isCheck(myColor);
+		//List<Piece> pinnedPieces = myBoard.getPinnedPieces(myColor);
+		//isPinned = pinnedPieces.contains(this) ? true : false;
+		
 		Iterator<Move> moveIterator = legalMoves.getList().iterator();
 		while (moveIterator.hasNext())
 		{
 			Move move = moveIterator.next();
-			myBoard.executeMove(move);
-			if (myBoard.isCheck(myColor))
+
+			if (isCheck || isPinned)
 			{
-				myBoard.undoMove(move);
-				moveIterator.remove();
-			}
-			else
-			{
-				myBoard.undoMove(move);
+				myBoard.executeMove(move);
+				if (myBoard.isCheck(myColor))
+				{
+					myBoard.undoMove(move);
+					moveIterator.remove();
+				}
+				else
+				{
+					myBoard.undoMove(move);
+				}
 			}
 		}
 
@@ -166,5 +184,10 @@ public abstract class Piece
 		{
 			return string.toLowerCase();
 		}
+	}
+
+	public List<Position> getAttackingSquaresTrans()
+	{
+		return null;
 	}
 }

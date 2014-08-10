@@ -222,6 +222,63 @@ public class Bishop extends Piece
 		return attackedPositions;
 	}
 
+	public static List<Position> getAttackingSquaresTrans(Piece piece)
+	{
+		Board board = piece.getBoard();
+		Position position = piece.getPosition();
+
+		List<Position> attackedPositions = new ArrayList<>();
+		int i = 1;
+		Position destination = null;
+
+		i = 1;
+		destination = position.deltaXY(i, -i);
+		while (board.isPositionOnBoard(destination))
+		{
+			attackedPositions.add(destination);
+
+			i++;
+			destination = position.deltaXY(i, -i);
+		}
+
+		i = 1;
+		destination = position.deltaXY(-i, i);
+		while (board.isPositionOnBoard(destination))
+		{
+			attackedPositions.add(destination);
+
+			i++;
+			destination = position.deltaXY(-i, i);
+		}
+
+		i = 1;
+		destination = position.deltaXY(i, i);
+		while (board.isPositionOnBoard(destination))
+		{
+			attackedPositions.add(destination);
+
+			i++;
+			destination = position.deltaXY(i, i);
+		}
+
+		i = 1;
+		destination = position.deltaXY(-i, -i);
+		while (board.isPositionOnBoard(destination))
+		{
+			attackedPositions.add(destination);
+
+			i++;
+			destination = position.deltaXY(-i, -i);
+		}
+
+		return attackedPositions;
+	}
+
+	public List<Position> getAttackingSquaresTrans()
+	{
+		return getAttackingSquaresTrans(this);
+	}
+	
 	@Override
 	public List<Position> getAttackingSquares()
 	{

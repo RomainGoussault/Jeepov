@@ -16,7 +16,6 @@ class WhenTestingKingMovement extends spock.lang.Specification
 	@Shared
 	King king
 
-
 	def setupSpec()
 	{
 		board = new ArrayBoard()

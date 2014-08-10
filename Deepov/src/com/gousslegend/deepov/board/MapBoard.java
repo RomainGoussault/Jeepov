@@ -74,14 +74,14 @@ public class MapBoard extends Board
 		return !myPieces.containsKey(position);
 	}
 	
-	public Piece getKing(Color color)
+	public King getKing(Color color)
 	{
 		for (Entry<Position, Piece> entry : myPieces.entrySet())
 		{
 			Piece piece = entry.getValue();
 			if (piece instanceof King && piece.getColor() == color)
 			{
-				return piece;
+				return (King) piece;
 			}
 		}
 

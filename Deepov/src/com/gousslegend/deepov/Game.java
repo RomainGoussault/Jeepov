@@ -143,6 +143,7 @@ public class Game
 			return new int[]{node, capture, castling, promotion, enPassant};
 		}
 
+		myBoard.updatePinnedPieces();
 		MoveList moveList = myBoard.generateMoves();
 		nMoves = moveList.size();
 

@@ -51,6 +51,11 @@ public class Queen extends Piece
 		return attackedSquares;
 	}
 
+	public List<Position> getAttackingSquaresTrans()
+	{
+		return Bishop.getAttackingSquaresTrans(this);
+	}
+	
 	@Override
 	public String toString()
 	{
