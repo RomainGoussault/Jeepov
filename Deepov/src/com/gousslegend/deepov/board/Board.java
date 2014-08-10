@@ -29,7 +29,7 @@ public abstract class Board
 		super();
 	}
 
-	public abstract void addPiece(Piece piece);
+	public abstract2 void addPiece(Piece piece);
 
 	public abstract Piece getPiece(Position position);
 
