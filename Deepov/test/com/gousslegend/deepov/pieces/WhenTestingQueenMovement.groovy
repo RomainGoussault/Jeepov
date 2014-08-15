@@ -5,15 +5,14 @@ import spock.lang.*
 import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Position
 import com.gousslegend.deepov.board.ArrayBoard
+import com.gousslegend.deepov.board.Board
 
 class WhenTestingQueenMovement extends spock.lang.Specification
 {
-
 	@Shared
-	def board
+	Board board
 	@Shared
-	def queen
-
+	Queen queen
 
 	def setupSpec()
 	{
@@ -78,19 +77,21 @@ class WhenTestingQueenMovement extends spock.lang.Specification
 	def "Test LegalMoves on pinned queen"()
 	{
 		given:
-		Queen whiteQueen = new Queen(whiteQueenPosition, board, Color.BLACK);
+		Queen blackQueen = new Queen(blackQueenPosition, board, Color.BLACK);
 		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE);
 		King blackKing = new King(blackKingPosition, board, Color.BLACK);
 		
-		board.addPiece(whiteQueen)
+		board.addPiece(blackQueen)
 		board.addPiece(whiteRook)
 		board.addPiece(blackKing)
+		board.setColorToPlay(Color.BLACK)
+		board.updatePinnedPieces()
 
 		expect:
-		whiteQueen.getLegalMoves().size() == moveSize;
+		blackQueen.getLegalMoves().size() == moveSize;
 
 		where:
-		whiteQueenPosition| whiteRookPosition   | blackKingPosition | moveSize
+		blackQueenPosition| whiteRookPosition   | blackKingPosition | moveSize
 		new Position(1, 0) |  new Position(4, 0) | new Position(0, 0) | 3
 		new Position(2, 0) |  new Position(7, 0) | new Position(0, 0) | 6
 	}

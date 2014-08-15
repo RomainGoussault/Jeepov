@@ -27,7 +27,7 @@ class WhenTestingPerft extends spock.lang.Specification
 	}
 	
 	@Unroll
-	//@Ignore
+//	@Ignore
 	def "Perft Kiwipete"()
 	{
 		given:
@@ -43,11 +43,12 @@ class WhenTestingPerft extends spock.lang.Specification
 		1 	   | 48				| 8			| 2		   | 0          | 0
 		2 	   | 2039			| 351		| 91       | 0          | 1
 		3 	   | 97862			| 17102		| 3162     | 0          | 45
-		4 	   | 4085603		| 757163	| 128013   | 15172      | 1929
+	//	4 	   | 4085603		| 757163	| 128013   | 15172      | 1929
 	//	5 	   | 193690690		| 35043416	| 4993637  | 8392       | 73365
 	}
 	
-	@Ignore //WORKING
+	//@Ignore //WORKING
+	@Unroll
 	def "Perft Position 3 "()
 	{
 		given:
@@ -67,7 +68,7 @@ class WhenTestingPerft extends spock.lang.Specification
 		5 	   | 674624			| 52051		| 0	       | 0          | 1165
 	}
 	
-	@Ignore //WORKING
+	//@Ignore //WORKING
 	def "Perft Position 4"()
 	{
 		given:
@@ -89,7 +90,7 @@ class WhenTestingPerft extends spock.lang.Specification
 	//	5      | 70202861
 	}
 	
-	@Ignore //WORKING
+//	@Ignore //WORKING
 	def "Perft 5"()
 	{
 		given:
@@ -108,7 +109,7 @@ class WhenTestingPerft extends spock.lang.Specification
 	//	5      | 70202861
 	}
 	
-	@Ignore //WORKING
+//	@Ignore //WORKING
 	def "Perft 6"()
 	{
 		given:

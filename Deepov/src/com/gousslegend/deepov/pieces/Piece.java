@@ -77,15 +77,13 @@ public abstract class Piece
 		MoveList legalMoves = getPseudoLegalMoves();
 		legalMoves.setBoard(myBoard);
 		boolean isCheck = myBoard.isCheck(myColor);
-		//List<Piece> pinnedPieces = myBoard.getPinnedPieces(myColor);
-		//isPinned = pinnedPieces.contains(this) ? true : false;
 		
 		Iterator<Move> moveIterator = legalMoves.getList().iterator();
 		while (moveIterator.hasNext())
 		{
 			Move move = moveIterator.next();
 
-			if (isCheck || isPinned)
+			if (isCheck || isPinned || move.isEnPassant())
 			{
 				myBoard.executeMove(move);
 				if (myBoard.isCheck(myColor))

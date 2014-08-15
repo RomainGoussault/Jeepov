@@ -5,14 +5,15 @@ import spock.lang.*
 import com.gousslegend.deepov.Color
 import com.gousslegend.deepov.Position
 import com.gousslegend.deepov.board.ArrayBoard
+import com.gousslegend.deepov.board.Board
 
 class WhenTestingKnightMovement extends spock.lang.Specification
 {
 
 	@Shared
-	def board
+	Board board
 	@Shared
-	def knight
+	Knight knight
 
 
 	def setupSpec()
@@ -86,6 +87,8 @@ class WhenTestingKnightMovement extends spock.lang.Specification
 		board.addPiece(blackKnight)
 		board.addPiece(whiteRook)
 		board.addPiece(blackKing)
+		board.setColorToPlay(Color.BLACK)
+		board.updatePinnedPieces()
 
 		expect:
 		blackKnight.getLegalMoves().size() == moveSize;

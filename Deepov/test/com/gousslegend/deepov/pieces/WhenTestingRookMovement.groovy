@@ -85,6 +85,8 @@ class WhenTestingRookMovement extends spock.lang.Specification
 		board.addPiece(blackRook)
 		board.addPiece(whiteRook)
 		board.addPiece(blackKing)
+		board.setColorToPlay(Color.BLACK)
+		board.updatePinnedPieces();
 
 		expect:
 		blackRook.getLegalMoves().size() == moveSize;
@@ -107,7 +109,7 @@ class WhenTestingRookMovement extends spock.lang.Specification
 		board.addPiece(blackRook)
 		board.addPiece(whiteRook)
 		board.addPiece(blackKing)
-
+		
 		expect:
 		blackRook.getLegalMoves().size() == moveSize;
 

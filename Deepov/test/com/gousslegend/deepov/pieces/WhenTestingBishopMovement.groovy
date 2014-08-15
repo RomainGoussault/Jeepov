@@ -9,12 +9,10 @@ import com.gousslegend.deepov.board.Board
 
 class WhenTestingBishopMovement extends spock.lang.Specification
 {
-
 	@Shared
 	Board board
 	@Shared
 	Bishop bishop
-
 
 	def setupSpec()
 	{
@@ -104,19 +102,21 @@ class WhenTestingBishopMovement extends spock.lang.Specification
 	def "Test LegalMoves on pinned bishop"()
 	{
 		given:
-		Bishop whiteBishop = new Bishop(whiteBishopPosition, board, Color.BLACK);
+		Bishop blackBishop = new Bishop(blackBishopPosition, board, Color.BLACK);
 		Rook whiteRook = new Rook(whiteRookPosition, board, Color.WHITE);
 		King blackKing = new King(blackKingPosition, board, Color.BLACK);
 		
-		board.addPiece(whiteBishop)
+		board.addPiece(blackBishop)
 		board.addPiece(whiteRook)
 		board.addPiece(blackKing)
+		board.setColorToPlay(Color.BLACK)
+		board.updatePinnedPieces()
 
 		expect:
-		whiteBishop.getLegalMoves().size() == moveSize;
+		blackBishop.getLegalMoves().size() == moveSize;
 
 		where:
-		whiteBishopPosition| whiteRookPosition   | blackKingPosition | moveSize
+		blackBishopPosition| whiteRookPosition   | blackKingPosition | moveSize
 		new Position(1, 0) |  new Position(4, 0) | new Position(0, 0) | 0
 		new Position(2, 0) |  new Position(7, 0) | new Position(0, 0) | 0
 	}

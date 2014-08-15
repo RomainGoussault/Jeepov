@@ -313,6 +313,8 @@ public abstract class Board
 	{
 		List<Piece> pieces = getPieces(color);
 		MoveList moveList = new MoveList(this);
+		
+		updatePinnedPieces();
 
 		for(Piece piece : pieces)
 		{
@@ -461,7 +463,6 @@ public abstract class Board
 		{
 			piece.setPinned(false);
 		}
-		
 		
 		if(king == null) return;
 		List<Piece> possiblePinnedPieces = null;

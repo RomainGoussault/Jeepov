@@ -91,6 +91,7 @@ public class Game
 		for (i = 0; i < nMoves; i++)
 		{
 			Move move = moveList.getList().get(i);
+			System.out.println("");
 			myBoard.executeMove(move);
 			nodes = perft(depth - 1);
 			System.out.println(move.toShortString() + " " + nodes);
@@ -143,7 +144,6 @@ public class Game
 			return new int[]{node, capture, castling, promotion, enPassant};
 		}
 
-		myBoard.updatePinnedPieces();
 		MoveList moveList = myBoard.generateMoves();
 		nMoves = moveList.size();
 
@@ -152,7 +152,6 @@ public class Game
 			Move move = moveList.getList().get(i);
 			
 			myBoard.executeMove(move);
-			//System.out.println(move.toShortString());
 
 			dataTemp = perftWithData(depth - 1);
 			data[0] += dataTemp[0];
