@@ -1,5 +1,7 @@
 package com.gousslegend.deepov;
 
+import java.util.List;
+
 import com.gousslegend.deepov.board.ArrayBoard;
 import com.gousslegend.deepov.board.Board;
 import com.gousslegend.player.Human;
@@ -24,11 +26,32 @@ public class Game
 			System.out.println(playerToPLay + " it s your turn to play");
 			System.out.println(myBoard);
 
-			Move move = playerToPLay.takeTurn();
+			Move move = getNextMove();
 			myBoard.executeMove(move);
 		}
-		
+
 		System.out.println("CHECKMATE");
+	}
+
+	private Move getNextMove()
+	{
+		Move move = null;
+		Player playerToPLay = getPlayer(myBoard.getColorToPlay());
+		List<Move> moves = myBoard.getLegalMoves().getList();
+		int index = -1;
+		while(index == -1)
+		{
+			move = playerToPLay.takeTurn();
+			index = moves.indexOf(move);
+			
+			if(index == -1)
+			{
+				System.out.println("This move is not legal. Enter a new move");
+				System.out.println(myBoard);
+			}
+		}
+
+		return moves.get(index);
 	}
 
 	public Game(boolean showBoard)
@@ -37,7 +60,7 @@ public class Game
 		// myBoard = new MapBoard();
 		myBoard = new ArrayBoard();
 		myBoard.setupBoard();
-		
+
 		blackPlayer = new Human("blackHuman");
 		whitePlayer = new Human("WhiteHuman");
 

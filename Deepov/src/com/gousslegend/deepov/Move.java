@@ -122,4 +122,43 @@ public class Move
 	{
 		this.promotedPawn = promotedPawn;
 	}
+
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((myDestination == null) ? 0 : myDestination.hashCode());
+		result = prime * result
+				+ ((myOrigin == null) ? 0 : myOrigin.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Move other = (Move) obj;
+		if (myDestination == null)
+		{
+			if (other.myDestination != null)
+				return false;
+		}
+		else if (!myDestination.equals(other.myDestination))
+			return false;
+		if (myOrigin == null)
+		{
+			if (other.myOrigin != null)
+				return false;
+		}
+		else if (!myOrigin.equals(other.myOrigin))
+			return false;
+		return true;
+	}
 }

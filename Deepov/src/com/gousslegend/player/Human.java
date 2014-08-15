@@ -39,6 +39,7 @@ public class Human implements Player
 		Move move = new Move(origin, destination);
 		System.out.println(move);
 		
+		
 		return move;
 	}
 

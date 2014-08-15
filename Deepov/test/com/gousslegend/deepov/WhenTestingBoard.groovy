@@ -40,7 +40,7 @@ class WhenTestingBoard extends spock.lang.Specification
 		
 		expect:
 		list.get(0).getPosition() ==  origin
-		board.getMoves().size() == 0
+		board.getMovesPlayed().size() == 0
 		board.getLastMove() == null
 	}
 	

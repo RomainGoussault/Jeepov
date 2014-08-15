@@ -324,7 +324,7 @@ public abstract class Board
 		return moveList;
 	}
 
-	public List<Move> getMoves()
+	public List<Move> getMovesPlayed()
 	{
 		return myMoves;
 	}
