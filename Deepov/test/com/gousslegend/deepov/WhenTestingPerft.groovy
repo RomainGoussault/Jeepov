@@ -10,20 +10,20 @@ class WhenTestingPerft extends spock.lang.Specification
 	{
 		given:
 		Game game = new Game(false, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
-		def data = [nodes, captures, castles, promotions, enPassant] as int[]
+		def data = [nodes, captures, castles, promotions, enPassant, checks, checkmates] as int[]
 		
 		expect:
-		game.perftWithData(depth) == data
+		game.perftWithDataCheck(depth) == data
 		
 		where:
-		depth  | nodes          | captures  | castles  | promotions  | enPassant
-		1 	   | 20				| 0			| 0		   | 0           | 0
-		2 	   | 400			| 0			| 0		   | 0           | 0
-		3 	   | 8902			| 34		| 0		   | 0           | 0
-		4 	   | 197281			| 1576		| 0		   | 0           | 0
-		5 	   | 4865609		| 82719		| 0		   | 0           | 258
-	//	6	   | 119060324		| 2812008	| 0		   | 0           | 0
-	//	7      | 3195901860		| 0			| 0		   | 0           | 0
+		depth  | nodes          | captures  | castles  | promotions  | enPassant | checks      | checkmates
+		1 	   | 20				| 0			| 0		   | 0           | 0         | 0           | 0
+		2 	   | 400			| 0			| 0		   | 0           | 0         | 0           | 0
+		3 	   | 8902			| 34		| 0		   | 0           | 0         | 12          | 0
+		4 	   | 197281			| 1576		| 0		   | 0           | 0         | 469         | 8
+	//	5 	   | 4865609		| 82719		| 0		   | 0           | 258       | 27351       | 347
+	//	6	   | 119060324		| 2812008	| 0		   | 0           | 0         | 0    	   | 0
+	//	7      | 3195901860		| 0			| 0		   | 0           | 0         | 0           | 0
 	}
 	
 	@Unroll

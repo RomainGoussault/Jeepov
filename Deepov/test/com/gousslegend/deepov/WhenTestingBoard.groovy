@@ -126,14 +126,33 @@ class WhenTestingBoard extends spock.lang.Specification
 		board.getPinnedPieces(Color.BLACK).size() == 0
 	}
 	
-	def "Test pinned by Rook sliding fpieces"()
+	def "Test pinned by Rook sliding pieces2"()
 	{
 		given:
 		Game game = new Game(false,"8/6k1/8/3r4/8/8/3P4/3K4 w - - 0 1")
 		Board board = game.getBoard()
-		MoveList movelist = board.generateMoves(Color.WHITE)
+		MoveList movelist = board.getLegalMoves(Color.WHITE)
 		
 		expect:
 		movelist.size() == 6
+	}
+	
+	def "Test is checkmate"()
+	{
+		given:
+		Game game = new Game(false,fen)
+		Board board = game.getBoard()
+		
+		expect:
+		board.isCheckmate(Color.BLACK) == checkMate
+		
+		where:
+		fen 	 							| checkMate
+	//	"rnbq1b1r/ppp2ppp/1np4k/4p1Q1/3P4/8/PPP1PPPP/RNB1KBNR w KQkq - 0 1"  | true
+		"8/8/8/8/8/8/3R4/3R3k w - - 0 1)"  | true
+		"8/8/8/8/8/3R4/8/3R3k w - - 0 1"  | false
+		"8/3R4/8/8/8/8/3R2Qk/8 w - - 0 1"  | true
+		"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"  | false
+		"8/8/6B1/8/8/8/2Q5/2k5 w - - 0 1"  | true
 	}
 }

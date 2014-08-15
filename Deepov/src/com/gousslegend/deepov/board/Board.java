@@ -303,13 +303,13 @@ public abstract class Board
 		return getPieces(color.getOppositeColor());
 	}
 
-	public MoveList generateMoves()
+	public MoveList getLegalMoves()
 	{
-		return generateMoves(colorToPlay);
+		return getLegalMoves(colorToPlay);
 	}
 
 
-	public MoveList generateMoves(Color color)
+	public MoveList getLegalMoves(Color color)
 	{
 		List<Piece> pieces = getPieces(color);
 		MoveList moveList = new MoveList(this);
@@ -367,22 +367,12 @@ public abstract class Board
 		this.colorToPlay = colorToPlay;
 	}
 
-	public void checkForNoPawnOnBackRank()
+	public boolean isCheckmate(Color color)
 	{
-		List<Piece> pieces = getPieces();
-
-		for(Piece piece : pieces)
-		{
-			if(piece instanceof Pawn)
-			{
-				if(piece.getPosition().getY() == 0 | piece.getPosition().getY() == 7)
-				{
-					System.out.println("ERROR NO PAWN ON BACK RANKS");
-				}
-			}
-		}
+		MoveList moves = getLegalMoves(color);
+		return  moves.size() == 0;
 	}
-
+	
 	public void addPieces(List<Piece> pieces)
 	{
 		for (Piece piece : pieces)
