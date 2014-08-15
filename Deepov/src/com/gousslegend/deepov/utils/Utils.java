@@ -43,6 +43,16 @@ public class Utils
 		return board;
 	}
 
+	public static Color getColorToPLay(String fen)
+	{
+		String[] spaceSplit = fen.split(" ");
+		String colorToplay = spaceSplit[1];
+
+		return colorToplay.equalsIgnoreCase("w") ? Color.WHITE
+				: Color.BLACK;
+
+	}
+	
 	public static String generateFen(Board board)
 	{
 		String fen = "";
