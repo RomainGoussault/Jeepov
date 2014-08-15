@@ -57,7 +57,7 @@ public class ListBoard extends Board
 	}
 
 	@Override
-	protected List<Piece> getPieces(Color color)
+	public List<Piece> getPieces(Color color)
 	{
 		ArrayList<Piece> pieces = new ArrayList<>();
 		

@@ -138,12 +138,6 @@ public class Move
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Move other = (Move) obj;
 		if (myDestination == null)
 		{

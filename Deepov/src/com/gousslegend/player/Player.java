@@ -1,6 +1,7 @@
 package com.gousslegend.player;
 
 import com.gousslegend.deepov.Move;
+import com.gousslegend.deepov.board.Board;
 
 public abstract class Player
 {

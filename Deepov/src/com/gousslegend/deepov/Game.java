@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gousslegend.deepov.board.ArrayBoard;
 import com.gousslegend.deepov.board.Board;
+import com.gousslegend.player.Deepov;
 import com.gousslegend.player.Human;
 import com.gousslegend.player.Player;
 
@@ -61,8 +62,9 @@ public class Game
 		myBoard = new ArrayBoard();
 		myBoard.setupBoard();
 
-		blackPlayer = new Human("blackHuman");
-		whitePlayer = new Human("WhiteHuman");
+		//blackPlayer = new Human("blackHuman");
+		blackPlayer = new Human("BlackHuman");
+		whitePlayer = new Deepov(myBoard);
 
 		if (showBoard)
 		{

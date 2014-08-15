@@ -97,7 +97,7 @@ public class ArrayBoard extends Board
 		}
 	}
 
-	protected List<Piece> getPieces(Color color)
+	public List<Piece> getPieces(Color color)
 	{
 		List<Piece> pieces = new ArrayList<>();
 

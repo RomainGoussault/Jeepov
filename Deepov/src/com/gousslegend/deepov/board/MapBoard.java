@@ -104,7 +104,7 @@ public class MapBoard extends Board
 		return null;
 	}
 
-	protected List<Piece> getPieces(Color color)
+	public List<Piece> getPieces(Color color)
 	{
 		List<Piece> pieces = new ArrayList<>();
 		

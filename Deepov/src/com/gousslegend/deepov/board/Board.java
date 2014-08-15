@@ -35,7 +35,7 @@ public abstract class Board
 
 	public abstract boolean isPositionFree(Position position);
 
-	protected abstract List<Piece> getPieces(Color color);
+	public abstract List<Piece> getPieces(Color color);
 
 	protected abstract List<Piece> getPieces();
 
