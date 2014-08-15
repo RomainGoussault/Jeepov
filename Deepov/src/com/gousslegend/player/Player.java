@@ -2,7 +2,19 @@ package com.gousslegend.player;
 
 import com.gousslegend.deepov.Move;
 
-public interface Player
+public abstract class Player
 {
-    public Move takeTurn();
+	protected String myName = "Human";
+	
+	public abstract Move takeTurn();
+	
+	public String getName()
+	{
+		return myName;
+	}
+
+	public void setName(String myName)
+	{
+		this.myName = myName;
+	}
 }

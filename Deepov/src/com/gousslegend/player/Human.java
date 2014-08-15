@@ -5,10 +5,8 @@ import java.util.Scanner;
 import com.gousslegend.deepov.Move;
 import com.gousslegend.deepov.Position;
 
-public class Human implements Player
+public class Human extends Player
 {
-	private String myName = "Human";
-
 	public Human(String name)
 	{
 		setName(name);
@@ -39,20 +37,6 @@ public class Human implements Player
 		Move move = new Move(origin, destination);
 		System.out.println(move);
 		
-		
 		return move;
 	}
-
-	public String getName()
-	{
-		return myName;
-	}
-
-	public void setName(String myName)
-	{
-		this.myName = myName;
-	}
-
-
-
 }
