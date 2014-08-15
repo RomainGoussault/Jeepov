@@ -367,6 +367,11 @@ public abstract class Board
 		this.colorToPlay = colorToPlay;
 	}
 
+	public boolean isCheckmate()
+	{
+		return isCheckmate(colorToPlay);
+	}
+	
 	public boolean isCheckmate(Color color)
 	{
 		MoveList moves = getLegalMoves(color);
