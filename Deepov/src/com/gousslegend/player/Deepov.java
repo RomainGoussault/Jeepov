@@ -21,7 +21,6 @@ import com.gousslegend.deepov.pieces.Rook;
 
 public class Deepov extends Player
 {
-	protected Board myBoard;
 	private Move myBestmove;
 
 	private final int KING_VALUE = 100;
@@ -33,8 +32,8 @@ public class Deepov extends Player
 
 	public Deepov(Board board)
 	{
+		super(board);
 		setName("Deepov");
-		myBoard = board;
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public class Deepov extends Player
 	{
 		int nMoves, i;
 		int score = 0;
-		int max = -10;
+		int max = -10000;
 
 		MoveList moveList = myBoard.getLegalMoves();
 		nMoves = moveList.size();
@@ -57,7 +56,7 @@ public class Deepov extends Player
 		{
 			Move move = moveList.getList().get(i);
 			myBoard.executeMove(move);
-			score = negaMax(depth - 1);
+			score = -negaMax(depth - 1);
 			if (score > max)
 			{
 				max = score;
@@ -66,18 +65,19 @@ public class Deepov extends Player
 			myBoard.undoMove(move);
 		}
 
-		return score;
+		return max;
 	}
 	
 	public int negaMax(int depth)
 	{
 		int nMoves, i;
 		int score = 0;
-		int max = 0;
-
+		int max = -10000;
+		
 		if (depth == 0)
 		{
-			return evaluate();
+			int a = myBoard.getColorToPlay().equals(Color.WHITE)? 1 : -1;
+			return a*evaluate();
 		}
 
 		MoveList moveList = myBoard.getLegalMoves();
@@ -95,7 +95,7 @@ public class Deepov extends Player
 			myBoard.undoMove(move);
 		}
 
-		return score;
+		return max;
 	}
 
 	public int evaluate()
@@ -180,18 +180,24 @@ public class Deepov extends Player
 		{
 			return KING_VALUE;
 		}
+		System.out.println("ERROR");
 
 		return -99999;
 	}
 
 	public static void main(String[] args)
 	{
-		String fen = "RN6/N7/8/8/2n5/4r3/8/8 w - - 0 1";
+		String fen = "rnbqkb1r/pppp1ppp/5n2/4p3/4P3/5Q2/PPPP1PPP/RNB1KBNR w KQkq - 0 1";
 
 		Board board = new ArrayBoard(fen);
 		System.out.println(board);
 
 		Deepov deepov = new Deepov(board);
-		System.out.println(deepov.getMobilityScore());
+		System.out.println(deepov.negaMaxRoot(3));
+		System.out.println(deepov.myBestmove);
+		board.executeMove(deepov.myBestmove);
+		System.out.println(board);
+
+
 	}
 }
