@@ -34,15 +34,11 @@ public class Game
 		System.out.println("CHECKMATE");
 	}
 
-
 	public Game(boolean showBoard)
 	{
-		// board = new ListBoard();
-		// myBoard = new MapBoard();
 		myBoard = new ArrayBoard();
 		myBoard.setupBoard();
 
-		//blackPlayer = new Human("blackHuman");
 		blackPlayer = new Human("BlackHuman", myBoard);
 		whitePlayer = new Deepov(myBoard);
 
