@@ -132,7 +132,7 @@ public class Game
 			System.out.println("");
 			myBoard.executeMove(move);
 			nodes = perft(depth - 1);
-			System.out.println(move.toShortString() + " " + nodes);
+			System.out.println(move.toAlgebricNotation() + " " + nodes);
 			nodeTotal += nodes;
 			myBoard.undoMove(move);
 		}

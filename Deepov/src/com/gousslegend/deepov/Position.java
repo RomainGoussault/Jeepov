@@ -120,7 +120,7 @@ public class Position
 		return false;
 	}
 
-	public String toShortString()
+	public String toAlgebricNotation()
 	{
 		String[] letters = new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
 		int yy = y + 1;

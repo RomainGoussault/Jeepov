@@ -68,9 +68,17 @@ public class Move
 				+ myDestination + castling + capture + promotion + enPassant + "]" + "\n";
 	}
 
-	public String toShortString()
+	public String toAlgebricNotation()
 	{
-		return myOrigin.toShortString() +  myDestination.toShortString();
+		String move = myOrigin.toAlgebricNotation() +  myDestination.toAlgebricNotation();
+
+		if(isPromotion())
+		{
+			Piece promotedPiece = getPromotedPiece();
+			move += promotedPiece.getChar().toLowerCase();
+		}
+
+		return move;
 	}
 	
 	public boolean isPromotion()
