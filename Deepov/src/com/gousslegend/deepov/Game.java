@@ -1,7 +1,5 @@
 package com.gousslegend.deepov;
 
-import java.util.List;
-
 import com.gousslegend.deepov.board.ArrayBoard;
 import com.gousslegend.deepov.board.Board;
 import com.gousslegend.player.Deepov;
@@ -19,21 +17,6 @@ public class Game
 		this(true);
 	}
 
-	public void play()
-	{
-		while(getWinner() == null)
-		{
-			Player playerToPLay = getPlayer(myBoard.getColorToPlay());
-			System.out.println(playerToPLay + " it s your turn to play");
-			System.out.println(myBoard);
-
-			Move move = playerToPLay.takeTurn();
-			myBoard.executeMove(move);
-		}
-
-		System.out.println("CHECKMATE");
-	}
-
 	public Game(boolean showBoard)
 	{
 		myBoard = new ArrayBoard();
@@ -48,6 +31,37 @@ public class Game
 		}
 	}
 
+	public Game(boolean showBoard, String fen)
+	{
+		// myBoard = new MapBoard(fen);
+		myBoard = new ArrayBoard(fen);
+
+		if (showBoard)
+		{
+			System.out.print(myBoard);
+		}
+	}
+
+	public Game(String fen)
+	{
+		this(false, fen);
+	}
+	
+	public void play()
+	{
+		while (getWinner() == null)
+		{
+			Player playerToPLay = getPlayer(myBoard.getColorToPlay());
+			System.out.println(playerToPLay + " it s your turn to play");
+			System.out.println(myBoard);
+			
+			Move move = playerToPLay.takeTurn();
+			myBoard.executeMove(move);
+		}
+		
+		System.out.println("CHECKMATE");
+	}
+	
 	public Player getPlayer(Color color)
 	{
 		return color == Color.WHITE ? whitePlayer : blackPlayer;
@@ -62,17 +76,6 @@ public class Game
 		else
 		{
 			return null;
-		}
-	}
-
-	public Game(boolean showBoard, String fen)
-	{
-		// myBoard = new MapBoard(fen);
-		myBoard = new ArrayBoard(fen);
-
-		if (showBoard)
-		{
-			System.out.print(myBoard);
 		}
 	}
 

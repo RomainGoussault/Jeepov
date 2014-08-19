@@ -1,9 +1,7 @@
 package com.gousslegend.player;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.gousslegend.deepov.Color;
 import com.gousslegend.deepov.Move;
@@ -41,6 +39,17 @@ public class Deepov extends Player
 	{
 		negaMaxRoot(3);
 		return myBestmove;
+	}
+	
+	public void resetBoard(String fen)
+	{
+		myBoard = new ArrayBoard(fen);
+	}
+	
+	public void resetBoard()
+	{
+		myBoard = new ArrayBoard();
+		myBoard.setupBoard();
 	}
 	
 	public int negaMaxRoot(int depth)
@@ -185,6 +194,11 @@ public class Deepov extends Player
 		return -99999;
 	}
 
+	public Move getBestmove()
+	{
+		return myBestmove;
+	}
+
 	public static void main(String[] args)
 	{
 		String fen = "rnbqkb1r/pppp1ppp/5n2/4p3/4P3/5Q2/PPPP1PPP/RNB1KBNR w KQkq - 0 1";
@@ -197,7 +211,5 @@ public class Deepov extends Player
 		System.out.println(deepov.myBestmove);
 		board.executeMove(deepov.myBestmove);
 		System.out.println(board);
-
-
 	}
 }
