@@ -14,7 +14,8 @@ public class Uci
 	public Uci()
 	{
 		reader = new BufferedReader(new InputStreamReader(System.in));
-
+		deepov = new Deepov();
+		
 		while (true)
 		{
 			String cmd = null;

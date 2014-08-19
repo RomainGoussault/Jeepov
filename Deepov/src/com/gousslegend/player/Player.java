@@ -1,6 +1,7 @@
 package com.gousslegend.player;
 
 import com.gousslegend.deepov.Move;
+import com.gousslegend.deepov.board.ArrayBoard;
 import com.gousslegend.deepov.board.Board;
 
 public abstract class Player
@@ -17,6 +18,11 @@ public abstract class Player
 	public Player(Board board)
 	{
 		myBoard = board;
+	}
+
+	public Player()
+	{
+		myBoard = new ArrayBoard();
 	}
 
 	public abstract Move takeTurn();

@@ -33,6 +33,12 @@ public class Deepov extends Player
 		super(board);
 		setName("Deepov");
 	}
+	
+	public Deepov()
+	{
+		super();
+		setName("Deepov");
+	}
 
 	@Override
 	public Move takeTurn()
