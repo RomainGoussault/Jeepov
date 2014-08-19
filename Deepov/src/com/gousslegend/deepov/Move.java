@@ -122,4 +122,9 @@ public class Move
 	{
 		this.promotedPawn = promotedPawn;
 	}
+	
+	public boolean partialEquals(Move otherMove)
+	{
+		return otherMove.getOrigin().equals(myOrigin) && otherMove.getDestination().equals(myDestination);
+	}
 }

@@ -27,43 +27,19 @@ public class Game
 			System.out.println(playerToPLay + " it s your turn to play");
 			System.out.println(myBoard);
 
-			Move move = getNextMove();
+			Move move = playerToPLay.takeTurn();
 			myBoard.executeMove(move);
 		}
 
 		System.out.println("CHECKMATE");
 	}
 
-	private Move getNextMove()
-	{
-		Move move = null;
-		Player playerToPLay = getPlayer(myBoard.getColorToPlay());
-		List<Move> moves = myBoard.getLegalMoves().getList();
-		int index = -1;
-		while(index == -1)
-		{
-			move = playerToPLay.takeTurn();
-			index = moves.indexOf(move);
-			
-			if(index == -1)
-			{
-				System.out.println("This move is not legal. Enter a new move");
-				System.out.println(myBoard);
-			}
-		}
-
-		return moves.get(index);
-	}
-
 	public Game(boolean showBoard)
 	{
-		// board = new ListBoard();
-		// myBoard = new MapBoard();
 		myBoard = new ArrayBoard();
 		myBoard.setupBoard();
 
-		//blackPlayer = new Human("blackHuman");
-		blackPlayer = new Human("BlackHuman");
+		blackPlayer = new Human("BlackHuman", myBoard);
 		whitePlayer = new Deepov(myBoard);
 
 		if (showBoard)
