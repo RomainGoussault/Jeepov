@@ -31,7 +31,7 @@ public abstract class Board
 
 	public abstract2 void addPiece(Piece piece);
 
-	public abstract Piece getPiece(Position position);
+	public abstract2 Piece getPiece(Position position);
 
 	public abstract boolean isPositionFree(Position position);
 
