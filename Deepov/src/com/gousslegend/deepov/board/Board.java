@@ -29,9 +29,9 @@ public abstract class Board
 		super();
 	}
 
-	public abstract2 void addPiece(Piece piece);
+	public abstract void addPiece(Piece piece);
 
-	public abstract2 Piece getPiece(Position position);
+	public abstract Piece getPiece(Position position);
 
 	public abstract boolean isPositionFree(Position position);
 

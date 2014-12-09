@@ -1,7 +1,5 @@
 package com.gousslegend.deepov;
 
-import java.util.List;
-
 import com.gousslegend.deepov.board.ArrayBoard;
 import com.gousslegend.deepov.board.Board;
 import com.gousslegend.player.Deepov;
