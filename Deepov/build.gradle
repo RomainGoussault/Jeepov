@@ -1,0 +1,36 @@
+apply plugin: 'application'
+apply plugin: "groovy"
+apply plugin: 'java'
+
+version = "1.0-SNAPSHOT"
+description = "Deepov"
+
+sourceCompatibility = 1.7
+
+// The main class of the application
+mainClassName = 'com.gousslegend.deepov.Game'
+
+repositories {
+  // Spock releases are available from Maven Central
+  mavenCentral()
+}
+
+dependencies {
+  // mandatory dependencies for using Spock
+  compile "org.codehaus.groovy:groovy-all:2.0.7"
+  testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+}
+
+// define the src folders as they are non-standard for gradle/maven projects
+sourceSets {
+	main {
+		java {
+			srcDir 'src'
+		}
+	}
+	test {
+		groovy {
+			srcDir 'test'
+		}
+	}
+}
